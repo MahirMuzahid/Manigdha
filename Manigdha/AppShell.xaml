@@ -3,12 +3,38 @@
     x:Class="Manigdha.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Manigdha"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:local="clr-namespace:Manigdha.View"
+    FlyoutBackdrop="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
+    Shell.FlyoutBehavior="Flyout">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <FlyoutItem Title="Home">
+        <Tab Title="Buy">
+            <ShellContent
+        ContentTemplate="{DataTemplate local:BuyPost}"
+        Route="BuyPost" />
+        </Tab>
+        <Tab Title="Sell">
+            <ShellContent
+        ContentTemplate="{DataTemplate local:SellPost}"
+        Route="SellPost" />
+        </Tab>
+        <Tab Title="Profile">
+            <ShellContent
+        ContentTemplate="{DataTemplate local:Profile}"
+        Route="Profile" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Seller Profile">
+        <ShellContent
+        ContentTemplate="{DataTemplate local:RegisterAsSeller}"
+        Route="RegisterAsSeller" />
+    </FlyoutItem>
+    <FlyoutItem Title="Settings">
+        <ShellContent
+        ContentTemplate="{DataTemplate local:Settings}"
+        Route="Settings" />
+    </FlyoutItem>
+
+
 
 </Shell>

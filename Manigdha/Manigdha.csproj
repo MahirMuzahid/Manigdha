@@ -35,7 +35,6 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -49,7 +48,48 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
+	  <None Remove="Resources\Images\usedmobile.jfif" />
+	  <None Remove="Resources\Splash\splash.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiSplashScreen Include="Resources\Splash\splash.svg" BaseSize="300,300" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\ManigdhaLibrary\ManigdhaLibrary.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ViewModel\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="View\BuyPost.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ForgotPassword.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Login.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Profile.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Register.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\RegisterAsSeller.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\SellPost.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Settings.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
