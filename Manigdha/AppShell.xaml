@@ -7,6 +7,8 @@
     FlyoutBackdrop="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
     Shell.FlyoutBehavior="Flyout">
 
+
+
     <FlyoutItem Title="Home">
         <Tab Title="Buy">
             <ShellContent
@@ -22,6 +24,11 @@
             <ShellContent
         ContentTemplate="{DataTemplate local:Profile}"
         Route="Profile" />
+        </Tab>
+        <Tab Title="Notification">
+            <ShellContent
+        ContentTemplate="{DataTemplate local:Notification}"
+        Route="Notification" />
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Seller Profile">

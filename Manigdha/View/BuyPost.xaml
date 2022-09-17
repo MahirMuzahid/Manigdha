@@ -3,99 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Manigdha.View.BuyPost"
              Title="Buy Post">
-    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}">
-        <Grid ColumnDefinitions="*,60" RowDefinitions="30,*" Margin="10">
-            <SearchBar Grid.Column="0"  Grid.Row="0" HeightRequest="20" Placeholder="Search"/>
-            <Button Text="Filter" Grid.Row="0" Grid.Column="1" FontSize="10" FontAttributes="Bold"/>
-            <ScrollView Grid.Row="1" Grid.ColumnSpan="2" Margin="0,20,0,0">
+    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightWhite}, Dark={StaticResource Gray950}}">
+        <Grid  RowDefinitions="50,*" Margin="10">
+            <Grid Grid.Row="0"  RowDefinitions="*,45,*" ColumnDefinitions="*,50,20">
+                <Frame Grid.ColumnSpan="3" Grid.RowSpan="2"  BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" CornerRadius="20" BorderColor="Transparent">
+
+                </Frame>
+                
+                <SearchBar Grid.Column="0"  Grid.Row="1" HeightRequest="20" Placeholder="Search"/>
+                <Button Text="Filter" Grid.Row="1" Grid.Column="1" FontSize="10" FontAttributes="Bold" Margin="0,10,0,10" />
+            </Grid>
+            
+            <ScrollView Grid.Row="1" Margin="0,0,0,0">
                 <ListView x:Name="mockList" SeparatorColor="Transparent" HasUnevenRows="True" BackgroundColor="Transparent">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Grid Margin="0,10,0,0">
-                                    <Frame  BackgroundColor="{AppThemeBinding Light={StaticResource LightWhite}, Dark={StaticResource Gray900}}" CornerRadius="20"/>
-                                    <Grid RowDefinitions="AUTO,AUTO,AUTO,250,100,50" Padding="10">
-                                        <Label Text="Mahir Muzahid" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="0"/>
-                                        <Label Text="Date: 20.02.2022" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="1" FontSize="10"/>
-                                        <Label Text="This is a title. Where seller will post about product" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="2" FontSize="15" Margin="0,5,0,0"/>
-                                                                               
-                                        <CarouselView ItemsSource="{Binding .}" Grid.Row="3">
-                                            <CarouselView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <ViewCell>
-                                                        <Label Text="sadasd" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                                    </ViewCell>
-                                                </DataTemplate>
-                                            </CarouselView.ItemTemplate>
-                                        </CarouselView>
+                                    <Frame  BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" CornerRadius="20" BorderColor="Transparent">
                                         
-                                        <Grid Grid.Row="4" RowDefinitions="*,*,*,*" ColumnDefinitions="*,*">
-                                            <Label Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="Catagory 1: " FontSize="11" FontAttributes="Bold"/>
-                                                        <Span Text="Selected Text " FontSize="11"/>
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" >
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="Catagory 1: " FontSize="11" FontAttributes="Bold"/>
-                                                        <Span Text="Selected Text " FontSize="11"/>
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="Catagory 1: " FontSize="11" FontAttributes="Bold"/>
-                                                        <Span Text="Selected Text " FontSize="11"/>
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" >
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="Catagory 1: " FontSize="11" FontAttributes="Bold"/>
-                                                        <Span Text="Selected Text " FontSize="11"/>
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="Catagory 1: " FontSize="11" FontAttributes="Bold"/>
-                                                        <Span Text="Selected Text " FontSize="11"/>
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" >
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="Catagory 1: " FontSize="11" FontAttributes="Bold"/>
-                                                        <Span Text="Selected Text " FontSize="11"/>
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            
-                                            <Label Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" >
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="Asking Price: " FontSize="13" FontAttributes="Bold"/>
-                                                        <Span Text="750 Taka " FontSize="13" FontAttributes="Bold" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            
+                                    </Frame>
+                                    <Grid RowDefinitions="AUTO,250,AUTO,40">
+                                        <Grid Grid.Row="0" RowDefinitions="AUTO,AUTO,AUTO" Padding="10">
+                                            <Label Text="Mahir Muzahid" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="0" FontSize="14" FontAttributes="Bold"/>
+                                            <Label Text="Date: 20.02.2022" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="1" FontSize="10"/>
+                                            <Label Text="This is a title. Where seller will post about product" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="2" FontSize="13" Margin="0,5,0,0"/>
                                         </Grid>
-                                        <Grid Grid.Row="5" ColumnDefinitions="*,*" Margin="0,10,0,0">
-                                            <Grid RowDefinitions="AUTO,*" Grid.Column="0">
-                                                <Label Text="Top Price: 500 Taka" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                                <Label Text="Reset In : 24.02.2022 01:23:01 PM " HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" FontSize="10"/>
-                                            </Grid>
-                                            <Button Text="Offer Price" Grid.Column="1" Margin="2" BackgroundColor="{StaticResource Primary}" TextColor="White"/>
+                                        
+                                        <Image Source="product.jpg" Grid.Row="1" Aspect="AspectFill"/>
+
+                                        <Grid Grid.Row="2" RowDefinitions="AUTO"  ColumnDefinitions="*,*" Padding="10">
+                                            <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Asking Price: " FontSize="11"/>
+                                                        <Span Text="700" FontAttributes="Bold"/>
+                                                        <Span Text=" Taka" FontAttributes="Bold"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
                                         </Grid>
+                                        <Button Text="Offer Price"  Grid.Row="3" Margin="2" BackgroundColor="{StaticResource Primary}" TextColor="White"/>
+
                                     </Grid>
                                     
                                 </Grid>
