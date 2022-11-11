@@ -30,6 +30,11 @@
         ContentTemplate="{DataTemplate local:Notification}"
         Route="Notification" />
         </Tab>
+        <Tab Title="Product Detail">
+            <ShellContent
+        ContentTemplate="{DataTemplate local:ProductDetail}"
+        Route="ProductDetail" />
+        </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Seller Profile">
         <ShellContent

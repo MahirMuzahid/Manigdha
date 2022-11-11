@@ -4,9 +4,9 @@
              x:Class="Manigdha.View.BuyPost"
              Title="Buy Post">
     <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightWhite}, Dark={StaticResource Gray950}}">
-        <Grid  RowDefinitions="50,*" Margin="10">
+        <Grid  RowDefinitions="50,*" Margin="0">
             <Grid Grid.Row="0"  RowDefinitions="*,45,*" ColumnDefinitions="*,50,20">
-                <Frame Grid.ColumnSpan="3" Grid.RowSpan="2"  BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" CornerRadius="20" BorderColor="Transparent">
+                <Frame Grid.ColumnSpan="3" Grid.RowSpan="2"  BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" BorderColor="Transparent">
 
                 </Frame>
                 
@@ -20,33 +20,36 @@
                         <DataTemplate>
                             <ViewCell>
                                 <Grid Margin="0,10,0,0">
-                                    <Frame  BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" CornerRadius="20" BorderColor="Transparent">
+                                    
+                                    <Frame  BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" CornerRadius="10" BorderColor="Transparent">
                                         
                                     </Frame>
-                                    <Grid RowDefinitions="AUTO,250,AUTO,40">
+                                    
+                                    <Grid RowDefinitions="AUTO,250,AUTO">
                                         <Grid Grid.Row="0" RowDefinitions="AUTO,AUTO,AUTO" Padding="10">
-                                            <Label Text="Mahir Muzahid" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="0" FontSize="14" FontAttributes="Bold"/>
-                                            <Label Text="Date: 20.02.2022" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="1" FontSize="10"/>
-                                            <Label Text="This is a title. Where seller will post about product" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="2" FontSize="13" Margin="0,5,0,0"/>
+                                            <Label Text="Mahir Muzahid" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="0" FontSize="12" FontAttributes="Bold"/>
+                                            <Label Text="2 Days Ago" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="1" FontSize="10"/>
+                                            <Label Text="This is a title. Where seller will post about product" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="2" FontSize="12" Margin="0,5,0,0"/>
                                         </Grid>
                                         
                                         <Image Source="product.jpg" Grid.Row="1" Aspect="AspectFill"/>
+                                       
 
                                         <Grid Grid.Row="2" RowDefinitions="AUTO"  ColumnDefinitions="*,*" Padding="10">
-                                            <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center">
+                                            <Button  Text="Detail" Grid.Column="0" BackgroundColor="Transparent" FontAttributes="Bold" BorderWidth="0" TextColor="{AppThemeBinding Light= Black, Dark= White}" ></Button>
+                                            <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"  >
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="Asking Price: " FontSize="11"/>
-                                                        <Span Text="700" FontAttributes="Bold"/>
-                                                        <Span Text=" Taka" FontAttributes="Bold"/>
+
+                                                        <Span Text="700" FontAttributes="Bold" TextColor="{AppThemeBinding Light= Black, Dark= White}"/>
+                                                        <Span Text=" Taka" FontAttributes="Bold" TextColor="{AppThemeBinding Light= Black, Dark= White}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
                                         </Grid>
-                                        <Button Text="Offer Price"  Grid.Row="3" Margin="2" BackgroundColor="{StaticResource Primary}" TextColor="White"/>
-
+                                       
                                     </Grid>
-                                    
+                                   
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
