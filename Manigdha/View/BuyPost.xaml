@@ -6,7 +6,9 @@
     <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightWhite}, Dark={StaticResource Gray950}}">
         <Grid  RowDefinitions="50,*" Margin="0">
             <Grid Grid.Row="0"  RowDefinitions="*,45,*" ColumnDefinitions="*,50,20">
-                <Frame Grid.ColumnSpan="3" Grid.RowSpan="2"  BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" BorderColor="Transparent">
+                <Frame Grid.ColumnSpan="3" Grid.RowSpan="2"  BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" 
+                       BorderColor="Transparent"
+                       CornerRadius="0">
 
                 </Frame>
                 
@@ -25,7 +27,7 @@
                                         
                                     </Frame>
                                     
-                                    <Grid RowDefinitions="AUTO,250,AUTO">
+                                    <Grid RowDefinitions="AUTO,250,40">
                                         <Grid Grid.Row="0" RowDefinitions="AUTO,AUTO,AUTO" Padding="10">
                                             <Label Text="Mahir Muzahid" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="0" FontSize="12" FontAttributes="Bold"/>
                                             <Label Text="2 Days Ago" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="1" FontSize="10"/>
@@ -35,8 +37,10 @@
                                         <Image Source="product.jpg" Grid.Row="1" Aspect="AspectFill"/>
                                        
 
-                                        <Grid Grid.Row="2" RowDefinitions="AUTO"  ColumnDefinitions="*,*" Padding="10">
-                                            <Button  Text="Detail" Grid.Column="0" BackgroundColor="Transparent" FontAttributes="Bold" BorderWidth="0" TextColor="{AppThemeBinding Light= Black, Dark= White}" ></Button>
+                                        <Grid Grid.Row="2"   ColumnDefinitions="*,*" Padding="0">
+                                           
+                                            <Label  Text="Details" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  FontAttributes="Bold" TextColor="{AppThemeBinding Light= Black, Dark= White}" ></Label>
+                                            <Button Grid.Column="0" BackgroundColor="Transparent" CornerRadius="10"/>
                                             <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"  >
                                                 <Label.FormattedText>
                                                     <FormattedString>
