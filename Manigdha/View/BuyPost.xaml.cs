@@ -17,4 +17,19 @@ public partial class BuyPost : ContentPage
 		mockList.ItemsSource = mlist;
 
 	}
+
+	private void Button_Clicked(object sender, EventArgs e)
+	{
+
+	}
+
+	private void Button_Clicked_1(object sender, EventArgs e)
+	{
+		GOToPD();
+	}
+
+	public async void  GOToPD()
+	{
+		await Navigation.PushAsync(new ProductDetail());
+	}
 }

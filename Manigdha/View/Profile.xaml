@@ -3,171 +3,64 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Manigdha.View.Profile"
-             Title="Profile">
+             Shell.NavBarHasShadow="False">
 
     <ScrollView>
-        <Grid RowDefinitions="100,AUTO,AUTO,AUTO,AUTO, *" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}">
-            <Grid Grid.Row="0" ColumnDefinitions="100,*">
-                <toolkit:AvatarView ImageSource="propic.jfif" MinimumHeightRequest="100" MinimumWidthRequest="100"  Margin="10,0,0,0" BorderColor="Transparent"/>
-                <Grid Grid.Column="1" RowDefinitions="AUTO, AUTO, *" Margin="15,0,0,0" >
-                    <Label Text="Mahir Muzahid" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="15" FontAttributes="Bold"/>
-                    <Grid Grid.Row="2" RowDefinitions="AUTO,AUTO" ColumnDefinitions="*,*">
-                        <Label Text="10" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
-                        <Label Text="Total Buy" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
-                        <Label Text="10" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
-                        <Label Text="Total Sell" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
-                    </Grid>
+        <Grid RowDefinitions="AUTO,50,50,50,50,50,50" BackgroundColor="{AppThemeBinding Light={StaticResource LightWhite}, Dark={StaticResource Gray950}}">
+            <Grid Grid.Row="0" RowDefinitions="100,AUTO">
+                <toolkit:AvatarView Grid.Row="0" ImageSource="propic.jfif" MinimumHeightRequest="100" MinimumWidthRequest="100"  CornerRadius="20" BorderColor="Transparent"/>
+                <Grid Grid.Row="1" RowDefinitions="AUTO, AUTO, AUTO,40" >
+                    <Label Text="Mahir Muzahid" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="15" FontAttributes="Bold"/>
+                    <Label Text="mahirmuzahid@gmail.com" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="10" FontAttributes="Bold"/>
+                    <Label Text="01833368125" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="10" FontAttributes="Bold"/>
+                    <Button Text="Edit Profile" Grid.Row="3" HorizontalOptions="Center" FontSize="10" FontAttributes="Bold" Padding="10,0,10,0" Margin="0,10,0,10"/>
+
                 </Grid>
             </Grid>
-            <Grid Grid.Row="1" Margin="10,5,0,0" RowDefinitions="20,AUTO">
-                <Label Grid.Row="0">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Address" FontAttributes="Bold" TextColor="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource White}}" FontSize="12"/>
-                            
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                <Label Grid.Row="1" Text="House: 679, Road: 21, Block: F, Bashundhara R/A, Dhaka" TextColor="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource White}}" FontSize="12"/>
+            <Grid Grid.Row="1" Margin="10,10,10,0">
+                <Frame BackgroundColor="{AppThemeBinding Light=Transparent, Dark={StaticResource Gray900}}" BorderColor="Transparent"/>
+
+                <Grid ColumnDefinitions="20,*,17" Margin="5,0,5,0"  VerticalOptions="Center">
+                    <Image Grid.Column="0" Source="verified.svg" Aspect="AspectFit"/>
+                    <Label Text="Products" Grid.Column="1" VerticalOptions="Center" Margin="5,0,0,0"/>
+                    <Image Grid.Column="2" Source="{AppThemeBinding Light=rightarrow.svg, Dark=rightarrowwhite.svg}" Aspect="AspectFit"/>
+                </Grid>
+                <Button BackgroundColor="Transparent"></Button>
             </Grid>
-            <Grid Grid.Row="2" Margin="10,5,0,0" RowDefinitions="20,AUTO,AUTO,AUTO,AUTO,20" RowSpacing="10">
-                <Label Grid.Row="0"  VerticalOptions="Center" Text="BID" FontAttributes="Bold"  FontSize="12">
-                </Label>
-                <Grid Grid.Row="2"  Margin="0,0,10,0">
-                    <Frame BackgroundColor="{AppThemeBinding Light=#80E5F6DF, Dark=#3023A716}" Grid.ColumnSpan="3" BorderColor="Transparent" />
-                    
-                    <Grid ColumnDefinitions="60,*,60" Margin="10,0,10,0">
-                        <Image Source="product.jpg" Grid.Column="0" />
-                        <Grid Grid.Column="1" RowDefinitions="*,AUTO,AUTO,AUTO,*" Margin="8">
-                            <Label Text="On Sell Post" FontSize="8" Grid.Row="1"  FontAttributes="Bold"/>
-                            <Label Text="This will be the titile text of all product. " Grid.Row="2" FontSize="11"/>
-                            <Label Text="2 Days Ago" Grid.Row="3" FontSize="8"/>
-                        </Grid>
-                        <Grid Grid.Column="2" RowDefinitions="*,*">
-                            <Label Text="Top Bid" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End" TextColor="Green"  FontAttributes="Bold" FontSize="8"/>
-                            <Label Text="5000 Taka" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start"  FontAttributes="Bold" FontSize="11"/>
-                        </Grid>
-                    </Grid>
-                    <Button BackgroundColor="Transparent"></Button>
-                </Grid>
-               
-                <Grid Grid.Row="3"  Margin="0,0,10,0">
-                    <Frame BackgroundColor="{AppThemeBinding Light=#80F7FACF, Dark=#30A5AF23}" Grid.ColumnSpan="3" BorderColor="Transparent" />
+            <Grid Grid.Row="2" Margin="10,10,10,0">
+                <Frame BackgroundColor="{AppThemeBinding Light=Transparent, Dark={StaticResource Gray900}}" BorderColor="Transparent"/>
 
-                    <Grid ColumnDefinitions="60,*,60" Margin="10,0,10,0">
-                        <Image Source="product.jpg" Grid.Column="0" />
-                        <Grid Grid.Column="1" RowDefinitions="*,AUTO,AUTO,AUTO,*" Margin="8">
-                            <Label Text="Product" FontSize="8" Grid.Row="1" FontAttributes="Bold"/>
-                            <Label Text="This will be the titile text of all product. " Grid.Row="2" FontSize="11"/>
-                            <Label Text="2 Days Ago" Grid.Row="3" FontSize="8"/>
-                        </Grid>
-                        <Grid Grid.Column="2" RowDefinitions="*,*">
-                            <Label Text="Bid Again" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End" TextColor="#A5AF23" FontAttributes="Bold" FontSize="8"/>
-                            <Label Text="560 Taka" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start"  FontAttributes="Bold" FontSize="11"/>
-                        </Grid>
-                    </Grid>
-                    <Button BackgroundColor="Transparent"></Button>
+                <Grid ColumnDefinitions="20,*,17" Margin="5,0,5,0"  VerticalOptions="Center">
+                    <Image Grid.Column="0" Source="verified.svg" Aspect="AspectFit"/>
+                    <Label Text="Bids" Grid.Column="1" VerticalOptions="Center" Margin="5,0,0,0"/>
+                    <Image Grid.Column="2" Source="{AppThemeBinding Light=rightarrow.svg, Dark=rightarrowwhite.svg}" Aspect="AspectFit"/>
                 </Grid>
-                <Grid Grid.Row="1"  Margin="0,0,10,0">
-                    <Frame BackgroundColor="{AppThemeBinding Light=#80DFECF6, Dark=#301497C8}" Grid.ColumnSpan="3" BorderColor="Transparent" />
-
-                    <Grid ColumnDefinitions="60,*,60" Margin="10,0,10,0">
-                        <Image Source="product.jpg" Grid.Column="0" />
-                        <Grid Grid.Column="1" RowDefinitions="*,AUTO,AUTO,AUTO,*" Margin="8">
-                            <Label Text="On Product" FontSize="8" Grid.Row="1"  FontAttributes="Bold"/>
-                            <Label Text="This will be the titile text of all product. " Grid.Row="2" FontSize="11"/>
-                            <Label Text="2 Days Ago" Grid.Row="3" FontSize="8"/>
-                        </Grid>
-                        <Grid Grid.Column="2" RowDefinitions="*,*">
-                            <Label Text="Accepted" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End" TextColor="#1497C8" FontAttributes="Bold" FontSize="8"/>
-                            <Label Text="9630 Taka" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start"  FontAttributes="Bold" FontSize="11"/>
-                        </Grid>
-                    </Grid>
-                    <Button BackgroundColor="Transparent"></Button>
-                </Grid>
-                <Button Text="See All" Grid.Row="5" FontSize="10" BorderColor="Transparent" BackgroundColor="{AppThemeBinding Light=#F7F7F7, Dark=#10ffffff}" TextColor="{AppThemeBinding Light=black, Dark=white}"/>
-
+                <Button BackgroundColor="Transparent"></Button>
             </Grid>
-            <Grid Grid.Row="3" Margin="10,20,0,0" RowDefinitions="20,AUTO">
-                <Label Grid.Row="0"  VerticalOptions="Center" Text="Products" FontAttributes="Bold"  FontSize="12">
-                </Label>
-                <Grid Grid.Row="1" RowDefinitions="AUTO,AUTO" >
-                    <Grid Grid.Row="0"  Margin="0,0,10,0">
-                        <Frame BackgroundColor="{AppThemeBinding Light=white, Dark={StaticResource Gray950}}" Grid.ColumnSpan="3" BorderColor="Transparent" />
+            <Grid Grid.Row="3" Margin="10,10,10,0">
+                <Frame BackgroundColor="{AppThemeBinding Light=Transparent, Dark={StaticResource Gray900}}" BorderColor="Transparent"/>
 
-                        <Grid ColumnDefinitions="60,*,60" Margin="10,0,10,0">
-                            <Image Source="product.jpg" Grid.Column="0" />
-                            <Grid Grid.Column="1" RowDefinitions="*,AUTO,AUTO,AUTO,*" Margin="8">
-                                <Label Text="Prodduct" FontSize="8" Grid.Row="1"  FontAttributes="Bold"/>
-                                <Label Text="This will be the titile text of all product. " Grid.Row="2" FontSize="11"/>
-                                <Label Text="2 Days Ago | Asking Price: 600 Taka" Grid.Row="3" FontSize="8"/>
-                            </Grid>
-                            <Grid Grid.Column="2" RowDefinitions="*,*">
-                                <Label Text="Top Bid" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End"  FontAttributes="Bold" FontSize="8"/>
-                                <Label Text="500 Taka" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start"  FontAttributes="Bold" FontSize="11"/>
-                            </Grid>
-                        </Grid>
-                        <Button BackgroundColor="Transparent"></Button>
-                    </Grid>
-                    <Grid Grid.Row="1"  Margin="0,0,10,0">
-                        <Frame BackgroundColor="{AppThemeBinding Light=white, Dark={StaticResource Gray950}}" Grid.ColumnSpan="3" BorderColor="Transparent" />
-
-                        <Grid ColumnDefinitions="60,*,60" Margin="10,0,10,0">
-                            <Image Source="product.jpg" Grid.Column="0" />
-                            <Grid Grid.Column="1" RowDefinitions="*,AUTO,AUTO,AUTO,*" Margin="8">
-                                <Label Text="On Sell Post" FontSize="8" Grid.Row="1"  FontAttributes="Bold"/>
-                                <Label Text="This will be the titile text of all product. " Grid.Row="2" FontSize="11"/>
-                                <Label Text="2 Days Ago | Asking Price: 600 Taka" Grid.Row="3" FontSize="8"/>
-                            </Grid>
-                            <Grid Grid.Column="2" RowDefinitions="*,*">
-                                <Label Text="Pending" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End"  FontAttributes="Bold" FontSize="8"/>
-                                <Label Text="2000 Taka " Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start"  FontAttributes="Bold" FontSize="11"/>
-                            </Grid>
-                        </Grid>
-                        <Button BackgroundColor="Transparent"></Button>
-                    </Grid>
+                <Grid ColumnDefinitions="20,*,17" Margin="5,0,5,0"  VerticalOptions="Center">
+                    <Image Grid.Column="0" Source="verified.svg" Aspect="AspectFit"/>
+                    <Label Text="Delivery" Grid.Column="1" VerticalOptions="Center" Margin="5,0,0,0"/>
+                    <Image Grid.Column="2" Source="{AppThemeBinding Light=rightarrow.svg, Dark=rightarrowwhite.svg}" Aspect="AspectFit"/>
                 </Grid>
+                <Button BackgroundColor="Transparent"></Button>
             </Grid>
-            <Grid Grid.Row="4" Margin="10,20,0,0" RowDefinitions="20,AUTO">
-                <Label Grid.Row="0"  VerticalOptions="Center" Text="Products" FontAttributes="Bold"  FontSize="12">
-                </Label>
-                <Grid Grid.Row="1" RowDefinitions="AUTO,AUTO" >
-                    <Grid Grid.Row="0"  Margin="0,0,10,0">
-                        <Frame BackgroundColor="{AppThemeBinding Light=white, Dark={StaticResource Gray950}}" Grid.ColumnSpan="3" BorderColor="Transparent" />
+            <Grid Grid.Row="4" Margin="10,10,10,0">
+                <Frame BackgroundColor="{AppThemeBinding Light=Transparent, Dark={StaticResource Gray900}}" BorderColor="Transparent"/>
 
-                        <Grid ColumnDefinitions="60,*,60" Margin="10,0,10,0">
-                            <Image Source="product.jpg" Grid.Column="0" />
-                            <Grid Grid.Column="1" RowDefinitions="*,AUTO,AUTO,AUTO,*" Margin="8">
-                                <Label Text="Prodduct" FontSize="8" Grid.Row="1"  FontAttributes="Bold"/>
-                                <Label Text="This will be the titile text of all product. " Grid.Row="2" FontSize="11"/>
-                                <Label Text="2 Days Ago | Asking Price: 600 Taka" Grid.Row="3" FontSize="8"/>
-                            </Grid>
-                            <Grid Grid.Column="2" RowDefinitions="*,*">
-                                <Label Text="Top Bid" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End"  FontAttributes="Bold" FontSize="8"/>
-                                <Label Text="500 Taka" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start"  FontAttributes="Bold" FontSize="11"/>
-                            </Grid>
-                        </Grid>
-                        <Button BackgroundColor="Transparent"></Button>
-                    </Grid>
-                    <Grid Grid.Row="1"  Margin="0,0,10,0">
-                        <Frame BackgroundColor="{AppThemeBinding Light=white, Dark={StaticResource Gray950}}" Grid.ColumnSpan="3" BorderColor="Transparent" />
-
-                        <Grid ColumnDefinitions="60,*,60" Margin="10,0,10,0">
-                            <Image Source="product.jpg" Grid.Column="0" />
-                            <Grid Grid.Column="1" RowDefinitions="*,AUTO,AUTO,AUTO,*" Margin="8">
-                                <Label Text="On Sell Post" FontSize="8" Grid.Row="1"  FontAttributes="Bold"/>
-                                <Label Text="This will be the titile text of all product. " Grid.Row="2" FontSize="11"/>
-                                <Label Text="2 Days Ago | Asking Price: 600 Taka" Grid.Row="3" FontSize="8"/>
-                            </Grid>
-                            <Grid Grid.Column="2" RowDefinitions="*,*">
-                                <Label Text="Pending" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End"  FontAttributes="Bold" FontSize="8"/>
-                                <Label Text="2000 Taka " Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start"  FontAttributes="Bold" FontSize="11"/>
-                            </Grid>
-                        </Grid>
-                        <Button BackgroundColor="Transparent"></Button>
-                    </Grid>
+                <Grid ColumnDefinitions="20,*,17" Margin="5,0,5,0"  VerticalOptions="Center">
+                    <Image Grid.Column="0" Source="verified.svg" Aspect="AspectFit"/>
+                    <Label Text="Logout" Grid.Column="1" VerticalOptions="Center" Margin="5,0,0,0"/>
+                    <Image Grid.Column="2" Source="{AppThemeBinding Light=rightarrow.svg, Dark=rightarrowwhite.svg}" Aspect="AspectFit"/>
                 </Grid>
+                <Button BackgroundColor="Transparent"></Button>
             </Grid>
+
+
+
+
         </Grid>
     </ScrollView>
 </ContentPage>

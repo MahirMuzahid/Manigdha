@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Manigdha.View.SellPostDetails"
+             Title="SellPostDetails">
+    <ScrollView>
+        <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightWhite}, Dark={StaticResource Gray950}}" RowDefinitions="AUTO">
+            <Grid Margin="0,10,0,0" RowDefinitions="AUTO,AUTO,AUTO" Grid.Row="0">
+                <Frame  BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" CornerRadius="10" Grid.RowSpan="2" BorderColor="Transparent"/>
+                <Grid RowDefinitions="AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO" Padding="10">
+                    <Label Text="Mahir Muzahid" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="0" FontSize="12"/>
+                    <Label Text="2 Days Ago" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="1" FontSize="10"/>
+                    <Label Text="This is a title. Where buyer will post about product" 
+                           HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" Grid.Row="2" FontSize="13" Margin="0,5,0,0"/>
+                    <Label Text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make "
+                           Grid.Row="3" FontSize="10" HorizontalOptions="Start" Margin="0,5,0,0"/>
+                    <Label Text="Recommanded Features" Grid.Row="4" FontSize="10"  Margin="0,5,0,0"/>
+                    <Grid Grid.Row="5" ColumnDefinitions="AUTO,15,AUTO">
+                        <Label Grid.Column="0" >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Feature 1" FontSize="10"/>
+                                    <Span Text=": " FontSize="10"/>
+                                    <Span Text="Description About Feature" FontSize="10" FontAttributes="Bold"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Grid.Column="2" >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Feature 1" FontSize="10"/>
+                                    <Span Text=": " FontSize="10"/>
+                                    <Span Text="Description About Feature" FontSize="10" FontAttributes="Bold"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+                    <Grid Grid.Row="6" ColumnDefinitions="AUTO,15,AUTO">
+                        <Label Grid.Column="0" >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Feature 1" FontSize="10"/>
+                                    <Span Text=": " FontSize="10"/>
+                                    <Span Text="Description About Feature" FontSize="10" FontAttributes="Bold"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Grid.Column="2" >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Feature 1" FontSize="10"/>
+                                    <Span Text=": " FontSize="10"/>
+                                    <Span Text="Description About Feature" FontSize="10" FontAttributes="Bold"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+                    <Label Text="Budget" Grid.Row="7" FontSize="10" Margin="0,5,0,0"/>
+                    <Grid Grid.Row="8" ColumnDefinitions="AUTO,15,AUTO">
+                        <Label Grid.Column="0" >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Minimum" FontSize="10"/>
+                                    <Span Text=": " FontSize="10"/>
+                                    <Span Text="500 Taka" FontSize="10" FontAttributes="Bold"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Grid.Column="2" >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Maximum" FontSize="10"/>
+                                    <Span Text=": " FontSize="10"/>
+                                    <Span Text="700 Taka" FontSize="10" FontAttributes="Bold"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+
+                </Grid>
+                
+                
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

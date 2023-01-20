@@ -54,6 +54,8 @@
 	  <None Remove="Resources\Images\notverified.png" />
 	  <None Remove="Resources\Images\product.jpg" />
 	  <None Remove="Resources\Images\propic.jfif" />
+	  <None Remove="Resources\Images\rightarrow.svg" />
+	  <None Remove="Resources\Images\rightarrowwhite.svg" />
 	  <None Remove="Resources\Images\usedmobile.jfif" />
 	  <None Remove="Resources\Images\verified.svg" />
 	  <None Remove="Resources\Splash\splash.svg" />
@@ -91,6 +93,9 @@
 	  <MauiXaml Update="View\ProductDetail.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\ProductHistory.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\Profile.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -101,6 +106,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\SellPost.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\SellPostDetails.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Settings.xaml">

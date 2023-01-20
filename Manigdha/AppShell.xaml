@@ -5,47 +5,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Manigdha.View"
     FlyoutBackdrop="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.FlyoutBehavior="Disabled">
 
 
 
-    <FlyoutItem Title="Home">
-        <Tab Title="Buy">
-            <ShellContent
+    <Tab Title="Home">
+        <ShellContent
         ContentTemplate="{DataTemplate local:BuyPost}"
         Route="BuyPost" />
-        </Tab>
-        <Tab Title="Sell">
-            <ShellContent
-        ContentTemplate="{DataTemplate local:SellPost}"
-        Route="SellPost" />
-        </Tab>
-        <Tab Title="Profile">
-            <ShellContent
+    </Tab>
+   
+    <Tab Title="Profile">
+        <ShellContent
         ContentTemplate="{DataTemplate local:Profile}"
         Route="Profile" />
-        </Tab>
-        <Tab Title="Notification">
-            <ShellContent
+    </Tab>
+    <Tab Title="Notification">
+        <ShellContent
         ContentTemplate="{DataTemplate local:Notification}"
         Route="Notification" />
-        </Tab>
-        <Tab Title="Product Detail">
-            <ShellContent
-        ContentTemplate="{DataTemplate local:ProductDetail}"
-        Route="ProductDetail" />
-        </Tab>
-    </FlyoutItem>
-    <FlyoutItem Title="Seller Profile">
-        <ShellContent
-        ContentTemplate="{DataTemplate local:RegisterAsSeller}"
-        Route="RegisterAsSeller" />
-    </FlyoutItem>
-    <FlyoutItem Title="Settings">
-        <ShellContent
-        ContentTemplate="{DataTemplate local:Settings}"
-        Route="Settings" />
-    </FlyoutItem>
+    </Tab>
 
 
 
