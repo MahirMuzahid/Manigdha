@@ -25,7 +25,7 @@
                     <Label Text="Products" Grid.Column="1" VerticalOptions="Center" Margin="5,0,0,0"/>
                     <Image Grid.Column="2" Source="{AppThemeBinding Light=rightarrow.svg, Dark=rightarrowwhite.svg}" Aspect="AspectFit"/>
                 </Grid>
-                <Button BackgroundColor="Transparent"></Button>
+                <Button BackgroundColor="Transparent" Clicked="Button_Clicked"></Button>
             </Grid>
             <Grid Grid.Row="2" Margin="10,10,10,0">
                 <Frame BackgroundColor="{AppThemeBinding Light=Transparent, Dark={StaticResource Gray900}}" BorderColor="Transparent"/>

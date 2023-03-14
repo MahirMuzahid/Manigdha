@@ -49,6 +49,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
+	  <None Remove="Resources\Images\addproductback.jpg" />
 	  <None Remove="Resources\Images\bid.png" />
 	  <None Remove="Resources\Images\eye.svg" />
 	  <None Remove="Resources\Images\notverified.png" />
@@ -90,10 +91,16 @@
 	  <MauiXaml Update="View\Notification.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\PostNewProduct.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\ProductDetail.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ProductHistory.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ProductPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Profile.xaml">

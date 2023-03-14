@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Manigdha.View.PostNewProduct"
+             NavigationPage.HasNavigationBar="False"
+             Title="PostNewProduct">
+    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightWhite}, Dark={StaticResource Gray950}}">
+        <Image Source="addproductback.jpg" Aspect="AspectFill" />
+
+        <Grid RowDefinitions="AUTO, AUTO,AUTO,AUTO,*">
+            <Grid Grid.Row="0" ColumnDefinitions="*, 100">
+                <Button Text="Exit" Grid.Column="1" Margin="10" BackgroundColor="#E55050" TextColor="White"/>
+            </Grid>
+            <Grid Grid.Row="1" RowDefinitions="AUTO,300">
+                <Label Text="Add New Product" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="15"/>
+                <Image Source="" Aspect="AspectFit" Grid.Row="1"/>
+            </Grid>
+            <Grid  Grid.Row="2" Margin="0,0,0,10">
+                <Frame BackgroundColor="{AppThemeBinding Default= {StaticResource Tertiary}}" Opacity=".5" CornerRadius="0"/>
+                <Grid RowDefinitions="AUTO,*">
+                    <Label Text="Accept Terms And Conditions"/>
+                </Grid>
+            </Grid>
+            <Grid  Grid.Row="3"  Margin="0,10,0,0" >
+                <Frame BackgroundColor="{AppThemeBinding Default= {StaticResource Primary}}" Opacity=".5" CornerRadius="0"/>
+                <Grid>
+                    
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>
