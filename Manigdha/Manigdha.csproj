@@ -52,9 +52,12 @@
 	  <None Remove="Resources\Images\addproductback.jpg" />
 	  <None Remove="Resources\Images\bid.png" />
 	  <None Remove="Resources\Images\eye.svg" />
+	  <None Remove="Resources\Images\infofilling.png" />
+	  <None Remove="Resources\Images\leftarrow.svg" />
 	  <None Remove="Resources\Images\notverified.png" />
 	  <None Remove="Resources\Images\product.jpg" />
 	  <None Remove="Resources\Images\propic.jfif" />
+	  <None Remove="Resources\Images\rightandroarrow.png" />
 	  <None Remove="Resources\Images\rightarrow.svg" />
 	  <None Remove="Resources\Images\rightarrowwhite.svg" />
 	  <None Remove="Resources\Images\usedmobile.jfif" />
@@ -100,7 +103,13 @@
 	  <MauiXaml Update="View\ProductHistory.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\ProductInformatinFill.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\ProductPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ProductVerification.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Profile.xaml">

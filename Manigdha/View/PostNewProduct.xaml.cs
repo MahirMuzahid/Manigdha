@@ -11,4 +11,13 @@ public partial class PostNewProduct : ContentPage
     {
 
     }
+    public async Task GoToInfoFill()
+    {
+        await Navigation.PushModalAsync(new ProductInformatinFill());
+    }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+        GoToInfoFill();
+    }
 }
