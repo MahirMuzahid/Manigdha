@@ -54,6 +54,7 @@
 	  <None Remove="Resources\Images\eye.svg" />
 	  <None Remove="Resources\Images\infofilling.png" />
 	  <None Remove="Resources\Images\leftarrow.svg" />
+	  <None Remove="Resources\Images\leftarrowwhite.png" />
 	  <None Remove="Resources\Images\notverified.png" />
 	  <None Remove="Resources\Images\product.jpg" />
 	  <None Remove="Resources\Images\propic.jfif" />
