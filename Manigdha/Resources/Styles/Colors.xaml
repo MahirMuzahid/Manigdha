@@ -5,6 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Color x:Key="Primary">#295F2D</Color>
+    <Color x:Key="SecondPalate">#5F8141</Color>
+    <Color x:Key="ThirdPalate">#94A355</Color>
+    <Color x:Key="ForthPalate">#CAC569</Color>
     <Color x:Key="LightPrimary">#DDFFDF</Color>
     <Color x:Key="Secondary">#DFD8F7</Color>
     <Color x:Key="LightWhite">#DDDDDD</Color>
@@ -44,5 +47,14 @@
     <Color x:Key="Blue100Accent">#3E8EED</Color>
     <Color x:Key="Blue200Accent">#72ACF1</Color>
     <Color x:Key="Blue300Accent">#A7CBF6</Color>
+
+    <LinearGradientBrush x:Key="VerificationButtonGradient" StartPoint="0,0"
+                     EndPoint="1,1">
+        <GradientStop Color="{StaticResource Primary}"
+                  Offset="0.0" />
+        <GradientStop Color="{StaticResource Tertiary}"
+                  Offset="1" />
+    </LinearGradientBrush>
+    
 
 </ResourceDictionary>

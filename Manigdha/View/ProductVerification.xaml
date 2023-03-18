@@ -3,20 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Manigdha.View.ProductVerification"
              Title="ProductVerification">
-    <Grid RowDefinitions="300,*">
-        <Image Source="infofilling.png" Aspect="AspectFit" VerticalOptions="Center" Margin="0,20,0,0" />
-        <Grid Grid.Row="1" RowDefinitions="AUTO,*, 20,50" Margin="0,10,0,0">
-            <Label Text="Product Varification" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
-            <Grid>
-
+    <Grid RowDefinitions="300,*" BackgroundColor="White">
+        <Image Source="verifyimg.jpg" Aspect="AspectFit" VerticalOptions="Center" Margin="0,20,0,0" />
+        <Grid Grid.Row="1" RowDefinitions="AUTO,*, 30,50" Margin="0,10,0,0">
+            <Label Text="Product Varification" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
+            <Grid Grid.Row="1">
+                <Label Text="Product verification is important because it helps to ensure that the product is built to the stated (documented) specifications and that it actually meets the customer’s needs. Verification activities confirm that the product is built to the stated (documented) specifications and validation confirms that the product actually meets the customer’s needs. To put it simply, verification ensures the product is built right and validation ensures the right product is built."
+                       VerticalOptions="Center"
+                       FontSize="12" Margin="10,0,10,0"
+                       TextColor="Black"/>
             </Grid>
-            <Grid Grid.Row="2" ColumnDefinitions="30,40,*,40,30" Margin="10,0,10,0">
-                <Image Source="leftarrow.svg" Aspect="AspectFit" Margin="10,0,10,0"/>
-                <Label Text="Back" Grid.Column="1" FontAttributes="Bold"/>
-                <Button Grid.ColumnSpan="2" BackgroundColor="#10000000"/>
-                <Button Grid.Column="3" Grid.ColumnSpan="2" BackgroundColor="#10000000"/>
-                <Label Text="Next" Grid.Column="3" FontAttributes="Bold" HorizontalOptions="End"/>
-                <Image Source="rightandroarrow.png" Aspect="AspectFit" Grid.Column="4" Margin="10,0,10,0"/>
+            <Grid Grid.Row="2" ColumnDefinitions="*,200,*" >
+                <Button Text="Start Verification" Grid.Column="1" FontSize="14" FontAttributes="Bold" Background="{StaticResource VerificationButtonGradient}" TextColor="White" >
+                </Button>
             </Grid>
 
         </Grid>

@@ -62,6 +62,7 @@
 	  <None Remove="Resources\Images\rightarrowwhite.svg" />
 	  <None Remove="Resources\Images\usedmobile.jfif" />
 	  <None Remove="Resources\Images\verified.svg" />
+	  <None Remove="Resources\Images\verifyimg.jpg" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
@@ -119,6 +120,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\RegisterAsSeller.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ReviewProductInfo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\SellPost.xaml">

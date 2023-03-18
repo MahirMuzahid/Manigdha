@@ -3,19 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Manigdha.View.ProductInformatinFill"
              Title="ProductInformatinFill">
-    <Grid RowDefinitions="300,*" BackgroundColor="{AppThemeBinding Dark={StaticResource Gray950}, Light= white}">
+    <Grid RowDefinitions="300,*" BackgroundColor="White">
         <Image Source="infofilling.png" Aspect="AspectFit" VerticalOptions="Center" Margin="0,20,0,0" />
         <Grid Grid.Row="1" RowDefinitions="AUTO,*, 20,50" Margin="0,10,0,0">
-            <Label Text="Product Information" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
+            <Label Text="Product Information" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
             <Grid>
                 
             </Grid>
-            <Grid Grid.Row="2" ColumnDefinitions="30,40,*,40,30" Margin="10,0,10,0">
-                
-                <Label Text="Back" Grid.Column="1" FontAttributes="Bold"/>
-                <Button Grid.ColumnSpan="2" BackgroundColor="#10000000"/>
-                <Button Grid.Column="3" Grid.ColumnSpan="2" BackgroundColor="#10000000" Clicked="Button_Clicked"/>
-                <Label Text="Next" Grid.Column="3" FontAttributes="Bold" HorizontalOptions="End"/>
+            <Grid Grid.Row="2" ColumnDefinitions="70,*,70" Margin="10,0,10,0">
+                <Button  BackgroundColor="{StaticResource Gray950}"/>
+                <Label Text="Back" Grid.Column="0" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White"/>
+               
+                <Button Grid.Column="2" BackgroundColor="{StaticResource Gray950}" Clicked="Button_Clicked"/>
+                <Label Text="Next" Grid.Column="2" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White"/>
                
             </Grid>
             
