@@ -11,9 +11,9 @@ public partial class ProductPage : ContentPage
     {
         GoToPostNewProductPage();
     }
-
+    
 	public async Task GoToPostNewProductPage()
 	{
-        await Navigation.PushModalAsync(new PostNewProduct());
+        await Navigation.PushModalAsync(new ProductInformatinFill());
     }
 }
