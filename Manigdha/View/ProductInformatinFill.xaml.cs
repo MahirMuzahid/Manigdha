@@ -14,5 +14,6 @@ public partial class ProductInformatinFill : ContentPage
     public async Task GoToVerification()
     {
         await Navigation.PushModalAsync(new ProductVerification());
+        //await Shell.Current.GoToAsync(nameof(ProductVerification));
     }
 }

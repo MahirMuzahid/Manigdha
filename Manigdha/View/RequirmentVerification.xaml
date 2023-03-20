@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Manigdha.View.UploadImage"
-             NavigationPage.HasNavigationBar="True"
-             Title="UploadImage">
+             x:Class="Manigdha.View.RequirmentVerification"
+             Title="RequirmentVerification">
     <Grid RowDefinitions="AUTO,*" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}">
         <Grid RowDefinitions="AUTO, *">
-            
+
             <Grid Grid.RowSpan="2">
-                <Frame   BackgroundColor="{StaticResource Primary}" CornerRadius="20" BorderColor="Transparent" />
+                <Frame   BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource LisghtWhite1}}" CornerRadius="20" BorderColor="Transparent" />
                 <Grid RowDefinitions="AUTO,2,10,AUTO,AUTO,AUTO,AUTO" Margin="10,50,0,20">
                     <Label Text="Verification Steps" FontSize="13"/>
-                    <Frame BackgroundColor="White" Grid.Row="1" BorderColor="Transparent" Margin="0,0,10,0"/>
+                    <Frame BackgroundColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}" Grid.Row="1" BorderColor="Transparent" Margin="0,0,10,0"/>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="3" Margin="10,0,0,0">
                         <Label Text="Front Side Image" FontSize="11" />
                         <Image Source="verified.svg" Grid.Column="1" Margin="5,1,0,0"/>
@@ -30,16 +29,16 @@
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid ColumnDefinitions="30,10,*" BackgroundColor="{StaticResource Primary}">
+            <Grid ColumnDefinitions="30,10,*" BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource LightWhite1}}">
                 <Button BackgroundColor="Transparent" Grid.ColumnSpan="2" Margin="0,10,0,0"/>
                 <Image Source="leftarrowwhite.png" Aspect="AspectFit" Margin="10,10,0,0"/>
-                <Label Text="Image Verification" Grid.ColumnSpan="3" FontSize="15" HorizontalOptions="Center" Margin="0,10,0,0" FontAttributes="Bold"/>
+                <Label Text="Requirments Verification" Grid.ColumnSpan="3" FontSize="15" HorizontalOptions="Center" Margin="0,10,0,0" FontAttributes="Bold"/>
             </Grid>
         </Grid>
         <ScrollView Grid.Row="1" Margin="0,0,0,0">
-            <Grid RowDefinitions="150,150,150,150,30" Margin="10" RowSpacing="20">
+            <Grid RowDefinitions="150,150,150,150,200" Margin="10" RowSpacing="20">
                 <Grid>
-                   
+
                     <Grid RowDefinitions="30,*" >
                         <Frame BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource LightWhite1}}" CornerRadius="0"/>
                         <Grid ColumnDefinitions="AUTO,*,25">
@@ -54,6 +53,7 @@
                     </Grid>
                     <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
                 </Grid>
+                
                 <Grid Grid.Row="1">
 
                     <Grid RowDefinitions="30,*" >
@@ -70,6 +70,7 @@
                     </Grid>
                     <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
                 </Grid>
+                
                 <Grid Grid.Row="2">
 
                     <Grid RowDefinitions="30,*" >
@@ -86,6 +87,7 @@
                     </Grid>
                     <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
                 </Grid>
+                
                 <Grid Grid.Row="3">
 
                     <Grid RowDefinitions="30,*" >
@@ -102,6 +104,7 @@
                     </Grid>
                     <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
                 </Grid>
+
                 <Grid ColumnDefinitions="*, 100" Grid.Row="4">
                     <Button Text="Next" Grid.Column="1" BackgroundColor="#20ffffff" TextColor="White" Clicked="Button_Clicked"/>
                 </Grid>

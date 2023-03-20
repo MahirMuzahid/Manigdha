@@ -123,6 +123,9 @@
 	  <MauiXaml Update="View\RegisterAsSeller.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\RequirmentVerification.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\ReviewProductInfo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -1,8 +1,8 @@
 namespace Manigdha.View;
 
-public partial class UploadImage : ContentPage
+public partial class RequirmentVerification : ContentPage
 {
-	public UploadImage()
+	public RequirmentVerification()
 	{
 		InitializeComponent();
 	}
@@ -13,6 +13,6 @@ public partial class UploadImage : ContentPage
     }
     public async Task GoToPage()
     {
-        await Navigation.PushModalAsync(new RequirmentVerification());
+        await Navigation.PushModalAsync(new ReviewProductInfo());
     }
 }
