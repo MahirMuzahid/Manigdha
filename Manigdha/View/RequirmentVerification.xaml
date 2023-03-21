@@ -7,7 +7,7 @@
         <Grid RowDefinitions="AUTO, *">
 
             <Grid Grid.RowSpan="2">
-                <Frame   BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource LisghtWhite1}}" CornerRadius="20" BorderColor="Transparent" />
+                <Frame   BackgroundColor="{StaticResource Primary}" CornerRadius="20" BorderColor="Transparent" />
                 <Grid RowDefinitions="AUTO,2,10,AUTO,AUTO,AUTO,AUTO" Margin="10,50,0,20">
                     <Label Text="Verification Steps" FontSize="13"/>
                     <Frame BackgroundColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}" Grid.Row="1" BorderColor="Transparent" Margin="0,0,10,0"/>
@@ -29,14 +29,14 @@
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid ColumnDefinitions="30,10,*" BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource LightWhite1}}">
+            <Grid ColumnDefinitions="30,10,*" BackgroundColor="{StaticResource Primary}">
                 <Button BackgroundColor="Transparent" Grid.ColumnSpan="2" Margin="0,10,0,0"/>
                 <Image Source="leftarrowwhite.png" Aspect="AspectFit" Margin="10,10,0,0"/>
                 <Label Text="Requirments Verification" Grid.ColumnSpan="3" FontSize="15" HorizontalOptions="Center" Margin="0,10,0,0" FontAttributes="Bold"/>
             </Grid>
         </Grid>
         <ScrollView Grid.Row="1" Margin="0,0,0,0">
-            <Grid RowDefinitions="150,150,150,150,200" Margin="10" RowSpacing="20">
+            <Grid RowDefinitions="150,150,150,150,30" Margin="10" RowSpacing="20">
                 <Grid>
 
                     <Grid RowDefinitions="30,*" >
