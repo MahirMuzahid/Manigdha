@@ -10,70 +10,144 @@
             <Label Text="Review Information" Grid.ColumnSpan="3" FontSize="15" HorizontalOptions="Center" Margin="0,10,0,0" FontAttributes="Bold"/>
         </Grid>
         <ScrollView Grid.Row="1" Margin="0,20,0,0">
-            <Grid RowDefinitions="AUTO,AUTO,*" >
-                <Grid RowDefinitions="AUTO,2, AUTO" Margin="10,0,0,0">
-                    <Label Text="Product Information" HorizontalOptions="Start" FontSize="12"/>
+            <Grid RowDefinitions="AUTO,AUTO,AUTO,80,20,*"  Margin="10,0,10,0">
+                <Grid RowDefinitions="20,2, AUTO" Margin="10,0,0,0">
+                    <Grid ColumnDefinitions="AUTO,*,30">
+                        <Label Text="Product Information" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold"/>
+                        <Button Grid.Column="2" BackgroundColor="Transparent" CornerRadius="5"/>
+                        <Image Source="edit.png" Grid.Column="2" HorizontalOptions="Center" Aspect="AspectFit" Margin="3"/>
+                    </Grid>
                     <Frame BackgroundColor="White" Grid.Row="1" BorderColor="Transparent" HasShadow="False"/>
-                    <Grid Grid.Row="2" RowDefinitions="AUTO,AUTO,AUTO,AUTO,AUTO,AUTO" Margin="10,10,0,0">
-                        <Label FontSize="12">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Title: " TextColor="#90ffffff"/>
-                                    <Span Text="This will the title of product" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="12" Grid.Row="1">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Description: " TextColor="#90ffffff"/>
-                                    <Span Text="This will the description of product" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="12" Grid.Row="2">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Description: " TextColor="#90ffffff"/>
-                                    <Span Text="This will the description of product" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="12" Grid.Row="3">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Description: " TextColor="#90ffffff"/>
-                                    <Span Text="This will the description of product" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="12" Grid.Row="4">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Description: " TextColor="#90ffffff"/>
-                                    <Span Text="This will the description of product" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="12" Grid.Row="5">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Description: " TextColor="#90ffffff"/>
-                                    <Span Text="This will the description of product" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
+                    <Grid Grid.Row="2" RowDefinitions="AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO" Margin="10,10,0,0">
+                        <Label Text="Title" FontSize="12" TextColor="#90ffffff" />
+                        <Label Text="This will the Title of product" Grid.Row="1" FontSize="12" />
+                        <Label Text="Title" FontSize="12" Grid.Row="2"  TextColor="#90ffffff"/>
+                        <Label Text="This will the Title of product" Grid.Row="3" FontSize="12"/>
+                        <Label Text="Title" FontSize="12" Grid.Row="4"  TextColor="#90ffffff"/>
+                        <Label Text="This will the Title of product" Grid.Row="5" FontSize="12" />
+                        <Label Text="Title" FontSize="12" Grid.Row="6"  TextColor="#90ffffff"/>
+                        <Label Text="This will the Title of product" Grid.Row="7" FontSize="12" />
+                       
+                        
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="1" RowDefinitions="AUTO,2, AUTO" Margin="10,20,0,0">
-                    <Label Text="Image Verification" HorizontalOptions="Start" FontSize="12"/>
+                <Grid Grid.Row="1" RowDefinitions="20,2, AUTO" Margin="10,20,0,0">
+                    <Grid ColumnDefinitions="AUTO,*,30">
+                        <Label Text="Image" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold"/>
+                        <Button Grid.Column="2" BackgroundColor="Transparent" CornerRadius="5"/>
+                        <Image Source="edit.png" Grid.Column="2" HorizontalOptions="Center" Aspect="AspectFit" Margin="3"/>
+                    </Grid>
+                    
                     <Frame BackgroundColor="White" Grid.Row="1" BorderColor="Transparent" HasShadow="False"/>
-                    <Grid Grid.Row="2" RowDefinitions="200,AUTO,AUTO,AUTO,AUTO,AUTO" Margin="10,10,0,0">
-                        <Grid RowDefinitions="AUTO,*">
-                            <Frame BackgroundColor="Transparent" BorderColor="White" />
+                    <Grid Grid.Row="2" RowDefinitions="150,150" Margin="10,10,0,0" ColumnDefinitions="*,*">
+                        <Grid RowDefinitions="AUTO,*" >
+                            <Frame BackgroundColor="Transparent" Grid.RowSpan="2" BorderColor="Transparent" />
+                            <Grid Grid.Row="1" RowDefinitions="*,AUTO">
+                                
+                                <Image Source="product.jpg"
+                                       Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"
+                                       Aspect="AspectFit" Margin="10"/>
+                                <Grid Grid.Row="1" RowDefinitions="AUTO,*">
+                                    <Label Text="Front Side Image" Grid.Row="0" 
+                                       HorizontalOptions="Center" FontSize="12" Margin="0,10,10,0"/>
+                                   
+                                </Grid>
+                               
+                            </Grid>
+                            
+                        </Grid>
+                        <Grid RowDefinitions="AUTO,*" Grid.Column="1" >
+                            <Frame BackgroundColor="Transparent" Grid.RowSpan="2" BorderColor="Transparent" />
+                            <Grid Grid.Row="1" RowDefinitions="*,AUTO">
+
+                                <Image Source="product.jpg"
+                                       Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"
+                                       Aspect="AspectFit" Margin="10"/>
+                                <Grid Grid.Row="1" RowDefinitions="AUTO,*">
+                                    <Label Text="Front Side Image" Grid.Row="0" 
+                                       HorizontalOptions="Center" FontSize="12" Margin="0,10,10,0"/>
+                                   
+                                </Grid>
+
+                            </Grid>
 
                         </Grid>
+                        <Grid RowDefinitions="AUTO,*" Grid.Row="1" Grid.Column="0" >
+                            <Frame BackgroundColor="Transparent" Grid.RowSpan="2" BorderColor="Transparent" />
+                            <Grid Grid.Row="1" RowDefinitions="*,AUTO">
+
+                                <Image Source="product.jpg"
+                                       Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"
+                                       Aspect="AspectFit" Margin="10"/>
+                                <Grid Grid.Row="1" RowDefinitions="AUTO,*">
+                                    <Label Text="Front Side Image" Grid.Row="0" 
+                                       HorizontalOptions="Center" FontSize="12" Margin="0,10,10,0"/>
+                                  
+                                </Grid>
+
+                            </Grid>
+
+                        </Grid>
+                        <Grid RowDefinitions="AUTO,*" Grid.Row="1" Grid.Column="1" >
+                            <Frame BackgroundColor="Transparent" Grid.RowSpan="2" BorderColor="Transparent" />
+                            <Grid Grid.Row="1" RowDefinitions="*,AUTO">
+
+                                <Image Source="product.jpg"
+                                       Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"
+                                       Aspect="AspectFit" Margin="10"/>
+                                <Grid Grid.Row="1" RowDefinitions="AUTO,*">
+                                    <Label Text="Front Side Image" Grid.Row="0" 
+                                       HorizontalOptions="Center" FontSize="12" Margin="0,10,10,0"/>
+                                    
+                                </Grid>
+
+                            </Grid>
+
+                        </Grid>
+
                     </Grid>
+                </Grid>
+                <Grid Grid.Row="2" RowDefinitions="20,2, AUTO" Margin="10,30,0,0">
+                    <Grid ColumnDefinitions="AUTO,*,30">
+                        <Label Text="Requirments Verification" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold"/>
+                        <Button Grid.Column="2" BackgroundColor="Transparent" CornerRadius="5"/>
+                        <Image Source="edit.png" Grid.Column="2" HorizontalOptions="Center" Aspect="AspectFit" Margin="3"/>
+                    </Grid>
+                    <Frame BackgroundColor="White" Grid.Row="1" BorderColor="Transparent" HasShadow="False"/>
+                    <Grid Grid.Row="2" RowDefinitions="AUTO,AUTO,AUTO,AUTO" Margin="0,10,0,0" RowSpacing="10">
+                        <Grid ColumnDefinitions="*,25">
+                            <Frame BackgroundColor="{StaticResource Gray900}" CornerRadius="10" Grid.ColumnSpan="2"/>
+                            <Image Source="verified.svg" Grid.Column="1" Margin="0,0,10,0"/>
+                            <Label Text="Verification 1" FontSize="12" VerticalOptions="Center" Margin="10,0,0,0"/>
+                        </Grid>
+                        <Grid ColumnDefinitions="*,25" Grid.Row="1">
+                            <Frame BackgroundColor="{StaticResource Gray900}" CornerRadius="10" Grid.ColumnSpan="2"/>
+                            <Image Source="verified.svg" Grid.Column="1" Margin="0,0,10,0"/>
+                            <Label Text="Verification 1" FontSize="12" VerticalOptions="Center" Margin="10,0,0,0"/>
+                        </Grid>
+                        <Grid ColumnDefinitions="*,25" Grid.Row="2">
+                            <Frame BackgroundColor="{StaticResource Gray900}" CornerRadius="10" Grid.ColumnSpan="2"/>
+                            <Image Source="verified.svg" Grid.Column="1" Margin="0,0,10,0"/>
+                            <Label Text="Verification 1" FontSize="12" VerticalOptions="Center" Margin="10,0,0,0"/>
+                        </Grid>
+                        <Grid ColumnDefinitions="*,25" Grid.Row="3">
+                            <Frame BackgroundColor="{StaticResource Gray900}" CornerRadius="10" Grid.ColumnSpan="2"/>
+                            <Image Source="verified.svg" Grid.Column="1" Margin="0,0,10,0"/>
+                            <Label Text="Verification 1" FontSize="12" VerticalOptions="Center" Margin="10,0,0,0"/>
+                        </Grid>
+
+
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="3" RowDefinitions="20,*" ColumnDefinitions="AUTO,*" Margin="10,20,0,0">
+                    <CheckBox HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="You accept all terms and conditions" 
+                           Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                           FontSize="12"/>
+                    <Grid Grid.ColumnSpan="2" Grid.Row="1" ColumnDefinitions="*,3*,*" Margin="0,10,0,0">
+                        <Button Text="Post This Product For Sell" Grid.Column="1" TextColor="White"  Background="{StaticResource VerificationButtonGradient}"/>
+                    </Grid>
+
                 </Grid>
             </Grid>
             

@@ -51,6 +51,7 @@
 	  <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
 	  <None Remove="Resources\Images\addproductback.jpg" />
 	  <None Remove="Resources\Images\bid.png" />
+	  <None Remove="Resources\Images\edit.png" />
 	  <None Remove="Resources\Images\eye.svg" />
 	  <None Remove="Resources\Images\infofilling.png" />
 	  <None Remove="Resources\Images\leftarrow.svg" />

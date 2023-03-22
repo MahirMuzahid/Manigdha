@@ -16,7 +16,7 @@
             </Grid>
             <Grid Grid.Row="2" ColumnDefinitions="*,200,*" >
                 <Button Text="Start Verification" Grid.Column="1" FontSize="14" FontAttributes="Bold" 
-                        Background="{StaticResource VerificationButtonGradient}" TextColor="White" Clicked="Button_Clicked">
+                        Background="{StaticResource Gray600}" TextColor="White" Clicked="Button_Clicked" CornerRadius="10">
                 </Button>
             </Grid>
 
