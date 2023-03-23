@@ -49,6 +49,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
+	  <None Remove="Resources\Images\addproduct.png" />
 	  <None Remove="Resources\Images\addproductback.jpg" />
 	  <None Remove="Resources\Images\bid.png" />
 	  <None Remove="Resources\Images\edit.png" />
@@ -77,14 +78,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ViewModel\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="1.2.0" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="View\BidHistory.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\BuyPost.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

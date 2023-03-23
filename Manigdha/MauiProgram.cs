@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using Manigdha.View;
+using Manigdha.ViewModel;
 
 namespace Manigdha;
 
@@ -16,7 +18,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("Montserrat-Bold.ttf", "MontserratBold");
             });
-
-		return builder.Build();
+		builder.Services.AddSingleton<BuyPost>();
+        builder.Services.AddSingleton<BuyPostViewModal>();
+        return builder.Build();
 	}
 }

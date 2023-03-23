@@ -1,12 +1,14 @@
 using Manigdha.Model;
+using Manigdha.ViewModel;
 
 namespace Manigdha.View;
 
 public partial class BuyPost : ContentPage
 {
-	public BuyPost()
+	public BuyPost( BuyPostViewModal vm)
 	{
 		InitializeComponent();
+		BindingContext= vm;
 		List<BuyMockList> mlist = new List<BuyMockList>()
 		{
 			 new BuyMockList(),
@@ -14,9 +16,13 @@ public partial class BuyPost : ContentPage
 			 new BuyMockList(),
 			 new BuyMockList()
 		};
-		mockList.ItemsSource = mlist;
+       
+		List<int> clist  = new List<int> { 1, 2, 3 };
+        mockList.ItemsSource = mlist;
+        //carosalMock.ItemsSource= clist;
 
-	}
+
+    }
 
 	private void Button_Clicked(object sender, EventArgs e)
 	{

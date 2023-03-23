@@ -17,4 +17,14 @@ public partial class Profile : ContentPage
         //await Shell.Current.GoToAsync(nameof(ProductPage));
         await Navigation.PushAsync(new ProductPage());
     }
+
+    private void Button_Clicked_1(object sender, EventArgs e)
+    {
+        GoToBid();
+    }
+    public async Task GoToBid()
+    {
+        //await Shell.Current.GoToAsync(nameof(ProductPage));
+        await Navigation.PushAsync(new BidHistory());
+    }
 }
