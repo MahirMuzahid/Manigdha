@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryService", "Delivery
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedModal", "SharedModal\SharedModal.csproj", "{443AA577-0983-4F3E-89C7-EB735506AAF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{8759D1B5-019E-43B4-9429-888803712C63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{443AA577-0983-4F3E-89C7-EB735506AAF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{443AA577-0983-4F3E-89C7-EB735506AAF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{443AA577-0983-4F3E-89C7-EB735506AAF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8759D1B5-019E-43B4-9429-888803712C63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8759D1B5-019E-43B4-9429-888803712C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8759D1B5-019E-43B4-9429-888803712C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8759D1B5-019E-43B4-9429-888803712C63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{8A3A5B2D-E041-44C0-AA3B-2B59102A23C5} = {D01B4CC9-BB54-4AAB-A4F7-A2981BFE740E}
 		{91A12B30-6DC5-40E2-BEE3-FA5F8F8411FC} = {D01B4CC9-BB54-4AAB-A4F7-A2981BFE740E}
 		{EDB2967C-EE2E-4101-BE6A-8587A82F0D82} = {D01B4CC9-BB54-4AAB-A4F7-A2981BFE740E}
+		{8759D1B5-019E-43B4-9429-888803712C63} = {D01B4CC9-BB54-4AAB-A4F7-A2981BFE740E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
