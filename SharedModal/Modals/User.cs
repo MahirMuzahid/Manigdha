@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +18,12 @@ namespace SharedModal.Modals
         public bool IsPhoneVerified { get; set; }
         public string? ImageUrl { get; set;}
         public string? NIDNumber { get; set;}
-        public City? City { get; set; }
-        public Division? Division { get; set; }
         public string? StreetAddressOne { get; set; }
         public string? StreetAddressTwo { get; set; }
 
-    
+        [ForeignKey("City")]
+        public City? City { get; set; }
+
+
     }
 }
