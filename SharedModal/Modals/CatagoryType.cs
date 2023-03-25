@@ -13,7 +13,7 @@ namespace SharedModal.Modals
         public string? Name { get; set; }
 
 
-        [ForeignKey("ProductCatagory")]
+        [ForeignKey("ProductCatagory")] 
         public int? ProductCatagoryID { get; set; }
         public ProductCatagory? ProductCatagory { get; set; }
     }
