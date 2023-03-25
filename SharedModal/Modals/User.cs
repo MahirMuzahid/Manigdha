@@ -22,6 +22,7 @@ namespace SharedModal.Modals
         public string? StreetAddressTwo { get; set; }
 
         [ForeignKey("City")]
+        public int CityID { get; set; }
         public City? City { get; set; }
 
 

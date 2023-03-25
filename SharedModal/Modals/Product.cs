@@ -22,6 +22,7 @@ namespace SharedModal.Modals
         public int UserID { get; set;}
         public User? User { get; set; }
 
+
         [ForeignKey("CatagoryType")]
         public int CatagoryTypeID { get; set; }
         public CatagoryType? CatagoryType { get; set; }
