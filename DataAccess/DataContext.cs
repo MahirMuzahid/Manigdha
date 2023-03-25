@@ -15,15 +15,15 @@ namespace DataAccess
         {
         }
 
-        DbSet<User> Users { get; set; }
-        DbSet<BidHistory> BidHistories { get; set; }
-        DbSet<CatagoryType> CatagoryTypes { get; set; }
-        DbSet<City> Cities { get; set; }
-        DbSet<Division> Divisions { get; set; }
-        DbSet<Payment> Payments { get; set; }
-        DbSet<PaymentType> PaymentTypes { get; set; }
-        DbSet<Product> Products { get; set; }
-        DbSet<ProductCatagory> ProductCatagories { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<BidHistory> BidHistories { get; set; }
+        public DbSet<CatagoryType> CatagoryTypes { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Division> Divisions { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<PaymentType> PaymentTypes { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCatagory> ProductCatagories { get; set; }
 
 
 
