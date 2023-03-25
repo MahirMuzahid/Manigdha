@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace SharedModal.Modals
 {
-    public class City
+    public class CatagoryType
     {
-        public int CityID { get; set; }
+        public int CatagoryTypeID { get; set; }
         public string? Name { get; set; }
 
 
-        [ForeignKey("Division")]
-        public int? DivisionID { get; set; }
-        public Division? Division { get; set; }
+        [ForeignKey("ProductCatagory")]
+        public int? ProductCatagoryID { get; set; }
+        public ProductCatagory? ProductCatagory { get; set; }
     }
 }

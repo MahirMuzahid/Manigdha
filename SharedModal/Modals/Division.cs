@@ -8,5 +8,8 @@ namespace SharedModal.Modals
 {
     public class Division
     {
+        public int DivisionID { get; set; }
+        public string? DivisionName { get; set; }
+        public ICollection<City>? Cities { get; set; }
     }
 }
