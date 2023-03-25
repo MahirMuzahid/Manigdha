@@ -7,15 +7,11 @@ namespace UserService.Service
     public class Query
     {
         [UseProjection]
-        public IQueryable<Division> GetDivision([Service] DataContext _context)
+        public async Task<List<SharedModal.Modals.User>> GetUser([Service] DataContext _context)
         {
-            var a = _context.Divisions?.AsQueryable();
-            return a;
+            return  await _context.Users.Include(u => u.City).ToListAsync();          
         }
 
-        public string Hello()
-        {
-            return "Hello, world!";
-        }
+
     }
 }

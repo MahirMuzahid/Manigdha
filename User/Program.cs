@@ -6,7 +6,7 @@ using UserService.Service;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddGraphQLServer().AddQueryType<Query>().AddMutationType<Mutation>().AddProjections().AddSorting();
+builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddSorting();
 builder.Services.AddControllers();
 
 
