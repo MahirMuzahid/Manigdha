@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace SharedModal.DTO
 {
-    public class UserDTO
+    public class UserLoginDTO
     {
-        public string? Name { get; set; }
+        public string? LoginInfo { get; set; }
         public string? Password { get; set; }
-        public string? Email { get; set; }
-        public string? PhoneNumber { get; set; }
-        public int CityID { get; set; }
     }
 }

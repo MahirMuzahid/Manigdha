@@ -14,19 +14,19 @@ namespace SharedModal.Modals
         public string? Password { get; set; }
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
-        public bool IsEmailVerified { get; set; }
-        public bool IsPhoneVerified { get; set; }
-        public string? ImageUrl { get; set;}
-        public string? NIDNumber { get; set;}
-        public string? StreetAddressOne { get; set; }
-        public string? StreetAddressTwo { get; set; }
+        public bool IsEmailVerified { get; set; } = false;
+        public bool IsPhoneVerified { get; set; } = false;
+        public string? ImageUrl { get; set;} = string.Empty;
+        public string? NIDNumber { get; set; } = string.Empty;
+        public string? StreetAddressOne { get; set; } = string.Empty;
+        public string? StreetAddressTwo { get; set; } = string.Empty;
 
         [ForeignKey("City")]
         public int CityID { get; set; }
         public City? City { get; set; }
 
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+        public byte[]? PasswordHash { get; set; }
+        public byte[]? PasswordSalt { get; set; }
         public string RefreshToken { get; set; } = string.Empty;
         public DateTime TokenCreated { get; set; }
         public DateTime TokenExpires { get; set; }
