@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService", "PaymentSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeliveryService", "DeliveryService\DeliveryService.csproj", "{EDB2967C-EE2E-4101-BE6A-8587A82F0D82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedModal", "SharedModal\SharedModal.csproj", "{443AA577-0983-4F3E-89C7-EB735506AAF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedModal", "SharedModal\SharedModal.csproj", "{443AA577-0983-4F3E-89C7-EB735506AAF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{8759D1B5-019E-43B4-9429-888803712C63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{8759D1B5-019E-43B4-9429-888803712C63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manigdha_Integration_Test", "Manigdha_Integration_Test\Manigdha_Integration_Test.csproj", "{AE2903B6-DA07-4A62-B783-0469D5E890AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{8759D1B5-019E-43B4-9429-888803712C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8759D1B5-019E-43B4-9429-888803712C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8759D1B5-019E-43B4-9429-888803712C63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE2903B6-DA07-4A62-B783-0469D5E890AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE2903B6-DA07-4A62-B783-0469D5E890AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE2903B6-DA07-4A62-B783-0469D5E890AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE2903B6-DA07-4A62-B783-0469D5E890AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

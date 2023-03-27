@@ -54,3 +54,4 @@ app.MapControllers();
 app.MapGraphQL("/graphql");
 
 app.Run();
+public partial class Program { }

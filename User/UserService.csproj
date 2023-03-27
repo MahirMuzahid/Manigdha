@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
+	  <PreserveCompilationContext>true</PreserveCompilationContext>
+	  <DisableShadowCopy>true</DisableShadowCopy>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
