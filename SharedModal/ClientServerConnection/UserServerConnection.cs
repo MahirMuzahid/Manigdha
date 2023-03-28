@@ -11,9 +11,9 @@ using System.Net;
 
 namespace SharedModal.ClientServerConnection
 {
-    public class UserServcerConnection : IUserServerConnection
+    public class UserServerConnection : IUserServerConnection
     {
-        public async Task<(int UserID, byte[] PasswordHsh, byte[] PasswordSault, string refreshToken, HttpStatusCode ResponseCode)> RegisterAndGetUser(string query, HttpClient client)
+        public async Task<(int, byte[] , byte[] , string , HttpStatusCode )> RegisterAndGetUser(string query, HttpClient client)
         {
             if (query == null || client == null) { return (0, new byte[0], new byte[0], string.Empty,0); }
 
@@ -27,10 +27,10 @@ namespace SharedModal.ClientServerConnection
                 return (0, new byte[0], new byte[0], string.Empty, response.StatusCode);
             }
 
-            return (result.UserID, result.PasswordHash, result.PasswordSalt, result.RefreshToken, response.StatusCode);
+            return (result :result.UserID, PasswordHash: result.PasswordHash, PasswordSalt: result.PasswordSalt, RefreshToken: result.RefreshToken, StatusCode: response.StatusCode);
         }
 
-        public async Task<(int UserID, string Password, byte[] PasswordHsh, byte[] PasswordSault, string refreshToken, DateTime TokenCreated, DateTime TokenExpires)> RegisterAndGetUser(string query)
+        public async Task<(int , string , byte[] , byte[] , string , DateTime , DateTime )> RegisterAndGetUser(string query)
         {
             if (query == null) { return (0, string.Empty, new byte[0], new byte[0], string.Empty , DateTime.Now,DateTime.Now); }
 
@@ -44,7 +44,8 @@ namespace SharedModal.ClientServerConnection
                 return (0, string.Empty, new byte[0], new byte[0], string.Empty, DateTime.Now, DateTime.Now);
             }
 
-            return (result.UserID, result.Password, result.PasswordHash, result.PasswordSalt, result.RefreshToken, result.TokenCreated, result.TokenExpires);
+            return (result.UserID, Password: result.Password, PasswordHash: result.PasswordHash, 
+                PasswordSalt:result.PasswordSalt, RefreshToken:result.RefreshToken, TokenCreated: result.TokenCreated, TokenExpires:result.TokenExpires);
         }
 
        

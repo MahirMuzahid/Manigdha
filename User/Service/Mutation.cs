@@ -21,9 +21,9 @@ namespace UserService.Service
             _map = map;
             _userLoginService = userLoginService;
         }
-        public async Task<SharedModal.Modals.User> Register([Service] DataContext _context, UserDTO studentDto)
+        public async Task<SharedModal.Modals.User> Register([Service] DataContext _context, UserDTO userDTO)
         {
-            var obj = _map.Map<SharedModal.Modals.User>(studentDto);
+            var obj = _map.Map<SharedModal.Modals.User>(userDTO);
             try
             {
                 var userRegService = new UserRegistrationService();

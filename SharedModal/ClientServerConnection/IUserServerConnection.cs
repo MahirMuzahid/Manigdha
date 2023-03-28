@@ -12,7 +12,7 @@ namespace SharedModal.ClientServerConnection
 {
     public interface IUserServerConnection
     {
-        public Task<(int UserID, byte[] PasswordHsh, byte[] PasswordSault, string RefreshToken, HttpStatusCode ResponseCode)> RegisterAndGetUser(string query, HttpClient client);
-        public Task<(int UserID, string Password, byte[] PasswordHsh, byte[] PasswordSault, string RefreshToken, DateTime TokenCreated, DateTime TokenExpires)> RegisterAndGetUser(string query);
+        public Task<(int UserID, byte[] PasswordHash, byte[] PasswordSalt, string RefreshToken, HttpStatusCode ResponseCode)> RegisterAndGetUser(string query, HttpClient client);
+        public Task<(int UserID, string Password, byte[] PasswordHash, byte[] PasswordSalt, string RefreshToken, DateTime TokenCreated, DateTime TokenExpires)> RegisterAndGetUser(string query);
     }
 }

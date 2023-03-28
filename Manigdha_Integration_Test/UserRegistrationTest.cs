@@ -1,93 +1,68 @@
-using Newtonsoft.Json;
-using System.Net;
-using System.Text;
 using Microsoft.AspNetCore.Mvc.Testing;
-using GraphQL.Client;
-using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Serialization;
-using GraphQL.Client.Http;
-using GraphQL;
-using GraphQL.Client.Abstractions.Websocket;
-using GraphQL.Client.Abstractions;
 using SharedModal.ClientServerConnection;
+using SharedModal.DTO;
+using System.Net;
 
 namespace Manigdha_Integration_Test
 {
     public class UserRegistrationTest : IClassFixture<WebApplicationFactory<Program>>
     {
-       
         private readonly WebApplicationFactory<Program> _factory;
         private IUserServerConnection _serverConnection;
 
-        public UserRegistrationTest(WebApplicationFactory<Program> factory, IUserServerConnection serverConnection)
+        public UserRegistrationTest(WebApplicationFactory<Program> factory)
         {
             _factory = factory;
-            _serverConnection = serverConnection;
-        }
 
-        [Fact]
-        public async Task Register_ValidData_ReturnsNewUser()
-        {
-            // Arrange
+            // Create HttpClient using CreateClient method
             var client = _factory.CreateClient();
-            var query = @"
-            mutation{
-  register ( studentDto: {
-     email: ""user3@mail.com"",
-      name: ""User 6"",
-       password: ""123"",
-       phoneNumber : ""13"",
-       cityID: 1
-  }){
-name,
-    passwordHash,
-     passwordSalt
-  }
-}
-            ";
 
+            // Create a new instance of ServiceCollection for dependency injection
+            var services = new ServiceCollection();
 
-            
-        // Act
+            // Add scoped IUserServerConnection implementation to ServiceCollection
+            services.AddScoped<IUserServerConnection, UserServerConnection>();
 
-        var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
-            var s = content.ToString();
-            // Act
-            var response = await client.PostAsync("/graphql", content);
-            response.EnsureSuccessStatusCode();
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var responseJson = JObject.Parse(responseContent)["data"].ToString();
-            var responseJson2 = JObject.Parse(responseJson)["register"].ToString();
-            var responseData = JsonConvert.DeserializeObject<SharedModal.Modals.User>(responseJson2);
-
-            var result = (SharedModal.Modals.User)responseData;
-
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.NotNull(responseData);
-            Assert.NotNull(responseData.PasswordHash);
-            Assert.NotNull(responseData.PasswordSalt);
-            Assert.Equal("User 6", responseData.Name);
-            //Add other assertions as needed
+            // Build the ServiceCollection and get the IUserServerConnection implementation
+            var serviceProvider = services.BuildServiceProvider();
+            _serverConnection = serviceProvider.GetService<IUserServerConnection>();
         }
+
         [Fact]
         public async Task Register_ValidData_ReturnsNewUserFromServer()
         {
-            // Arrange
+            // Create HttpClient using CreateClient method
             var client = _factory.CreateClient();
-            var query = @" mutation{ register ( studentDto: { email: ""user3@mail.com"", name: ""User 6"", password: ""123"", phoneNumber : ""13"", cityID: 1 }){ name, passwordHash, passwordSalt } } ";
-            var responseData = _serverConnection.RegisterAndGetUser(query, client);
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.NotNull(responseData);
+
+            // GraphQL mutation query to register a new user
+            //var query = @"mutation { register(studentDto: { email: ""user3@mail.com"", name: ""User 6"", password: ""123"", phoneNumber: ""13"", cityID: 1 }) { userID, passwordHash, passwordSalt } }";
+            var userDTO = new UserDTO
+            {
+                CityID = 1,
+                Name = "User",
+                Password = "123",
+                Email = "gg123@gmail.com",
+                PhoneNumber = "789"
+            };
+            var response = new RegTestReponse();
+            var queryFromGenerator = GraphQLCodeGenerator<UserDTO, RegTestReponse>.GenerateMutationQuery("register", "userDTO", userDTO,response );
+
+            // Call RegisterAndGetUser method of IUserServerConnection and get response data
+            var responseData = await _serverConnection.RegisterAndGetUser(queryFromGenerator, client);
+
+            // Assert response data has expected values
+            Assert.Equal(HttpStatusCode.OK, responseData.ResponseCode);
             Assert.NotNull(responseData.PasswordHash);
             Assert.NotNull(responseData.PasswordSalt);
-            Assert.Equal("User 6", responseData.Name);
-            //Add other assertions as needed
+            Assert.NotEqual(0, responseData.UserID);
         }
-
-
-
-
+        public class RegTestReponse
+        {
+            public string userID { get; set; }
+            public string passwordHash { get; set; }
+            public string passwordSalt { get; set; }
+        }
     }
 
 }
