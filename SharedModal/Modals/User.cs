@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace SharedModal.Modals
     public class User
     { 
         public int UserID { get; set; }
+        [JsonProperty("Name")]
         public string? Name { get; set; }
         public string? Password { get; set; }
         public string? Email { get; set; }
