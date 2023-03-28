@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SharedModal.DTO;
 using SharedModal.Modals;
+using SharedModal.ReponseModal;
 using System.IdentityModel.Tokens.Jwt;
 using System.Numerics;
 using System.Runtime.Intrinsics.Arm;
@@ -57,20 +58,19 @@ namespace UserService.Service
                 var result = _userLoginService.Login(user);
                 return result;
             }
-            return new SharedModal.ReponseModal.Response("User Not Found", 404);
-
+            return new SharedModal.ReponseModal.Response("User Not Found",  System.Net.HttpStatusCode.NotFound);
            
         }
 
-        public SharedModal.Modals.User test ([Service] DataContext _context, string a)
+        public async SharedModal.ReponseModal.Response DeleteUser([Service] DataContext _context, int userID)
         {
-            return new SharedModal.Modals.User() { Name = a};
+            if (userID > 0)
+            {
+                var user = await _context.Users.Include(u => u.City).FirstOrDefaultAsync(u => u.UserID == userID);
+                if (user == null) { return new SharedModal.ReponseModal.Response("User doen't exits", System.Net.HttpStatusCode.NotFound); }
+                _context.Users.Remove(user);
+                return new SharedModal.ReponseModal.Response("User Deleted ", System.Net.HttpStatusCode.OK);
+            }
         }
-
-
-
-
-
-
     }
 }

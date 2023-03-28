@@ -16,9 +16,9 @@ namespace UserService.Service
         }
         [Authorize(Roles = new string[] { "User" })]
         [UseProjection]
-        public async Task<SharedModal.Modals.User> GetUserByID([Service] DataContext _context, int UserID)
+        public async Task<SharedModal.Modals.User> GetUserByID([Service] DataContext _context, int userID)
         {
-            var result = await _context.Users.Include(u => u.City).FirstOrDefaultAsync(u => u.UserID == UserID);
+            var result = await _context.Users.Include(u => u.City).FirstOrDefaultAsync(u => u.UserID == userID);
 
             if (result == null) { return new SharedModal.Modals.User(); }
             return result;

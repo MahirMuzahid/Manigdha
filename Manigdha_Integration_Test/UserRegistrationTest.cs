@@ -46,10 +46,10 @@ namespace Manigdha_Integration_Test
                 PhoneNumber = "789"
             };
             var response = new RegTestReponse();
-            var queryFromGenerator = GraphQLCodeGenerator<UserDTO, RegTestReponse>.GenerateMutationQuery("register", "userDTO", userDTO,response );
+            var query = GraphQLCodeGenerator<UserDTO, RegTestReponse>.GenerateMutationQuery("register", "userDTO", userDTO,response );
 
             // Call RegisterAndGetUser method of IUserServerConnection and get response data
-            var responseData = await _serverConnection.RegisterAndGetUser(queryFromGenerator, client);
+            var responseData = await _serverConnection.RegisterAndGetUser(query, client);
 
             // Assert response data has expected values
             Assert.Equal(HttpStatusCode.OK, responseData.ResponseCode);

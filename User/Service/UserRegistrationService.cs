@@ -1,6 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using SharedModal.DTO;
 using SharedModal.Modals;
+using SharedModal.ReponseModal;
 using System.Security.Cryptography;
 
 namespace UserService.Service
@@ -41,5 +42,7 @@ namespace UserService.Service
             return user;
 
         }
+
+   
     }
 }

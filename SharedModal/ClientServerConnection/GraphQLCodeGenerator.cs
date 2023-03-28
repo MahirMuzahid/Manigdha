@@ -10,7 +10,7 @@ namespace SharedModal.ClientServerConnection
 {
     public class GraphQLCodeGenerator<Parameter, Response>
     {
-        public static string GenerateMutationQuery<Parameter, Response>(string queryName, string parameterTypeName, Parameter variables, Response returnObject)
+        public static string Parameter_Object_Return_Object<Parameter, Response>(string queryName, string parameterTypeName, Parameter variables, Response returnObject)
         {
             var sb = new StringBuilder();
             sb.Append($"mutation {{ {queryName}({parameterTypeName}: {{ ");
