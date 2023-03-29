@@ -1,6 +1,8 @@
 global using SharedModal;
 global using DataAccess;
 global using Microsoft.EntityFrameworkCore;
+global using Response = SharedModal.ReponseModal.Response;
+global using User = SharedModal.Modals.User;
 using UserService.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;

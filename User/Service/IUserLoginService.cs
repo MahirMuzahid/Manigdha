@@ -1,7 +1,9 @@
-﻿namespace UserService.Service
+﻿using SharedModal.ReponseModal;
+
+namespace UserService.Service
 {
     public interface IUserLoginService
     {
-        public SharedModal.ReponseModal.Response Login(SharedModal.Modals.User user);
+        public Response Login(SharedModal.Modals.User user);
     }
 }

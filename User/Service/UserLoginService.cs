@@ -5,6 +5,8 @@ using SharedModal.ReponseModal;
 using System.Security.Claims;
 using System.Security.Cryptography;
 
+using SharedModal.Modals;
+
 namespace UserService.Service
 {
     public class UserLoginService : IUserLoginService
@@ -48,54 +50,50 @@ namespace UserService.Service
         }
 
 
-        public SharedModal.ReponseModal.Response Login(SharedModal.Modals.User user)
+        public Response Login(SharedModal.Modals.User user)
         {
 
 
             if (user == null || !VerifyPasswordHash(user.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return new SharedModal.ReponseModal.Response("Wrong Emai/Phonenumber/Password",  System.Net.HttpStatusCode.NotAcceptable);
+                return new Response("Wrong Emai/Phonenumber/Password",  System.Net.HttpStatusCode.NotAcceptable);
             }
 
             string token = CreateToken(user);
 
 
-            return new SharedModal.ReponseModal.Response("OK", System.Net.HttpStatusCode.OK, token, user.UserID.ToString());
+            return new Response("OK", System.Net.HttpStatusCode.OK, token, user.UserID.ToString());
         }
 
-        //public async Task<Response> RefreshToken(int userID, string refreshtoken)
-        //{
+        public async Task<Response> RefreshToken(SharedModal.Modals.User player)
+        {
 
+            if (!player.RefreshToken.Equals(refreshtoken))
+            {
+                return new Response("Not Authorize", 1, "");
+            }
+            else if (player.TokenExpires < DateTime.Now)
+            {
+                return new Response("Token Expired", 2, "");
+            }
 
-        //    var player = await _playerManager.GetFirstOrDefaultAsync(x => x.Id == userID);
-
-        //    if (!player.RefreshToken.Equals(refreshtoken))
-        //    {
-        //        return new Response("Not Authorize", 1, "");
-        //    }
-        //    else if (player.TokenExpires < DateTime.Now)
-        //    {
-        //        return new Response("Token Expired", 2, "");
-        //    }
-
-        //    string token = CreateToken(player);
-        //    return new Response("Ok", 0, token);
-        //}
-        //public async Task<Response> Logout(int userID)
-        //{
-        //    var player = await _playerManager.GetFirstOrDefaultAsync(x => x.Id == userID);
-        //    player.RefreshToken = "";
-        //    player.TokenCreated = DateTime.Now;
-        //    player.TokenExpires = DateTime.Now;
-        //    try
-        //    {
-        //        await _playerManager.UpdateAsync(player);
-        //        return new Response("Logout Done", 0, "");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new Response(ex.Message, 1, "");
-        //    }
-        //}
+            string token = CreateToken(player);
+            return new Response("Ok", 0, token);
+        }
+        public async Task<Response> Logout(SharedModal.Modals.User player)
+        {
+            player.RefreshToken = "";
+            player.TokenCreated = DateTime.Now;
+            player.TokenExpires = DateTime.Now;
+            try
+            {
+                await _playerManager.UpdateAsync(player);
+                return new Response("Logout Done", 0, "");
+            }
+            catch (Exception ex)
+            {
+                return new Response(ex.Message, 1, "");
+            }
+        }
     }
 }
