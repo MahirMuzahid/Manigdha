@@ -23,7 +23,7 @@ namespace SharedModal.ClientServerConnection
             var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("/graphql", content);
             response.EnsureSuccessStatusCode();
-            var result = JsonConvert.DeserializeObject<SharedModal.Modals.User>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())["register"].ToString());
+            var result = JsonConvert.DeserializeObject<User>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())["register"].ToString());
             if(result == null)
             {
                 return (0, new byte[0], new byte[0], string.Empty, response.StatusCode);
@@ -56,7 +56,7 @@ namespace SharedModal.ClientServerConnection
             var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("/graphql", content);
             response.EnsureSuccessStatusCode();
-            var result = JsonConvert.DeserializeObject<SharedModal.ReponseModal.Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
+            var result = JsonConvert.DeserializeObject<Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
             if (result == null)
             {
                 return new Response("User Not Found", HttpStatusCode.NotFound);
@@ -70,12 +70,33 @@ namespace SharedModal.ClientServerConnection
             var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("/graphql", content);
             response.EnsureSuccessStatusCode();
-            var result = JsonConvert.DeserializeObject<SharedModal.ReponseModal.Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
+            var result = JsonConvert.DeserializeObject<Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
             if (result == null)
             {
                 return new Response("User Not Found", HttpStatusCode.NotFound);
             }
-            return new Response("User Logged In", HttpStatusCode.OK, result.ReturnString, result.ReturnStringTwo);
+            return  result;
+        }
+
+        public async Task<Response> LogoutUser(HttpClient client, string query, string queryName)
+        {
+            var response = await GetQueryResponse(client, query);
+            if (response.StatusCode == HttpStatusCode.NotFound) { return new Response("User Not Found", HttpStatusCode.NotFound); } 
+            var result = JsonConvert.DeserializeObject<Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
+            if (result == null)
+            {
+                return new Response("User Not Found", HttpStatusCode.NotFound);
+            }
+            return new Response("User Loged Out", HttpStatusCode.OK);
+        }
+
+        public async Task<HttpResponseMessage> GetQueryResponse(HttpClient client, string query)
+        {
+            if (query == null) { return new HttpResponseMessage() {  StatusCode = HttpStatusCode.NotFound}; }
+            var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("/graphql", content);
+            response.EnsureSuccessStatusCode();
+            return response;
         }
     }
 }

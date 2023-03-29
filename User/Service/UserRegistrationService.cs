@@ -26,6 +26,9 @@ namespace UserService.Service
                     CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
                     user.PasswordHash = passwordHash;
                     user.PasswordSalt = passwordSalt;
+                    user.RefreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+                    user.TokenCreated = DateTime.Now;
+                    user.TokenExpires = DateTime.Now.AddDays(7);
                 }
                 else
                 {

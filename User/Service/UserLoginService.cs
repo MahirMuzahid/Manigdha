@@ -6,6 +6,11 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 
 using SharedModal.Modals;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System;
 
 namespace UserService.Service
 {
@@ -33,7 +38,7 @@ namespace UserService.Service
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddDays(1),
+                expires: DateTime.Now.AddMinutes(15),
                 signingCredentials: cred
                 );
 
@@ -65,35 +70,22 @@ namespace UserService.Service
             return new Response("OK", System.Net.HttpStatusCode.OK, token, user.UserID.ToString());
         }
 
-        public async Task<Response> RefreshToken(SharedModal.Modals.User player)
+        public  Response RefreshToken(SharedModal.Modals.User user, string refreshtoken)
         {
 
-            if (!player.RefreshToken.Equals(refreshtoken))
+            if (!user.RefreshToken.Equals(refreshtoken))
             {
-                return new Response("Not Authorize", 1, "");
+                return new Response(System.Net.HttpStatusCode.NetworkAuthenticationRequired);
             }
-            else if (player.TokenExpires < DateTime.Now)
+            else if (user.TokenExpires < DateTime.Now)
             {
-                return new Response("Token Expired", 2, "");
+                return new Response(System.Net.HttpStatusCode.RequestTimeout);
             }
 
-            string token = CreateToken(player);
-            return new Response("Ok", 0, token);
+            string token = CreateToken(user);
+            return new Response("Ok", System.Net.HttpStatusCode.OK, token);
         }
-        public async Task<Response> Logout(SharedModal.Modals.User player)
-        {
-            player.RefreshToken = "";
-            player.TokenCreated = DateTime.Now;
-            player.TokenExpires = DateTime.Now;
-            try
-            {
-                await _playerManager.UpdateAsync(player);
-                return new Response("Logout Done", 0, "");
-            }
-            catch (Exception ex)
-            {
-                return new Response(ex.Message, 1, "");
-            }
-        }
+
+       
     }
-}
+    }

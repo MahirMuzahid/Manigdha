@@ -11,7 +11,7 @@ namespace Manigdha_Integration_Test
     {
         private readonly WebApplicationFactory<Program> _factory;
         private IUserServerConnection _serverConnection;
-        private int dltID = 1;
+        private int dltID = 8;
 
         public UserRegistrationTest(WebApplicationFactory<Program> factory)
         {
@@ -58,22 +58,15 @@ namespace Manigdha_Integration_Test
             Assert.NotNull(responseData.PasswordSalt);
             Assert.NotEqual(0, responseData.UserID);
             dltID = responseData.UserID;
-            await UserID_DeleteFromDatabase_Reponse();
+            //await UserID_DeleteFromDatabase_Reponse();
         }
-
-        public class RegTestReponse
-        {
-            public string userID { get; set; }
-            public string passwordHash { get; set; }
-            public string passwordSalt { get; set; }
-        }
-
+        
         [Fact]
         public async Task UserID_DeleteFromDatabase_Reponse()
         {
             var client = _factory.CreateClient();
 
-            var response = new SharedModal.ReponseModal.Response();
+            var response = new Response();
             var query = GraphQLCodeGenerator<int, Response>.Parameter_Single_Return_Object("deleteUser", "userID", dltID, response);
 
             // Call RegisterAndGetUser method of IUserServerConnection and get response data
@@ -113,6 +106,30 @@ namespace Manigdha_Integration_Test
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
             Assert.NotNull(responseData.ReturnString);
             Assert.NotNull(responseData.ReturnStringTwo);
+            Assert.NotNull(responseData.ReturnStringThree);
+        }
+
+        [Fact]
+        public async Task UserLogout_ReturnOK()
+        {
+            var client = _factory.CreateClient();
+            var response = new Response();
+            var query = GraphQLCodeGenerator<int, Response>.Parameter_Single_Return_Object("logout", "userID", dltID, response);
+
+            // Call RegisterAndGetUser method of IUserServerConnection and get response data
+            var responseData = await _serverConnection.LogoutUser(client, query, "logout");
+
+            // Assert response data has expected values
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+
+
+        public class RegTestReponse
+        {
+            public string userID { get; set; }
+            public string passwordHash { get; set; }
+            public string passwordSalt { get; set; }
         }
     }
 }

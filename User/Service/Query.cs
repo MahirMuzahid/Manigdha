@@ -14,6 +14,7 @@ namespace UserService.Service
         {
             return  await _context.Users.Include(u => u.City).ToListAsync();          
         }
+
         [Authorize(Roles = new string[] { "User" })]
         [UseProjection]
         public async Task<SharedModal.Modals.User> GetUserByID([Service] DataContext _context, int userID)
@@ -22,8 +23,8 @@ namespace UserService.Service
 
             if (result == null) { return new SharedModal.Modals.User(); }
             return result;
-
-
         }
+
+
     }
 }

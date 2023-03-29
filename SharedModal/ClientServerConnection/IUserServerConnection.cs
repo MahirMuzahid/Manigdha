@@ -19,6 +19,8 @@ namespace SharedModal.ClientServerConnection
 
         public Task<Response> LoginUser(HttpClient client, string query, string queryName);
 
+        public Task<Response> LogoutUser(HttpClient client, string query, string queryName);
+
 
     }
 }
