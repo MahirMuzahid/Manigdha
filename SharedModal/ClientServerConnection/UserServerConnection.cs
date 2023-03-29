@@ -17,7 +17,7 @@ namespace SharedModal.ClientServerConnection
     {
         public async Task<(int, byte[] , byte[] , string , HttpStatusCode )> RegisterAndGetUser( HttpClient client, string query)
         {
-            if (query == null || client == null) { return (0, new byte[0], new byte[0], string.Empty,0); }
+            if (query == null || client == null) { return (0, Array.Empty<byte>(), Array.Empty<byte>(), string.Empty,0); }
 
 
             var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
@@ -26,15 +26,15 @@ namespace SharedModal.ClientServerConnection
             var result = JsonConvert.DeserializeObject<User>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())["register"].ToString());
             if(result == null)
             {
-                return (0, new byte[0], new byte[0], string.Empty, response.StatusCode);
+                return (0, Array.Empty<byte>(), Array.Empty<byte>(), string.Empty, response.StatusCode);
             }
 
-            return (result :result.UserID, PasswordHash: result.PasswordHash, PasswordSalt: result.PasswordSalt, RefreshToken: result.RefreshToken, StatusCode: response.StatusCode);
+            return (result :result.UserID, result.PasswordHash, result.PasswordSalt, result.RefreshToken, response.StatusCode);
         }
 
         public async Task<(int , string , byte[] , byte[] , string , DateTime , DateTime )> RegisterAndGetUser(string query)
         {
-            if (query == null) { return (0, string.Empty, new byte[0], new byte[0], string.Empty , DateTime.Now,DateTime.Now); }
+            if (query == null) { return (0, string.Empty, Array.Empty<byte>(), Array.Empty<byte>(), string.Empty , DateTime.Now,DateTime.Now); }
 
             var client = new HttpClient();
             var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
@@ -43,11 +43,10 @@ namespace SharedModal.ClientServerConnection
             var result = JsonConvert.DeserializeObject<SharedModal.Modals.User>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())["register"].ToString());
             if (result == null)
             {
-                return (0, string.Empty, new byte[0], new byte[0], string.Empty, DateTime.Now, DateTime.Now);
+                return (0, string.Empty, Array.Empty<byte>(), Array.Empty<byte>(), string.Empty, DateTime.Now, DateTime.Now);
             }
 
-            return (result.UserID, Password: result.Password, PasswordHash: result.PasswordHash, 
-                PasswordSalt:result.PasswordSalt, RefreshToken:result.RefreshToken, TokenCreated: result.TokenCreated, TokenExpires:result.TokenExpires);
+            return (result.UserID, result.Password, result.PasswordHash, result.PasswordSalt, result.RefreshToken, result.TokenCreated, result.TokenExpires);
         }
 
         public async Task<Response> DeleteUser(HttpClient client, string query, string queryName)
@@ -89,8 +88,19 @@ namespace SharedModal.ClientServerConnection
             }
             return new Response("User Loged Out", HttpStatusCode.OK);
         }
+        public async Task<Response> RefreshToken(HttpClient client, string query, string queryName)
+        {
+            var response = await GetQueryResponse(client, query);
+            if (response.StatusCode == HttpStatusCode.NotFound) { return new Response("Invalid Token", HttpStatusCode.NotFound); }
+            var result = JsonConvert.DeserializeObject<Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
+            if (result == null)
+            {
+                return new Response("User Not Found", HttpStatusCode.NotFound);
+            }
+            return result;
+        }
 
-        public async Task<HttpResponseMessage> GetQueryResponse(HttpClient client, string query)
+        public static async Task<HttpResponseMessage> GetQueryResponse(HttpClient client, string query)
         {
             if (query == null) { return new HttpResponseMessage() {  StatusCode = HttpStatusCode.NotFound}; }
             var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
@@ -98,5 +108,6 @@ namespace SharedModal.ClientServerConnection
             response.EnsureSuccessStatusCode();
             return response;
         }
+
     }
 }

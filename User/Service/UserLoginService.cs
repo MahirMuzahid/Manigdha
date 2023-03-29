@@ -1,22 +1,14 @@
-﻿using Azure;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using SharedModal.ReponseModal;
 using System.Security.Claims;
 using System.Security.Cryptography;
-
-using SharedModal.Modals;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Newtonsoft.Json.Linq;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System;
 
 namespace UserService.Service
 {
     public class UserLoginService : IUserLoginService
     {
-        IConfiguration _config;
+        private IConfiguration _config;
+
         public UserLoginService(IConfiguration config)
         {
             _config = config;
@@ -45,6 +37,7 @@ namespace UserService.Service
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;
         }
+
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512(passwordSalt))
@@ -54,25 +47,20 @@ namespace UserService.Service
             }
         }
 
-
         public Response Login(SharedModal.Modals.User user)
         {
-
-
             if (user == null || !VerifyPasswordHash(user.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return new Response("Wrong Emai/Phonenumber/Password",  System.Net.HttpStatusCode.NotAcceptable);
+                return new Response("Wrong Emai/Phonenumber/Password", System.Net.HttpStatusCode.NotAcceptable);
             }
 
             string token = CreateToken(user);
 
-
             return new Response("OK", System.Net.HttpStatusCode.OK, token, user.UserID.ToString());
         }
 
-        public  Response RefreshToken(SharedModal.Modals.User user, string refreshtoken)
+        public Response RefreshToken(SharedModal.Modals.User user, string refreshtoken)
         {
-
             if (!user.RefreshToken.Equals(refreshtoken))
             {
                 return new Response(System.Net.HttpStatusCode.NetworkAuthenticationRequired);
@@ -85,7 +73,5 @@ namespace UserService.Service
             string token = CreateToken(user);
             return new Response("Ok", System.Net.HttpStatusCode.OK, token);
         }
-
-       
     }
-    }
+}

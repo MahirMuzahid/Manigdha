@@ -123,7 +123,32 @@ namespace Manigdha_Integration_Test
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }
 
+        [Fact] 
+        public async Task AskForRefreshToken_NewRefreshTokenAndJWTToken()
+        {
+            var client = _factory.CreateClient();
+            var rtp = new RefreshTokenParameter()
+            {
+                userID = 8,
+                refreshToken = "riPIHS6lB3e8rHkSvslW8yzC63rjRenIQhQY0JtoCQhfP5mHWWnTETVwWDiD9VMg8ZNMLSNwMTpTk6RiVxZYng=="
+            };
+            //Parameter_Multiple_Return_Object this method takes an object and makes the query based on that object. But in real mutation code there in no object only 2 parameter.
+            //Make new methos for that pass object but doesn't make query based on that object. Make raw query. 
+            var query = GraphQLCodeGenerator<RefreshTokenParameter, Response>.Parameter_Multiple_Return_Object("refreshToken", "refreshTokenParameter", rtp);
 
+            // Call RegisterAndGetUser method of IUserServerConnection and get response data
+            var responseData = await _serverConnection.RefreshToken(client, query, "refreshTokenParameter");
+
+            // Assert response data has expected values
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+            Assert.NotNull(responseData.ReturnString);
+            Assert.NotNull(responseData.ReturnStringTwo);
+        }
+        public class RefreshTokenParameter 
+        {
+            public int userID { get; set; }
+            public string? refreshToken { get; set; }
+        }
 
         public class RegTestReponse
         {

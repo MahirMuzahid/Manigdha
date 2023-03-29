@@ -17,7 +17,7 @@ namespace SharedModal.ClientServerConnection
 
             foreach (var prop in typeof(Parameter).GetProperties())
             {
-                var name = char.ToLower(prop.Name[0]) + prop.Name.Substring(1);
+                var name = char.ToLower(prop.Name[0]) + prop.Name[1..];
                 var value = prop.GetValue(variables);
                 sb.Append($"{name}: ");
                 if (value is string)
@@ -34,7 +34,7 @@ namespace SharedModal.ClientServerConnection
 
             foreach (var property in typeof(Response).GetProperties())
             {
-                var name = Char.ToLower(property.Name[0]) + property.Name.Substring(1);
+                var name = Char.ToLower(property.Name[0]) + property.Name[1..];
                 sb.Append($"{name}, ");
             }
             sb.Remove(sb.Length - 2, 2);
@@ -58,7 +58,7 @@ namespace SharedModal.ClientServerConnection
             var properties = returnObject.GetType().GetProperties();
             foreach (var property in properties)
             {
-                var name = Char.ToLower(property.Name[0]) + property.Name.Substring(1);
+                var name = Char.ToLower(property.Name[0]) + property.Name[1..];
                 queryBuilder.Append($" {name},");
             }
 
