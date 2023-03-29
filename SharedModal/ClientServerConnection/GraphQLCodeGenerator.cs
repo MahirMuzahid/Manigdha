@@ -32,9 +32,10 @@ namespace SharedModal.ClientServerConnection
             }
             sb.Append("}) { ");
 
-            foreach (var prop in typeof(Response).GetProperties())
+            foreach (var property in typeof(Response).GetProperties())
             {
-                sb.Append($"{prop.Name}, ");
+                var name = Char.ToLower(property.Name[0]) + property.Name.Substring(1);
+                sb.Append($"{name}, ");
             }
             sb.Remove(sb.Length - 2, 2);
             sb.Append(" } }");

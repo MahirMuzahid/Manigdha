@@ -64,7 +64,18 @@ namespace SharedModal.ClientServerConnection
             return new Response("User Deleted", HttpStatusCode.OK);
         }
 
-
-
+        public async Task<Response> LoginUser(HttpClient client, string query, string queryName)
+        {
+            if (query == null) { return new Response("User Not Found", HttpStatusCode.NotFound); }
+            var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("/graphql", content);
+            response.EnsureSuccessStatusCode();
+            var result = JsonConvert.DeserializeObject<SharedModal.ReponseModal.Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
+            if (result == null)
+            {
+                return new Response("User Not Found", HttpStatusCode.NotFound);
+            }
+            return new Response("User Logged In", HttpStatusCode.OK, result.ReturnString, result.ReturnStringTwo);
+        }
     }
 }

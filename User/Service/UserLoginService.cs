@@ -60,7 +60,7 @@ namespace UserService.Service
             string token = CreateToken(user);
 
 
-            return new SharedModal.ReponseModal.Response("OK", 0, token, user.UserID.ToString());
+            return new SharedModal.ReponseModal.Response("OK", System.Net.HttpStatusCode.OK, token, user.UserID.ToString());
         }
 
         //public async Task<Response> RefreshToken(int userID, string refreshtoken)

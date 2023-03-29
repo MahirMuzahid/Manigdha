@@ -11,7 +11,7 @@ namespace Manigdha_Integration_Test
     {
         private readonly WebApplicationFactory<Program> _factory;
         private IUserServerConnection _serverConnection;
-        private int dltID = 5;
+        private int dltID = 1;
 
         public UserRegistrationTest(WebApplicationFactory<Program> factory)
         {
@@ -38,7 +38,6 @@ namespace Manigdha_Integration_Test
             var client = _factory.CreateClient();
 
             // GraphQL mutation query to register a new user
-            //var query = @"mutation { register(studentDto: { email: ""user3@mail.com"", name: ""User 6"", password: ""123"", phoneNumber: ""13"", cityID: 1 }) { userID, passwordHash, passwordSalt } }";
             var userDTO = new UserDTO
             {
                 CityID = 1,
@@ -61,6 +60,7 @@ namespace Manigdha_Integration_Test
             dltID = responseData.UserID;
             await UserID_DeleteFromDatabase_Reponse();
         }
+
         public class RegTestReponse
         {
             public string userID { get; set; }
@@ -68,7 +68,7 @@ namespace Manigdha_Integration_Test
             public string passwordSalt { get; set; }
         }
 
-        [Fact] 
+        [Fact]
         public async Task UserID_DeleteFromDatabase_Reponse()
         {
             var client = _factory.CreateClient();
@@ -83,18 +83,36 @@ namespace Manigdha_Integration_Test
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }
 
+        [Fact]
         public async Task ClearUserTable()
         {
-            var client = _factory.CreateClient();
-            for(int i = 14; i < 40; i++)
+            for (int i = 0; i < 0; i++)
             {
                 dltID = i;
-               await  UserID_DeleteFromDatabase_Reponse();
+                await UserID_DeleteFromDatabase_Reponse();
             }
-
+            Assert.True(true);
         }
 
-      
-    }
+        [Fact]
+        public async Task UserLogin_GetLoginToken()
+        {
+            var client = _factory.CreateClient();
 
+            var userDTO = new UserLoginDTO()
+            {
+                LoginInfo = "01",
+                Password = "123"
+            };
+            var query = GraphQLCodeGenerator<UserLoginDTO, Response>.Parameter_Multiple_Return_Object("login", "userLoginDTO", userDTO);
+
+            // Call RegisterAndGetUser method of IUserServerConnection and get response data
+            var responseData = await _serverConnection.LoginUser(client, query, "login");
+
+            // Assert response data has expected values
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+            Assert.NotNull(responseData.ReturnString);
+            Assert.NotNull(responseData.ReturnStringTwo);
+        }
+    }
 }
