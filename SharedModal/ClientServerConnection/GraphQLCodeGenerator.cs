@@ -10,7 +10,7 @@ namespace SharedModal.ClientServerConnection
 {
     public class GraphQLCodeGenerator<Parameter, Response>
     {
-        public static string Parameter_Object_Return_Object<Parameter, Response>(string queryName, string parameterTypeName, Parameter variables, Response returnObject)
+        public static string Parameter_Multiple_Return_Object(string queryName, string parameterTypeName, Parameter variables)
         {
             var sb = new StringBuilder();
             sb.Append($"mutation {{ {queryName}({parameterTypeName}: {{ ");
@@ -41,6 +41,35 @@ namespace SharedModal.ClientServerConnection
 
             return sb.ToString();
         }
-   
+        public static string Parameter_Single_Return_Object(string queryName, string parameterName, Parameter parameterValue, Response returnObject)
+        {
+            var queryBuilder = new StringBuilder();
+
+            // Append mutation name
+            queryBuilder.Append($"mutation {{ {queryName}(");
+
+            // Append parameter name and value
+            queryBuilder.Append($"{parameterName}: {parameterValue},");
+
+            // Close parameter object and append return object fields
+            queryBuilder.Append(") {");
+
+            var properties = returnObject.GetType().GetProperties();
+            foreach (var property in properties)
+            {
+                var name = Char.ToLower(property.Name[0]) + property.Name.Substring(1);
+                queryBuilder.Append($" {name},");
+            }
+
+            // Remove trailing comma and close return object
+            queryBuilder.Remove(queryBuilder.Length - 1, 1);
+            queryBuilder.Append(" } }");
+
+            return queryBuilder.ToString();
+        }
+
+
+
+
     }
 }

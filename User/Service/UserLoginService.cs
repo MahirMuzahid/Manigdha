@@ -54,7 +54,7 @@ namespace UserService.Service
 
             if (user == null || !VerifyPasswordHash(user.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return new SharedModal.ReponseModal.Response("Wrong Emai/Phonenumber/Password", 1, "");
+                return new SharedModal.ReponseModal.Response("Wrong Emai/Phonenumber/Password",  System.Net.HttpStatusCode.NotAcceptable);
             }
 
             string token = CreateToken(user);

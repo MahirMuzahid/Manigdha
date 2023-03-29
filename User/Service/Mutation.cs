@@ -62,15 +62,21 @@ namespace UserService.Service
            
         }
 
-        public async SharedModal.ReponseModal.Response DeleteUser([Service] DataContext _context, int userID)
+        public async Task<SharedModal.ReponseModal.Response> DeleteUser([Service] DataContext _context, int userID)
         {
-            if (userID > 0)
+            if (userID < 1)
             {
-                var user = await _context.Users.Include(u => u.City).FirstOrDefaultAsync(u => u.UserID == userID);
-                if (user == null) { return new SharedModal.ReponseModal.Response("User doen't exits", System.Net.HttpStatusCode.NotFound); }
-                _context.Users.Remove(user);
-                return new SharedModal.ReponseModal.Response("User Deleted ", System.Net.HttpStatusCode.OK);
+                return new SharedModal.ReponseModal.Response("User doesn't exits", System.Net.HttpStatusCode.NotFound);
+
             }
+            var user = await _context.Users.Include(u => u.City).FirstOrDefaultAsync(u => u.UserID == userID);
+
+            if (user == null) { return new SharedModal.ReponseModal.Response("User doesn't exits", System.Net.HttpStatusCode.NotFound); }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return new SharedModal.ReponseModal.Response("User Deleted ", System.Net.HttpStatusCode.OK);
+
         }
     }
 }

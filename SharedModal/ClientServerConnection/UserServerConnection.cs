@@ -8,12 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using SharedModal.ReponseModal;
+using System.Collections;
 
 namespace SharedModal.ClientServerConnection
 {
     public class UserServerConnection : IUserServerConnection
     {
-        public async Task<(int, byte[] , byte[] , string , HttpStatusCode )> RegisterAndGetUser(string query, HttpClient client)
+        public async Task<(int, byte[] , byte[] , string , HttpStatusCode )> RegisterAndGetUser( HttpClient client, string query)
         {
             if (query == null || client == null) { return (0, new byte[0], new byte[0], string.Empty,0); }
 
@@ -48,6 +50,21 @@ namespace SharedModal.ClientServerConnection
                 PasswordSalt:result.PasswordSalt, RefreshToken:result.RefreshToken, TokenCreated: result.TokenCreated, TokenExpires:result.TokenExpires);
         }
 
-       
+        public async Task<Response> DeleteUser(HttpClient client, string query, string queryName)
+        {
+            if (query == null) { return new Response("User Not Found", HttpStatusCode.NotFound); }
+            var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("/graphql", content);
+            response.EnsureSuccessStatusCode();
+            var result = JsonConvert.DeserializeObject<SharedModal.ReponseModal.Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
+            if (result == null)
+            {
+                return new Response("User Not Found", HttpStatusCode.NotFound);
+            }
+            return new Response("User Deleted", HttpStatusCode.OK);
+        }
+
+
+
     }
 }
