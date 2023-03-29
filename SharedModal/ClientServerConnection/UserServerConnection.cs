@@ -32,22 +32,7 @@ namespace SharedModal.ClientServerConnection
             return (result :result.UserID, result.PasswordHash, result.PasswordSalt, result.RefreshToken, response.StatusCode);
         }
 
-        public async Task<(int , string , byte[] , byte[] , string , DateTime , DateTime )> RegisterAndGetUser(string query)
-        {
-            if (query == null) { return (0, string.Empty, Array.Empty<byte>(), Array.Empty<byte>(), string.Empty , DateTime.Now,DateTime.Now); }
-
-            var client = new HttpClient();
-            var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/graphql", content);
-            response.EnsureSuccessStatusCode();
-            var result = JsonConvert.DeserializeObject<SharedModal.Modals.User>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())["register"].ToString());
-            if (result == null)
-            {
-                return (0, string.Empty, Array.Empty<byte>(), Array.Empty<byte>(), string.Empty, DateTime.Now, DateTime.Now);
-            }
-
-            return (result.UserID, result.Password, result.PasswordHash, result.PasswordSalt, result.RefreshToken, result.TokenCreated, result.TokenExpires);
-        }
+       
 
         public async Task<Response> DeleteUser(HttpClient client, string query, string queryName)
         {

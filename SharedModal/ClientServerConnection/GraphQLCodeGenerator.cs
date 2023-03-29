@@ -69,6 +69,41 @@ namespace SharedModal.ClientServerConnection
             return queryBuilder.ToString();
         }
 
+        public static string Parameter_Multiple_Return_Object(string queryName, Parameter parameterValue)
+        {
+            var sb = new StringBuilder();
+            sb.Append($"mutation {{ {queryName}(");
+
+            foreach (var prop in parameterValue.GetType().GetProperties())
+            {
+                var name = char.ToLower(prop.Name[0]) + prop.Name[1..];
+                var value = prop.GetValue(parameterValue);
+                sb.Append($"{name}: ");
+                if (value is string)
+                {
+                    sb.Append($"\"{value}\"");
+                }
+                else
+                {
+                    sb.Append(value.ToString());
+                }
+                sb.Append(", ");
+            }
+            sb.Remove(sb.Length - 2, 2);
+            sb.Append(") { ");
+
+            foreach (var property in typeof(Response).GetProperties())
+            {
+                var name = Char.ToLower(property.Name[0]) + property.Name[1..];
+                sb.Append($"{name}, ");
+            }
+            sb.Remove(sb.Length - 2, 2);
+            sb.Append(" } }");
+
+            return sb.ToString();
+        }
+
+
 
 
 

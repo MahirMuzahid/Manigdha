@@ -14,7 +14,6 @@ namespace SharedModal.ClientServerConnection
     public interface IUserServerConnection
     {
         public Task<(int UserID, byte[] PasswordHash, byte[] PasswordSalt, string RefreshToken, HttpStatusCode ResponseCode)> RegisterAndGetUser( HttpClient client,string query);
-        public Task<(int UserID, string Password, byte[] PasswordHash, byte[] PasswordSalt, string RefreshToken, DateTime TokenCreated, DateTime TokenExpires)> RegisterAndGetUser(string query);
         public Task<Response> DeleteUser(HttpClient client, string query, string queryName);
 
         public Task<Response> LoginUser(HttpClient client, string query, string queryName);

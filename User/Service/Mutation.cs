@@ -97,7 +97,7 @@ namespace UserService.Service
             if (user == null) { return new Response("User doesn't exits", System.Net.HttpStatusCode.NotFound); }
 
             var result = _userLoginService.RefreshToken(user, refreshToken);
-            if (result.Status != System.Net.HttpStatusCode.OK) { return new Response("User Not Authenticated", System.Net.HttpStatusCode.NetworkAuthenticationRequired); }
+            if (result.Status != System.Net.HttpStatusCode.OK) { return result; }
 
             user.RefreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
             user.TokenCreated = DateTime.Now;
@@ -105,7 +105,7 @@ namespace UserService.Service
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
 
-            return new Response("Token Refreshed ", System.Net.HttpStatusCode.OK, refreshToken, result.ReturnString);
+            return new Response("Token Refreshed ", System.Net.HttpStatusCode.OK, user.RefreshToken, result.ReturnString);
         }
 
         public async Task<Response> Logout([Service] DataContext _context, int userID)
