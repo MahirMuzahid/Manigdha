@@ -17,29 +17,23 @@ namespace SharedModal.ClientServerConnection
     {
         public async Task<(int, byte[] , byte[] , string , HttpStatusCode )> RegisterAndGetUser( HttpClient client, string query)
         {
-            if (query == null || client == null) { return (0, Array.Empty<byte>(), Array.Empty<byte>(), string.Empty,0); }
-
-
-            var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/graphql", content);
-            response.EnsureSuccessStatusCode();
+            var response = await GetQueryResponse(client, query);
+            if (response.StatusCode == HttpStatusCode.NotFound) { return (0, Array.Empty<byte>(), Array.Empty<byte>(), string.Empty, response.StatusCode); }
             var result = JsonConvert.DeserializeObject<User>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())["register"].ToString());
             if(result == null)
             {
                 return (0, Array.Empty<byte>(), Array.Empty<byte>(), string.Empty, response.StatusCode);
             }
 
-            return (result :result.UserID, result.PasswordHash, result.PasswordSalt, result.RefreshToken, response.StatusCode);
+            return (result: result.UserID, result.PasswordHash, result.PasswordSalt, result.RefreshToken, response.StatusCode);
         }
 
        
 
         public async Task<Response> DeleteUser(HttpClient client, string query, string queryName)
         {
-            if (query == null) { return new Response("User Not Found", HttpStatusCode.NotFound); }
-            var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/graphql", content);
-            response.EnsureSuccessStatusCode();
+            var response = await GetQueryResponse(client, query);
+            if (response.StatusCode == HttpStatusCode.NotFound) { return new Response("User Not Found", HttpStatusCode.NotFound); }
             var result = JsonConvert.DeserializeObject<Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
             if (result == null)
             {
@@ -50,10 +44,8 @@ namespace SharedModal.ClientServerConnection
 
         public async Task<Response> LoginUser(HttpClient client, string query, string queryName)
         {
-            if (query == null) { return new Response("User Not Found", HttpStatusCode.NotFound); }
-            var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/graphql", content);
-            response.EnsureSuccessStatusCode();
+            var response = await GetQueryResponse(client, query);
+            if (response.StatusCode == HttpStatusCode.NotFound) { return new Response("User Not Found", HttpStatusCode.NotFound); }
             var result = JsonConvert.DeserializeObject<Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
             if (result == null)
             {

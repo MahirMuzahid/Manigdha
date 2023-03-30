@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Azure;
+using HotChocolate.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.IdentityModel.Tokens;
 using SharedModal.DTO;
 using SharedModal.Modals;
 using SharedModal.ReponseModal;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Numerics;
 using System.Runtime.Intrinsics.Arm;
@@ -18,11 +20,13 @@ namespace UserService.Service
     {
         private readonly IMapper _map;
         private IUserLoginService _userLoginService;
-        public Mutation( ClaimsPrincipal claimsPrincipal, IMapper map, IUserLoginService userLoginService)
+        public Mutation( IMapper map, IUserLoginService userLoginService)
         {
             _map = map;
             _userLoginService = userLoginService;
         }
+
+        #region User
         public async Task<SharedModal.Modals.User> Register([Service] DataContext _context, UserDTO userDTO)
         {
             var obj = _map.Map<SharedModal.Modals.User>(userDTO);
@@ -68,8 +72,12 @@ namespace UserService.Service
             }
 
             return new Response("User Not Found",  System.Net.HttpStatusCode.NotFound);
-           
         }
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "Admin" })]
+#endif
 
         public async Task<Response> DeleteUser([Service] DataContext _context, int userID)
         {
@@ -86,7 +94,11 @@ namespace UserService.Service
             await _context.SaveChangesAsync();
             return new Response("User Deleted ", System.Net.HttpStatusCode.OK);
         }
+#if DEBUG
 
+#else
+[Authorize(Roles = new string[] { "User" })]
+#endif
         public async Task<Response> RefreshToken ([Service] DataContext _context, int userID, string refreshToken)
         {
             if (userID < 1 || refreshToken == null)
@@ -107,6 +119,11 @@ namespace UserService.Service
 
             return new Response("Token Refreshed ", System.Net.HttpStatusCode.OK, user.RefreshToken, result.ReturnString);
         }
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "User" })]
+#endif
 
         public async Task<Response> Logout([Service] DataContext _context, int userID)
         {
@@ -126,5 +143,25 @@ namespace UserService.Service
 
             return new Response( System.Net.HttpStatusCode.OK);
         }
+#endregion
+
+        #region City
+        //change city obejct to name and divisinID
+        public async Task<Response> SetCity([Service] DataContext _context, string name, int divisionID)
+        {
+            if(name == null || divisionID == 0) { return new Response(System.Net.HttpStatusCode.NotFound); }
+            var city = new City { Name = name , DivisionID = divisionID};
+            _context.Cities.Add(city);
+            await _context.SaveChangesAsync();
+
+            return new Response(System.Net.HttpStatusCode.OK);
+
+        }
+
+        #endregion
+
+
+
     }
+
 }

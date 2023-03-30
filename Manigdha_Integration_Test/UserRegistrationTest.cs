@@ -1,9 +1,13 @@
+using Azure;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using SharedModal.ClientServerConnection;
+using SharedModal.ClientServerConnection.City_Server_Connection;
 using SharedModal.DTO;
+using SharedModal.Modals;
 using SharedModal.ReponseModal;
 using System.Net;
+using Response = SharedModal.ReponseModal.Response;
 
 namespace Manigdha_Integration_Test
 {
@@ -11,7 +15,9 @@ namespace Manigdha_Integration_Test
     {
         private readonly WebApplicationFactory<Program> _factory;
         private IUserServerConnection _serverConnection;
+        private ICityServerConnectio _cityServerConnection;
         private int dltID = 8;
+        private int cityID = 1; 
 
         public UserRegistrationTest(WebApplicationFactory<Program> factory)
         {
@@ -25,12 +31,15 @@ namespace Manigdha_Integration_Test
 
             // Add scoped IUserServerConnection implementation to ServiceCollection
             services.AddScoped<IUserServerConnection, UserServerConnection>();
+            services.AddScoped<ICityServerConnectio, CityServerConnection>();
 
             // Build the ServiceCollection and get the IUserServerConnection implementation
             var serviceProvider = services.BuildServiceProvider();
             _serverConnection = serviceProvider.GetService<IUserServerConnection>();
+            _cityServerConnection = serviceProvider.GetService<ICityServerConnectio>();
         }
 
+        #region User
         [Fact]
         public async Task Register_ValidData_ReturnsNewUserFromServer()
         {
@@ -44,9 +53,8 @@ namespace Manigdha_Integration_Test
                 Name = "User",
                 Password = "123",
                 Email = "gg123@gmail.com",
-                PhoneNumber = "789"
+                PhoneNumber = "01"
             };
-            var response = new RegTestReponse();
             var query = GraphQLCodeGenerator<UserDTO, RegTestReponse>.Parameter_Multiple_Return_Object("register", "userDTO", userDTO);
 
             // Call RegisterAndGetUser method of IUserServerConnection and get response data
@@ -67,7 +75,7 @@ namespace Manigdha_Integration_Test
             var client = _factory.CreateClient();
 
             var response = new Response();
-            var query = GraphQLCodeGenerator<int, Response>.Parameter_Single_Return_Object("deleteUser", "userID", dltID, response);
+            var query = GraphQLCodeGenerator<int, Response>.Parameter_Single_Return_Object("deleteUser", "userID", 45, response);
 
             // Call RegisterAndGetUser method of IUserServerConnection and get response data
             var responseData = await _serverConnection.DeleteUser(client, query, "deleteUser");
@@ -76,7 +84,7 @@ namespace Manigdha_Integration_Test
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }
 
-        [Fact]
+        //[Fact]
         public async Task ClearUserTable()
         {
             for (int i = 0; i < 0; i++)
@@ -129,11 +137,10 @@ namespace Manigdha_Integration_Test
             var client = _factory.CreateClient();
             var rtp = new RefreshTokenParameter()
             {
-                userID = 8,
-                refreshToken = "DiwszTdigjYhZ6iMvWZEfbt50unk9cnNgf4o8yGQoUIhOpZr9b/s0Q4nfIgDYQ/3ZZkc/1gugY33VXNHTV20vA=="
+                userID = 44,
+                refreshToken = "EpbcWhPvQwx28doJdmfw2yEH3YDATx0yzBwxn8GzJOINkU+jzE2QeM5PvC4u63GPJ3YmToxWeWuqmB9SwjoRjw=="
             };
-            //Parameter_Multiple_Return_Object this method takes an object and makes the query based on that object. But in real mutation code there in no object only 2 parameter.
-            //Make new methos for that pass object but doesn't make query based on that object. Make raw query. 
+            
             var query = GraphQLCodeGenerator<RefreshTokenParameter, Response>.Parameter_Multiple_Return_Object("refreshToken",  rtp);
 
             // Call RegisterAndGetUser method of IUserServerConnection and get response data
@@ -157,5 +164,45 @@ namespace Manigdha_Integration_Test
             public string passwordHash { get; set; }
             public string passwordSalt { get; set; }
         }
+        #endregion
+
+        #region City
+        [Fact]
+        public async Task AskCityByID_GetCity()
+        {
+            var client = _factory.CreateClient();
+ 
+            var query = "query{ cityByID( cityID: "+ cityID + ") { cityID, name, divisionID, division { divisionName } } }";
+            var responseData = await _cityServerConnection.GetCityWithID(client, query, "cityByID");
+
+            Assert.Equal(cityID, responseData.CityID);
+
+        }
+
+        [Fact]
+        public async Task AskCity_GetCity()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "query{ city() { cityID, name, divisionID, division { divisionName } } }";
+            var responseData = await _cityServerConnection.GetCity(client, query, "city");
+
+            Assert.NotEqual(0, responseData.Count);
+
+        }
+
+        [Fact]
+        public async Task SetCity_GetResponse()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "mutation{\r\n   setCity ( name: \"From Test\", divisionID: 1){\r\n     status\r\n   }\r\n}";
+            var responseData = await _cityServerConnection.SetCity(client, query, "setCity");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        #endregion
+
     }
 }
