@@ -65,7 +65,30 @@ namespace UserService.Service
         #endregion
 
         #region Devision
+#if DEBUG
 
+#else
+[Authorize(Roles = new string[] { "User" })]
+#endif
+        [UseProjection]
+        public IQueryable<Division> GetDivision([Service] DataContext _context)
+        {
+            return _context.Divisions.Include(u => u.Cities).AsQueryable();
+        }
+
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "User" })]
+#endif
+        [UseProjection]
+        public async Task<Division> GetDivisionByID([Service] DataContext _context, int divisionID)
+        {
+            var result = await _context.Divisions.Include(u => u.Cities).FirstOrDefaultAsync(u => u.DivisionID == divisionID);
+
+            if (result == null) { return new Division(); }
+            return result;
+        }
         #endregion
 
     }

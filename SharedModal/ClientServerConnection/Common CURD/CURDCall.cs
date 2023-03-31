@@ -62,16 +62,6 @@ namespace SharedModal.ClientServerConnection
             }
             return result;
         }
-
-        public static async Task<HttpResponseMessage> GetQueryResponse(HttpClient client, string query)
-        {
-            if (query == null) { return new HttpResponseMessage() { StatusCode = HttpStatusCode.NotFound }; }
-            var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/graphql", content);
-            response.EnsureSuccessStatusCode();
-            return response;
-        }
-
         public async Task<Response> Delete(HttpClient client, string query, string queryName)
         {
             var response = await GetQueryResponse(client, query);
@@ -83,6 +73,15 @@ namespace SharedModal.ClientServerConnection
                 return new Response(HttpStatusCode.NotFound);
             }
             return result;
+        }
+
+        public static async Task<HttpResponseMessage> GetQueryResponse(HttpClient client, string query)
+        {
+            if (query == null) { return new HttpResponseMessage() { StatusCode = HttpStatusCode.NotFound }; }
+            var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("/graphql", content);
+            response.EnsureSuccessStatusCode();
+            return response;
         }
     }
 }

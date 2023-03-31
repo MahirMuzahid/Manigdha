@@ -375,6 +375,7 @@ namespace UserService.Migrations
             modelBuilder.Entity("SharedModal.Modals.Division", b =>
                 {
                     b.Navigation("Cities");
+                    
                 });
 
             modelBuilder.Entity("SharedModal.Modals.ProductCatagory", b =>

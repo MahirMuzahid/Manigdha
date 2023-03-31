@@ -199,10 +199,15 @@ namespace UserService.Service
 
             return new Response(System.Net.HttpStatusCode.OK);
         }
-#endregion
+        #endregion
 
         #region City
-        //change city obejct to name and divisinID
+        
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "Admin" })]
+#endif
         public async Task<Response> SetCity([Service] DataContext _context, string name, int divisionID)
         {
             if(name == null || divisionID == 0) { return new Response(System.Net.HttpStatusCode.NotFound); }
@@ -212,6 +217,11 @@ namespace UserService.Service
 
             return new Response(System.Net.HttpStatusCode.OK);
         }
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "Admin" })]
+#endif
         public async Task<Response> UpdateCity([Service] DataContext _context, int cityID, string name, int divisionID)
         {
             if (cityID == 0) { return new Response(System.Net.HttpStatusCode.NotFound); }
@@ -235,13 +245,74 @@ namespace UserService.Service
 
             return new Response(System.Net.HttpStatusCode.OK);
         }
+#if DEBUG
 
+#else
+[Authorize(Roles = new string[] { "Admin" })]
+#endif
         public async Task<Response> DeleteCity([Service] DataContext _context, int cityID)
         {
             if (cityID == 0) { return new Response(System.Net.HttpStatusCode.NotFound); }
             var result = await _context.Cities.FirstOrDefaultAsync(u => u.CityID == cityID);
             if (result == null) { return new Response(System.Net.HttpStatusCode.NotFound); }
             _context.Cities.Remove(result);
+            await _context.SaveChangesAsync();
+
+            return new Response(System.Net.HttpStatusCode.OK);
+        }
+
+        #endregion
+
+        #region Division
+
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "Admin" })]
+#endif
+        public async Task<Response> SetDivision([Service] DataContext _context, string name)
+        {
+            if (name == null) { return new Response(System.Net.HttpStatusCode.NotFound); }
+            var division = new Division { DivisionName = name };
+            _context.Divisions.Add(division);
+            await _context.SaveChangesAsync();
+
+            return new Response(System.Net.HttpStatusCode.OK);
+        }
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "Admin" })]
+#endif
+        public async Task<Response> UpdateDivision([Service] DataContext _context, string name, int divisionID)
+        {
+            if (name.IsNullOrEmpty() || divisionID == 0) { return new Response(System.Net.HttpStatusCode.NotFound); }
+
+            var result = await _context.Divisions.FirstOrDefaultAsync(u => u.DivisionID == divisionID);
+
+            if (result == null) { return new Response(System.Net.HttpStatusCode.NotFound); }
+
+            if (!name.IsNullOrEmpty())
+            {
+                result.DivisionName = name;
+            }
+
+            _context.Divisions.Update(result);
+            await _context.SaveChangesAsync();
+
+            return new Response(System.Net.HttpStatusCode.OK);
+        }
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "Admin" })]
+#endif
+        public async Task<Response> DeleteDivision([Service] DataContext _context, int divisionID)
+        {
+            if (divisionID == 0) { return new Response(System.Net.HttpStatusCode.NotFound); }
+            var result = await _context.Divisions.FirstOrDefaultAsync(u => u.DivisionID == divisionID);
+            if (result == null) { return new Response(System.Net.HttpStatusCode.NotFound); }
+            _context.Divisions.Remove(result);
             await _context.SaveChangesAsync();
 
             return new Response(System.Net.HttpStatusCode.OK);

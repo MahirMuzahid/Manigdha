@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using SharedModal.ClientServerConnection;
 using SharedModal.ClientServerConnection.City_Server_Connection;
+using SharedModal.ClientServerConnection.Division_Server_Connection;
 using SharedModal.DTO;
 using SharedModal.Modals;
 using System.Net;
@@ -14,6 +15,7 @@ namespace Manigdha_Integration_Test
         private readonly WebApplicationFactory<Program> _factory;
         private IUserServerConnection _serverConnection;
         private ICityServerConnectio _cityServerConnection;
+        private IDivisioServerConnection _divisionServerConnection;
         private int dltID = 8;
         private int cityID = 1;
 
@@ -30,12 +32,15 @@ namespace Manigdha_Integration_Test
             // Add scoped IUserServerConnection implementation to ServiceCollection
             services.AddScoped<IUserServerConnection, UserServerConnection>();
             services.AddScoped<ICityServerConnectio, CityServerConnection>();
+            services.AddScoped<IDivisioServerConnection, DivisionServerConnection>();
             services.AddScoped<ICURDCall<City>, CURDCall<City>>();
+            services.AddScoped<ICURDCall<Division>, CURDCall<Division>>();
 
             // Build the ServiceCollection and get the IUserServerConnection implementation
             var serviceProvider = services.BuildServiceProvider();
             _serverConnection = serviceProvider.GetService<IUserServerConnection>();
             _cityServerConnection = serviceProvider.GetService<ICityServerConnectio>();
+            _divisionServerConnection = serviceProvider.GetService<IDivisioServerConnection>();
         }
 
         #region User
@@ -45,15 +50,16 @@ namespace Manigdha_Integration_Test
         {
             // Create HttpClient using CreateClient method
             var client = _factory.CreateClient();
+            Random r = new Random();
 
             // GraphQL mutation query to register a new user
             var userDTO = new UserDTO
             {
-                CityID = 1,
+                CityID = 3,
                 Name = "User",
                 Password = "123",
                 Email = "gg123@gmail.com",
-                PhoneNumber = "01"
+                PhoneNumber = "" + r.Next(1,100)
             };
             var query = GraphQLCodeGenerator<UserDTO, RegTestReponse>.Parameter_Multiple_Return_Object("register", "userDTO", userDTO);
 
@@ -216,8 +222,65 @@ namespace Manigdha_Integration_Test
         public async Task DeleteCity_GetResponse()
         {
             var client = _factory.CreateClient();
-            var query = "mutation{ deleteCity ( cityID: 1){ status }}";
+            var query = "mutation{ deleteCity ( cityID: 2){ status }}";
             var responseData = await _cityServerConnection.DeleteCity(client, query, "deleteCity");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        #endregion City
+
+        #region Division 
+
+        [Fact]
+        public async Task AskDivisionByID_GetDivision()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "query{ divisionByID( divisionID: " + 1 + ") { divisionID, divisionName, cities { name } } }";
+            var responseData = await _divisionServerConnection.GetWithID(client, query, "divisionByID");
+
+            Assert.Equal(1, responseData.DivisionID);
+        }
+
+        [Fact]
+        public async Task AskDivision_GetDivision()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "query{ division() { divisionID, divisionName, cities { name } } }";
+            var responseData = await _divisionServerConnection.Get(client, query, "division");
+
+            Assert.NotEmpty(responseData);
+        }
+
+        [Fact]
+        public async Task SetDivision_GetResponse()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "mutation{ setDivision ( name: \"From Test\"){ status }}";
+            var responseData = await _divisionServerConnection.Set(client, query, "setDivision");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        [Fact]
+        public async Task UpdateDivision_GetResponse()
+        {
+            var client = _factory.CreateClient();
+            var query = "mutation{ updateDivision ( name: \" Changed Name \", divisionID: 1){    status  }}";
+            var responseData = await _divisionServerConnection.Update(client, query, "updateDivision");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        //[Fact]
+        public async Task DeleteDivision_GetResponse()
+        {
+            var client = _factory.CreateClient();
+            var query = "mutation{ deleteDivision ( divisionID: 1){ status }}";
+            var responseData = await _divisionServerConnection.Delete(client, query, "divisionID");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }
