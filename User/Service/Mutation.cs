@@ -143,6 +143,62 @@ namespace UserService.Service
 
             return new Response( System.Net.HttpStatusCode.OK);
         }
+
+        public async Task<Response> UpdateUser([Service ] DataContext _context, UserUpdateDTO userDTO)
+        {
+            var updatedObj = _map.Map<SharedModal.Modals.User>(userDTO);
+
+            if (updatedObj.UserID == 0) { return new Response(System.Net.HttpStatusCode.NotFound); }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == updatedObj.UserID);
+
+            if (user == null) { return new Response(System.Net.HttpStatusCode.NotFound); }
+
+
+            if (!updatedObj.NIDNumber.IsNullOrEmpty()) 
+            {
+                user.NIDNumber = updatedObj.NIDNumber;
+            }
+
+            if (!updatedObj.ImageUrl.IsNullOrEmpty())
+            {
+                user.ImageUrl = updatedObj.ImageUrl;
+            }
+
+            if (!updatedObj.Name.IsNullOrEmpty())
+            {
+                user.Name = updatedObj.Name;
+            }
+
+            if (!updatedObj.Password.IsNullOrEmpty())
+            {
+                user.Password = updatedObj.Password;
+            }
+
+            if (!updatedObj.Email.IsNullOrEmpty())
+            {
+                user.Email = updatedObj.Email;
+            }
+
+            if (!updatedObj.PhoneNumber.IsNullOrEmpty())
+            {
+                user.PhoneNumber = updatedObj.PhoneNumber;
+            }
+
+            if (!updatedObj.StreetAddressOne.IsNullOrEmpty())
+            {
+                user.StreetAddressOne = updatedObj.StreetAddressOne;
+            }
+
+            if (!updatedObj.StreetAddressTwo.IsNullOrEmpty())
+            {
+                user.StreetAddressTwo = updatedObj.StreetAddressTwo;
+            }
+            _context.Users.Update(user);
+            _context.SaveChanges();
+
+            return new Response(System.Net.HttpStatusCode.OK);
+        }
 #endregion
 
         #region City
@@ -155,7 +211,40 @@ namespace UserService.Service
             await _context.SaveChangesAsync();
 
             return new Response(System.Net.HttpStatusCode.OK);
+        }
+        public async Task<Response> UpdateCity([Service] DataContext _context, int cityID, string name, int divisionID)
+        {
+            if (cityID == 0) { return new Response(System.Net.HttpStatusCode.NotFound); }
 
+            var result = await _context.Cities.FirstOrDefaultAsync(u => u.CityID == cityID);
+
+            if (result == null) { return new Response(System.Net.HttpStatusCode.NotFound); }
+
+            if (!name.IsNullOrEmpty())
+            {
+                result.Name = name;
+            }
+
+            if (divisionID != 0)
+            {
+                result.DivisionID = divisionID;
+            }
+
+            _context.Cities.Update(result);
+            await _context.SaveChangesAsync();
+
+            return new Response(System.Net.HttpStatusCode.OK);
+        }
+
+        public async Task<Response> DeleteCity([Service] DataContext _context, int cityID)
+        {
+            if (cityID == 0) { return new Response(System.Net.HttpStatusCode.NotFound); }
+            var result = await _context.Cities.FirstOrDefaultAsync(u => u.CityID == cityID);
+            if (result == null) { return new Response(System.Net.HttpStatusCode.NotFound); }
+            _context.Cities.Remove(result);
+            await _context.SaveChangesAsync();
+
+            return new Response(System.Net.HttpStatusCode.OK);
         }
 
         #endregion

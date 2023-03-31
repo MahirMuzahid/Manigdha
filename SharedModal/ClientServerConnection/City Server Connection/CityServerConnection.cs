@@ -13,51 +13,35 @@ namespace SharedModal.ClientServerConnection.City_Server_Connection
 {
     public class CityServerConnection : ICityServerConnectio
     {
+        private ICURDCall<City> _serverConnection;
+        public CityServerConnection(ICURDCall<City> serverConnection) 
+        {
+            _serverConnection = serverConnection;
+        }
+
+        public async Task<Response> DeleteCity(HttpClient client, string query, string queryName)
+        {
+            return await _serverConnection.Delete(client, query, queryName);
+        }
+
         public async Task<List<City>> GetCity(HttpClient client, string query, string queryName)
         {
-            var response = await GetQueryResponse(client, query);
-            if (response.StatusCode == HttpStatusCode.NotFound) { return new List<City>(); }
-            var result = JsonConvert.DeserializeObject<List<City>>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
-            if (result == null)
-            {
-                return new List<City>();
-            }
-            return result;
+           return await _serverConnection.Get(client, query, queryName);           
         }
 
         public async Task<City> GetCityWithID(HttpClient client, string query, string queryName)
         {
-            var response = await GetQueryResponse(client, query);
-            if (response.StatusCode == HttpStatusCode.NotFound) { return new City(); }
-            var queryString = JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString();
-            var result = JsonConvert.DeserializeObject<City>(queryString);
-            if (result == null)
-            {
-                return new City();
-            }
-            return result;
+            return await _serverConnection.GetWithID(client, query, queryName);
         }
 
         public async Task<Response> SetCity(HttpClient client, string query, string queryName)
         {
-            var response = await GetQueryResponse(client, query);
-            if (response.StatusCode == HttpStatusCode.NotFound) { return new Response(HttpStatusCode.NotFound); }
-            var queryString = JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString();
-            var result = JsonConvert.DeserializeObject<Response>(queryString);
-            if (result == null)
-            {
-                return new Response(HttpStatusCode.NotFound);
-            }
-            return result;
+            return await _serverConnection.Set(client, query, queryName);
         }
 
-        public static async Task<HttpResponseMessage> GetQueryResponse(HttpClient client, string query)
+        public async Task<Response> UpdateCity(HttpClient client, string query, string queryName)
         {
-            if (query == null) { return new HttpResponseMessage() { StatusCode = HttpStatusCode.NotFound }; }
-            var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/graphql", content);
-            response.EnsureSuccessStatusCode();
-            return response;
+            return await _serverConnection.Update(client, query, queryName);
         }
     }
 }

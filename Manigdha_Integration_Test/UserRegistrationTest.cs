@@ -1,11 +1,9 @@
-using Azure;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using SharedModal.ClientServerConnection;
 using SharedModal.ClientServerConnection.City_Server_Connection;
 using SharedModal.DTO;
 using SharedModal.Modals;
-using SharedModal.ReponseModal;
 using System.Net;
 using Response = SharedModal.ReponseModal.Response;
 
@@ -17,7 +15,7 @@ namespace Manigdha_Integration_Test
         private IUserServerConnection _serverConnection;
         private ICityServerConnectio _cityServerConnection;
         private int dltID = 8;
-        private int cityID = 1; 
+        private int cityID = 1;
 
         public UserRegistrationTest(WebApplicationFactory<Program> factory)
         {
@@ -32,6 +30,7 @@ namespace Manigdha_Integration_Test
             // Add scoped IUserServerConnection implementation to ServiceCollection
             services.AddScoped<IUserServerConnection, UserServerConnection>();
             services.AddScoped<ICityServerConnectio, CityServerConnection>();
+            services.AddScoped<ICURDCall<City>, CURDCall<City>>();
 
             // Build the ServiceCollection and get the IUserServerConnection implementation
             var serviceProvider = services.BuildServiceProvider();
@@ -40,6 +39,7 @@ namespace Manigdha_Integration_Test
         }
 
         #region User
+
         [Fact]
         public async Task Register_ValidData_ReturnsNewUserFromServer()
         {
@@ -68,7 +68,7 @@ namespace Manigdha_Integration_Test
             dltID = responseData.UserID;
             //await UserID_DeleteFromDatabase_Reponse();
         }
-        
+
         [Fact]
         public async Task UserID_DeleteFromDatabase_Reponse()
         {
@@ -131,7 +131,7 @@ namespace Manigdha_Integration_Test
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }
 
-        [Fact] 
+        [Fact]
         public async Task AskForRefreshToken_NewRefreshTokenAndJWTToken()
         {
             var client = _factory.CreateClient();
@@ -140,8 +140,8 @@ namespace Manigdha_Integration_Test
                 userID = 44,
                 refreshToken = "EpbcWhPvQwx28doJdmfw2yEH3YDATx0yzBwxn8GzJOINkU+jzE2QeM5PvC4u63GPJ3YmToxWeWuqmB9SwjoRjw=="
             };
-            
-            var query = GraphQLCodeGenerator<RefreshTokenParameter, Response>.Parameter_Multiple_Return_Object("refreshToken",  rtp);
+
+            var query = GraphQLCodeGenerator<RefreshTokenParameter, Response>.Parameter_Multiple_Return_Object("refreshToken", rtp);
 
             // Call RegisterAndGetUser method of IUserServerConnection and get response data
             var responseData = await _serverConnection.RefreshToken(client, query, "refreshToken");
@@ -152,7 +152,7 @@ namespace Manigdha_Integration_Test
             Assert.NotNull(responseData.ReturnStringTwo);
         }
 
-        public class RefreshTokenParameter 
+        public class RefreshTokenParameter
         {
             public int userID { get; set; }
             public string? refreshToken { get; set; }
@@ -164,19 +164,20 @@ namespace Manigdha_Integration_Test
             public string passwordHash { get; set; }
             public string passwordSalt { get; set; }
         }
-        #endregion
+
+        #endregion User
 
         #region City
+
         [Fact]
         public async Task AskCityByID_GetCity()
         {
             var client = _factory.CreateClient();
- 
-            var query = "query{ cityByID( cityID: "+ cityID + ") { cityID, name, divisionID, division { divisionName } } }";
+
+            var query = "query{ cityByID( cityID: " + cityID + ") { cityID, name, divisionID, division { divisionName } } }";
             var responseData = await _cityServerConnection.GetCityWithID(client, query, "cityByID");
 
             Assert.Equal(cityID, responseData.CityID);
-
         }
 
         [Fact]
@@ -187,8 +188,7 @@ namespace Manigdha_Integration_Test
             var query = "query{ city() { cityID, name, divisionID, division { divisionName } } }";
             var responseData = await _cityServerConnection.GetCity(client, query, "city");
 
-            Assert.NotEqual(0, responseData.Count);
-
+            Assert.NotEmpty(responseData);
         }
 
         [Fact]
@@ -196,13 +196,32 @@ namespace Manigdha_Integration_Test
         {
             var client = _factory.CreateClient();
 
-            var query = "mutation{\r\n   setCity ( name: \"From Test\", divisionID: 1){\r\n     status\r\n   }\r\n}";
+            var query = "mutation{\r\n setCity ( name: \"From Test\", divisionID: 1){\r\n     status\r\n   }\r\n}";
             var responseData = await _cityServerConnection.SetCity(client, query, "setCity");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }
 
-        #endregion
+        [Fact]
+        public async Task UpdateCity_GetResponse()
+        {
+            var client = _factory.CreateClient();
+            var query = "mutation{ updateCity ( cityID: 1, name: \" Changed Name \", divisionID : 2){    status  }}";
+            var responseData = await _cityServerConnection.UpdateCity(client, query, "updateCity");
 
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        [Fact]
+        public async Task DeleteCity_GetResponse()
+        {
+            var client = _factory.CreateClient();
+            var query = "mutation{ deleteCity ( cityID: 1){ status }}";
+            var responseData = await _cityServerConnection.DeleteCity(client, query, "deleteCity");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        #endregion City
     }
 }

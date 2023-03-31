@@ -11,7 +11,9 @@ namespace SharedModal.ClientServerConnection.City_Server_Connection
     public interface ICityServerConnectio
     {
         public Task<Response> SetCity(HttpClient client, string query, string queryName);
+        public Task<Response> UpdateCity (HttpClient client, string query, string queryName);
         public Task<List<City>> GetCity(HttpClient client, string query, string queryName);
         public Task<City> GetCityWithID(HttpClient client, string query, string queryName);
+        public Task<Response> DeleteCity(HttpClient client, string query, string queryName);
     }
 }
