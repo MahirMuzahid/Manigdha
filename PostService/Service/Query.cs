@@ -1,12 +1,15 @@
-﻿namespace PostService.Service
+﻿using SharedModal.Modals;
+
+namespace PostService.Service
 {
     public class Query
     {
         [UseProjection]
-        public Response Test()
+        public async Task<List<Product>> GetProducts([Service] DataContext _context)
         {
-            var s = "It is working Fine";
-            return new Response(s, System.Net.HttpStatusCode.OK);
+            return await _context.Products.Include(u => u.User).Include(p => p.CatagoryType).ToListAsync();
         }
+
+
     }
 }

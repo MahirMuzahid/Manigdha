@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedModal", "SharedModal\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{8759D1B5-019E-43B4-9429-888803712C63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manigdha_Integration_Test", "Manigdha_Integration_Test\Manigdha_Integration_Test.csproj", "{AE2903B6-DA07-4A62-B783-0469D5E890AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manigdha_Integration_Test", "Manigdha_Integration_Test\Manigdha_Integration_Test.csproj", "{AE2903B6-DA07-4A62-B783-0469D5E890AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonCalls", "CommonCalls\CommonCalls.csproj", "{720A788A-C3F5-4EA0-BB07-58A3D6DD723F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{AE2903B6-DA07-4A62-B783-0469D5E890AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE2903B6-DA07-4A62-B783-0469D5E890AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE2903B6-DA07-4A62-B783-0469D5E890AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{720A788A-C3F5-4EA0-BB07-58A3D6DD723F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{720A788A-C3F5-4EA0-BB07-58A3D6DD723F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{720A788A-C3F5-4EA0-BB07-58A3D6DD723F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{720A788A-C3F5-4EA0-BB07-58A3D6DD723F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

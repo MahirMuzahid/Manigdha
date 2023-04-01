@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-<PackageReference Include="EF.Core.Repository" Version="1.0.0.2" />    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="EF.Core.Repository" Version="1.0.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
