@@ -8,11 +8,9 @@ namespace PostService.Service
     public class Mutation
     {
         private IProductCatagoryRepository _productCatagoryRepository;
-        private IMapper _mapper;
         public Mutation(IProductCatagoryRepository productCatagoryRepository, IMapper mapper)
         {
             _productCatagoryRepository = productCatagoryRepository;
-            _mapper = mapper;
         }
         public Response Test( string s)
         {
@@ -20,10 +18,9 @@ namespace PostService.Service
         }
 
 
-        public async Task<Response> SetProductCatagory(ProductCatagory product)
-        {
-            var obj = _mapper.Map<Response>(await _productCatagoryRepository.Set(product));
-            return obj;
+        public async Task<Response> SetProductCatagory(string name)
+        {          
+            return await _productCatagoryRepository.Set(name);
         }
     }
 }

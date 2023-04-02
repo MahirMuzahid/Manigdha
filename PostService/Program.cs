@@ -7,6 +7,9 @@ using PostService.Mapper;
 using PostService.Service.Repository;
 using CommonCalls;
 using SharedModal.Modals;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,10 +19,26 @@ builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(typeof(ReponseMapper).Assembly);
 builder.Services.AddScoped<IProductCatagoryRepository, ProductCatagoryRepository>();
-builder.Services.AddScoped<ICommon<ProductCatagory>, IProductCatagoryRepository>();
 builder.Services.AddScoped<IManager<ProductCatagory>, Manager<ProductCatagory>>();
 builder.Services.AddScoped<IRepository<ProductCatagory>, Repository<ProductCatagory>>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings:ManigdhaServer").Value, b => b.MigrationsAssembly("UserService"));
+});
+builder.Services.AddLogging(builder => builder.AddConsole());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

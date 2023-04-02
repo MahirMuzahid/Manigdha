@@ -7,19 +7,19 @@ namespace PostService.Service.Repository
     {
         private IManager<ProductCatagory> _manager;
 
-        public ProductCatagoryRepository(Manager<ProductCatagory> manager)
+        public ProductCatagoryRepository(IManager<ProductCatagory> manager)
         {
             _manager = manager;
         }
 
-        public async Task<CommonCalls.Response> Delete(ProductCatagory obj)
+        public async Task<Response> Delete(ProductCatagory obj)
         {
             var isDlt = await _manager.DeleteAsync(obj);
             if (!isDlt)
             {
-                return new CommonCalls.Response(System.Net.HttpStatusCode.NotFound);
+                return new Response(System.Net.HttpStatusCode.NotFound);
             }
-            return new CommonCalls.Response(System.Net.HttpStatusCode.OK);
+            return new Response(System.Net.HttpStatusCode.OK);
         }
 
         public Task<ICollection<ProductCatagory>> Get()
@@ -32,17 +32,18 @@ namespace PostService.Service.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<CommonCalls.Response> Set(ProductCatagory obj)
+        public async Task<Response> Set(string name)
         {
+            var obj = new ProductCatagory() { Name = name};
             var isDlt = await _manager.AddAsync(obj);
             if (!isDlt)
             {
-                return new CommonCalls.Response(System.Net.HttpStatusCode.NotFound);
+                return new Response(System.Net.HttpStatusCode.NotFound);
             }
-            return new CommonCalls.Response(System.Net.HttpStatusCode.OK);
+            return new Response(System.Net.HttpStatusCode.OK);
         }
 
-        public Task<CommonCalls.Response> Update(ProductCatagory obj)
+        public Task<Response> Update(ProductCatagory obj)
         {
             throw new NotImplementedException();
         }
