@@ -8,7 +8,7 @@ namespace PostService.Mapper
     {
         public ReponseMapper()
         {
-            CreateMap<CommonCalls.Response, Response>();
+           CreateMap<Response, Response>();
         }
     }
 }

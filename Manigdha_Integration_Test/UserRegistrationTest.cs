@@ -43,8 +43,6 @@ namespace Manigdha_Integration_Test
             _divisionServerConnection = serviceProvider.GetService<IDivisioServerConnection>();
         }
 
-        #region User
-
         [Fact]
         public async Task Register_ValidData_ReturnsNewUserFromServer()
         {
@@ -59,7 +57,7 @@ namespace Manigdha_Integration_Test
                 Name = "User",
                 Password = "123",
                 Email = "gg123@gmail.com",
-                PhoneNumber = "" + r.Next(1,100)
+                PhoneNumber = "" + r.Next(1, 100)
             };
             var query = GraphQLCodeGenerator<UserDTO, RegTestReponse>.Parameter_Multiple_Return_Object("register", "userDTO", userDTO);
 
@@ -171,10 +169,6 @@ namespace Manigdha_Integration_Test
             public string passwordSalt { get; set; }
         }
 
-        #endregion User
-
-        #region City
-
         [Fact]
         public async Task AskCityByID_GetCity()
         {
@@ -228,10 +222,6 @@ namespace Manigdha_Integration_Test
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }
 
-        #endregion City
-
-        #region Division 
-
         [Fact]
         public async Task AskDivisionByID_GetDivision()
         {
@@ -284,7 +274,5 @@ namespace Manigdha_Integration_Test
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }
-
-        #endregion City
     }
 }

@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\PostService\PostService.csproj" />
     <ProjectReference Include="..\SharedModal\SharedModal.csproj" />
     <ProjectReference Include="..\User\UserService.csproj" />
 	  

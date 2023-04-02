@@ -7,16 +7,38 @@ namespace PostService.Service
     public class Query
     {
         private IProductCatagoryRepository _productCatagoryRepository;
-        public Query(IProductCatagoryRepository productCatagoryRepository, IMapper mapper)
+        private ICatagoryTypeRepository _catagoryTypeRepository;
+        public Query(IProductCatagoryRepository productCatagoryRepository, ICatagoryTypeRepository catagoryTypeRepository)
         {
             _productCatagoryRepository = productCatagoryRepository;
-        }
-        [UseProjection]
-        public async Task<List<Product>> GetProducts([Service] DataContext _context)
-        {
-            return await _context.Products.Include(u => u.User).Include(p => p.CatagoryType).ToListAsync();
+            _catagoryTypeRepository = catagoryTypeRepository;
         }
 
+        #region ProductCatagory
+        [UseProjection]
+        public async Task<ICollection<ProductCatagory>> GetProductCatagory()
+        {
+            return await _productCatagoryRepository.Get();
+        }
+        [UseProjection]
+        public async Task<ProductCatagory> GetProductCatagoryByID(int id)
+        {
+            return await _productCatagoryRepository.GetByID(id);
+        }
+        #endregion
+
+        #region Catagory Type
+        [UseProjection]
+        public async Task<ICollection<CatagoryType>> GetCatagoryType()
+        {
+            return await _catagoryTypeRepository.Get();
+        }
+        [UseProjection]
+        public async Task<CatagoryType> GetCatagoryTypeByID(int id)
+        {
+            return await _catagoryTypeRepository.GetByID(id);
+        }
+        #endregion
 
     }
 }
