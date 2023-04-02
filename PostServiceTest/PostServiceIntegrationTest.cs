@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using SharedModal.ClientServerConnection;
+using SharedModal.Modals;
+using SharedModal.ClientServerConnection.Product_Catagory;
+using SharedModal.ClientServerConnection.Catagory_Type;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PostServiceTest
+namespace PostServiceTestx
 {
-    public class PostServiceIntegrationTest
+    public class PostServiceIntegrationTest : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly WebApplicationFactory<Program> _factory;
         private IProductCatagoryServerConnection _productCatagoryServerConnection;
@@ -46,7 +45,7 @@ namespace PostServiceTest
         public async Task AskProductCatagoryByID_GetProductCatagory()
         {
             var client = _factory.CreateClient();
-            var query = "query{ productCatagoryByID( id: " + 1 + ") { Name, catagoryTypes { name } } }";
+            var query = "query{ productCatagoryByID( id: 1) { productCatagoryID, catagoryTypes { name } } }";
             var responseData = await _productCatagoryServerConnection.GetWithID(client, query, "productCatagoryByID");
 
             Assert.Equal(1, responseData.ProductCatagoryID);
@@ -56,7 +55,7 @@ namespace PostServiceTest
         public async Task AskProductCatagory_GetProductCatagory()
         {
             var client = _factory.CreateClient();
-            var query = "query{ productCatagory() { ProductCatagoryID, ProductCatagoryName, cities { name } } }";
+            var query = "query{ productCatagory() { name, catagoryTypes { name }  } }";
             var responseData = await _productCatagoryServerConnection.Get(client, query, "productCatagory");
 
             Assert.NotEmpty(responseData);
@@ -101,7 +100,7 @@ namespace PostServiceTest
         {
             var client = _factory.CreateClient();
 
-            var query = "query{ catagoryTypeByID( id: " + 1 + ") { name, productCatagory { name } } }";
+            var query = "query{ catagoryTypeByID( id: 1) { catagoryTypeID, productCatagory { name } } }";
             var responseData = await _catagoryTypeServerConnection.GetWithID(client, query, "catagoryTypeByID");
 
             Assert.Equal(1, responseData.CatagoryTypeID);
@@ -133,7 +132,7 @@ namespace PostServiceTest
         public async Task UpdateCatagoryType_GetResponse()
         {
             var client = _factory.CreateClient();
-            var query = "mutation{ updateCatagoryType ( name: \" Changed Name \", CatagoryTypeID: 1, productCatagoryId: 1){    status  }}";
+            var query = "mutation{\r\n   updateCatagoryType ( id: 1, name: \"ss\",  productCatagoryId: 1) {\r\n     status\r\n   }\r\n}";
             var responseData = await _catagoryTypeServerConnection.Update(client, query, "updateCatagoryType");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);

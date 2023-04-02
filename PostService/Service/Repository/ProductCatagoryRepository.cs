@@ -26,7 +26,7 @@ namespace PostService.Service.Repository
         }
         public async Task<ICollection<ProductCatagory>> Get()
         {
-            return await _manager.GetAllAsync();   
+            return  _manager.GetAll();   
         }
         public async Task<ProductCatagory> GetByID(int id)
         {
@@ -44,13 +44,14 @@ namespace PostService.Service.Repository
         }
         public async Task<Response> Update(string name, int id)
         {
+            if (name.IsNullOrEmpty()) { return new Response("Name Not Found", System.Net.HttpStatusCode.NotFound); }
             var obj = await _manager.GetFirstOrDefaultAsync(p => p.ProductCatagoryID == id);
-            if (!name.IsNullOrEmpty()) { return new Response(System.Net.HttpStatusCode.NotFound); }
+            if (obj == null) { return new Response("User Not Found With ID", System.Net.HttpStatusCode.NotFound); }
             obj.Name = name;
             var isUpdate = await _manager.UpdateAsync(obj);
             if (!isUpdate)
             {
-                return new Response(System.Net.HttpStatusCode.NotFound);
+                return new Response( "Update no done",System.Net.HttpStatusCode.NotFound);
             }
             return new Response(System.Net.HttpStatusCode.OK);
         }

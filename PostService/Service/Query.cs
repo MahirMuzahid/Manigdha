@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PostService.Service.Repository;
 using SharedModal.Modals;
 
@@ -16,29 +17,34 @@ namespace PostService.Service
 
         #region ProductCatagory
         [UseProjection]
-        public async Task<ICollection<ProductCatagory>> GetProductCatagory()
+        public async Task<IQueryable<ProductCatagory>> GetProductCatagory([Service] DataContext _context)
         {
-            return await _productCatagoryRepository.Get();
+            return _context.ProductCatagories.Include(u => u.CatagoryTypes).AsQueryable();
         }
         [UseProjection]
-        public async Task<ProductCatagory> GetProductCatagoryByID(int id)
+        public async Task<ProductCatagory> GetProductCatagoryByID([Service] DataContext _context, int id)
         {
-            return await _productCatagoryRepository.GetByID(id);
+            var result = await _context.ProductCatagories.Include(u => u.CatagoryTypes).FirstOrDefaultAsync(u => u.ProductCatagoryID == id);
+
+            if (result == null) { return new ProductCatagory(); }
+            return result;
         }
         #endregion
 
         #region Catagory Type
         [UseProjection]
-        public async Task<ICollection<CatagoryType>> GetCatagoryType()
+        public async Task<IQueryable<CatagoryType>> GetCatagoryType([Service] DataContext _context)
         {
-            return await _catagoryTypeRepository.Get();
+            return _context.CatagoryTypes.Include(u => u.ProductCatagory).AsQueryable();
         }
         [UseProjection]
-        public async Task<CatagoryType> GetCatagoryTypeByID(int id)
+        public async Task<CatagoryType> GetCatagoryTypeByID([Service] DataContext _context, int id)
         {
-            return await _catagoryTypeRepository.GetByID(id);
+            var result = await _context.CatagoryTypes.Include(u => u.ProductCatagory).FirstOrDefaultAsync(u => u.CatagoryTypeID == id);
+
+            if (result == null) { return new CatagoryType(); }
+            return result;
         }
         #endregion
-
     }
 }
