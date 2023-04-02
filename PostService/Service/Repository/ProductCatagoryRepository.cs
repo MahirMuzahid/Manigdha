@@ -1,4 +1,5 @@
 ﻿using CommonCalls;
+using Microsoft.IdentityModel.Tokens;
 using SharedModal.Modals;
 
 namespace PostService.Service.Repository
@@ -12,8 +13,10 @@ namespace PostService.Service.Repository
             _manager = manager;
         }
 
-        public async Task<Response> Delete(ProductCatagory obj)
+
+        public async Task<Response> Delete(int id)
         {
+            var obj = await _manager.GetFirstOrDefaultAsync(p => p.ProductCatagoryID == id);
             var isDlt = await _manager.DeleteAsync(obj);
             if (!isDlt)
             {
@@ -22,14 +25,14 @@ namespace PostService.Service.Repository
             return new Response(System.Net.HttpStatusCode.OK);
         }
 
-        public Task<ICollection<ProductCatagory>> Get()
+        public async Task<ICollection<ProductCatagory>> Get()
         {
-            throw new NotImplementedException();
+            return await _manager.GetAllAsync();   
         }
 
-        public Task<ProductCatagory> GetByID(int id)
+        public async Task<ProductCatagory> GetByID(int id)
         {
-            throw new NotImplementedException();
+            return await _manager.GetFirstOrDefaultAsync(p => p.ProductCatagoryID == id);
         }
 
         public async Task<Response> Set(string name)
@@ -43,9 +46,17 @@ namespace PostService.Service.Repository
             return new Response(System.Net.HttpStatusCode.OK);
         }
 
-        public Task<Response> Update(ProductCatagory obj)
+        public async Task<Response> Update(string name, int id)
         {
-            throw new NotImplementedException();
+            var obj = await _manager.GetFirstOrDefaultAsync(p => p.ProductCatagoryID == id);
+            if (!name.IsNullOrEmpty()) { return new Response(System.Net.HttpStatusCode.NotFound); }
+            obj.Name = name;
+            var isUpdate = await _manager.UpdateAsync(obj);
+            if (!isUpdate)
+            {
+                return new Response(System.Net.HttpStatusCode.NotFound);
+            }
+            return new Response(System.Net.HttpStatusCode.OK);
         }
     }
 }
