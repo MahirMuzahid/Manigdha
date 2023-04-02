@@ -38,6 +38,19 @@ namespace SharedModal.ClientServerConnection
             return result;
         }
 
+        public async Task<List<T>> GetWithIDList(HttpClient client, string query, string queryName)
+        {
+            var response = await GetQueryResponse(client, query);
+            if (response.StatusCode == HttpStatusCode.NotFound) { return default!; }
+            var queryString = JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString();
+            var result = JsonConvert.DeserializeObject<List<T>>(queryString);
+            if (result == null)
+            {
+                return default!;
+            }
+            return result;
+        }
+
         public async Task<Response> Set(HttpClient client, string query, string queryName)
         {
             var response = await GetQueryResponse(client, query);

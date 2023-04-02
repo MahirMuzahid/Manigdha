@@ -5,6 +5,7 @@ using SharedModal.Modals;
 using SharedModal.ClientServerConnection.Product_Catagory;
 using SharedModal.ClientServerConnection.Catagory_Type;
 using System.Net;
+using SharedModal.ClientServerConnection.Product_Server_Connection;
 
 namespace PostServiceTestx
 {
@@ -13,6 +14,7 @@ namespace PostServiceTestx
         private readonly WebApplicationFactory<Program> _factory;
         private IProductCatagoryServerConnection _productCatagoryServerConnection;
         private ICatagoryTypeServerConnection _catagoryTypeServerConnection;
+        private IProductServerConnection  _productServerConnection;
         private int dltID = 8;
         private int cityID = 1;
 
@@ -30,6 +32,7 @@ namespace PostServiceTestx
 
             services.AddScoped<IProductCatagoryServerConnection, ProductCatagoryServerConnection>();
             services.AddScoped<ICatagoryTypeServerConnection, CatagoryTypeServerConnection>();
+            services.AddScoped<IProductServerConnection, ProductServerConnection>();
             services.AddScoped<ICURDCall<ProductCatagory>, CURDCall<ProductCatagory>>();
             services.AddScoped<ICURDCall<CatagoryType>, CURDCall<CatagoryType>>();
 
@@ -37,6 +40,7 @@ namespace PostServiceTestx
             var serviceProvider = services.BuildServiceProvider();
             _productCatagoryServerConnection = serviceProvider.GetService<IProductCatagoryServerConnection>();
             _catagoryTypeServerConnection = serviceProvider.GetService<ICatagoryTypeServerConnection>();
+            _productServerConnection = serviceProvider.GetService<IProductServerConnection>();
         }
 
         #region ProductCatagory 
@@ -132,7 +136,7 @@ namespace PostServiceTestx
         public async Task UpdateCatagoryType_GetResponse()
         {
             var client = _factory.CreateClient();
-            var query = "mutation{\r\n   updateCatagoryType ( id: 1, name: \"ss\",  productCatagoryId: 1) {\r\n     status\r\n   }\r\n}";
+            var query = "mutation{ updateCatagoryType ( id: 1, name: \"gg\",  productCatagoryId: 1) {     status   }}";
             var responseData = await _catagoryTypeServerConnection.Update(client, query, "updateCatagoryType");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
@@ -144,6 +148,63 @@ namespace PostServiceTestx
             var client = _factory.CreateClient();
             var query = "mutation{ deleteCatagoryType ( id: 1){ status }}";
             var responseData = await _catagoryTypeServerConnection.Delete(client, query, "deleteCatagoryType");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        #endregion City
+
+        #region Product 
+
+        [Fact]
+        public async Task AskProductByID_GetProduct()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "query{ ProductByID( id: 1) { ProductID, productCatagory { name } } }";
+            var responseData = await _ProductServerConnection.GetWithID(client, query, "ProductByID");
+
+            Assert.Equal(1, responseData.ProductID);
+        }
+
+        [Fact]
+        public async Task AskProduct_GetProduct()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "query{ Product() { name, productCatagory { name } } }";
+            var responseData = await _ProductServerConnection.Get(client, query, "Product");
+
+            Assert.NotEmpty(responseData);
+        }
+
+        [Fact]
+        public async Task SetProduct_GetResponse()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "mutation{ setProduct ( name: \"From Test\", productCatagoryId: 1){ status }}";
+            var responseData = await _ProductServerConnection.Set(client, query, "setProduct");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        [Fact]
+        public async Task UpdateProduct_GetResponse()
+        {
+            var client = _factory.CreateClient();
+            var query = "mutation{ updateProduct ( id: 1, name: \"gg\",  productCatagoryId: 1) {     status   }}";
+            var responseData = await _ProductServerConnection.Update(client, query, "updateProduct");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        //[Fact]
+        public async Task DeleteProduct_GetResponse()
+        {
+            var client = _factory.CreateClient();
+            var query = "mutation{ deleteProduct ( id: 1){ status }}";
+            var responseData = await _ProductServerConnection.Delete(client, query, "deleteProduct");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }

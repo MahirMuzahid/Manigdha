@@ -44,7 +44,7 @@ namespace PostService.Service.Repository
         {
             var obj = await _manager.GetFirstOrDefaultAsync(p => p.ProductCatagoryID == productCatagoryId);
 
-            if (!name.IsNullOrEmpty()) { return new Response(System.Net.HttpStatusCode.NotFound); }
+            if (name.IsNullOrEmpty()) { return new Response(System.Net.HttpStatusCode.NotFound); }
             obj.Name = name;
 
             if (productCatagoryId == 0) { return new Response(System.Net.HttpStatusCode.NotFound); }

@@ -14,6 +14,7 @@ namespace SharedModal.ClientServerConnection
         public Task<Response> Update(HttpClient client, string query, string queryName);
         public Task<List<T>> Get(HttpClient client, string query, string queryName);
         public Task<T> GetWithID(HttpClient client, string query, string queryName);
+        public Task<List<T>> GetWithIDList(HttpClient client, string query, string queryName);
         public Task<Response> Delete(HttpClient client, string query, string queryName);
     }
 }
