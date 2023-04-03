@@ -17,15 +17,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddGraphQLServer().AddQueryType<Query>().AddMutationType<Mutation>().AddProjections().AddSorting().AddAuthorization();
 builder.Services.AddControllers();
 
-builder.Services.AddAutoMapper(typeof(ReponseMapper).Assembly);
+builder.Services.AddAutoMapper(typeof(MapperCls).Assembly);
+
 builder.Services.AddScoped<IProductCatagoryRepository, ProductCatagoryRepository>();
 builder.Services.AddScoped<ICatagoryTypeRepository, CatagoryTypeRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddScoped<IManager<ProductCatagory>, Manager<ProductCatagory>>();
 builder.Services.AddScoped<IRepository<ProductCatagory>, Repository<ProductCatagory>>();
+
 builder.Services.AddScoped<IManager<CatagoryType>, Manager<CatagoryType>>();
 builder.Services.AddScoped<IRepository<CatagoryType>, Repository<CatagoryType>>();
+
+builder.Services.AddScoped<IManager<Product>, Manager<Product>>();
 builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -40,9 +40,16 @@ namespace PostService.Service.Repository
             return new Response(System.Net.HttpStatusCode.OK);
         }
         public async Task<Response> Update(ProductDTO productDTO)
-        {
-            var obj = _mapper.Map<Product>(productDTO);
-            if (obj == null) { return new Response(System.Net.HttpStatusCode.OK); }
+        {          
+            if (productDTO == null) { return new Response(System.Net.HttpStatusCode.NotFound); }
+            var obj = await _manager.GetFirstOrDefaultAsync(p => p.ProductID == productDTO.ProductID);
+            if (obj == null) { return new Response("Product Not Found With ID", System.Net.HttpStatusCode.NotFound); }
+            if(productDTO.CatagoryTypeID != 0) { obj.CatagoryTypeID = productDTO.CatagoryTypeID; }
+            if (productDTO.AskingPrice != 0) { obj.AskingPrice = productDTO.AskingPrice; }
+            if (productDTO.IsActive != obj.IsActive) { obj.IsActive = productDTO.IsActive; }
+            if (productDTO.Description != obj.Description && !productDTO.Description.IsNullOrEmpty()) { obj.Description = productDTO.Description; }
+            if (productDTO.Title != obj.Title && !productDTO.Title.IsNullOrEmpty()) { obj.Title = productDTO.Title; }
+
             var result = await _manager.UpdateAsync(obj);
             if (!result)
             {

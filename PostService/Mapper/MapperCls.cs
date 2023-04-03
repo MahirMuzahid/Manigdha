@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
 using SharedModal.DTO;
+using SharedModal.Modals;
 using SharedModal.ReponseModal;
 
 namespace PostService.Mapper
 {
-    public class ReponseMapper: Profile
+    public class MapperCls: Profile
     {
-        public ReponseMapper()
+        public MapperCls()
         {
-           CreateMap<Response, Response>();
+           CreateMap<ProductDTO, Product>();
         }
     }
 }

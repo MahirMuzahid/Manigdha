@@ -15,6 +15,7 @@ namespace PostServiceTestx
         private IProductCatagoryServerConnection _productCatagoryServerConnection;
         private ICatagoryTypeServerConnection _catagoryTypeServerConnection;
         private IProductServerConnection  _productServerConnection;
+
         private int dltID = 8;
         private int cityID = 1;
 
@@ -33,11 +34,14 @@ namespace PostServiceTestx
             services.AddScoped<IProductCatagoryServerConnection, ProductCatagoryServerConnection>();
             services.AddScoped<ICatagoryTypeServerConnection, CatagoryTypeServerConnection>();
             services.AddScoped<IProductServerConnection, ProductServerConnection>();
+
             services.AddScoped<ICURDCall<ProductCatagory>, CURDCall<ProductCatagory>>();
             services.AddScoped<ICURDCall<CatagoryType>, CURDCall<CatagoryType>>();
+            services.AddScoped<ICURDCall<Product>, CURDCall<Product>>();
 
             // Build the ServiceCollection and get the IUserServerConnection implementation
             var serviceProvider = services.BuildServiceProvider();
+
             _productCatagoryServerConnection = serviceProvider.GetService<IProductCatagoryServerConnection>();
             _catagoryTypeServerConnection = serviceProvider.GetService<ICatagoryTypeServerConnection>();
             _productServerConnection = serviceProvider.GetService<IProductServerConnection>();
@@ -161,8 +165,8 @@ namespace PostServiceTestx
         {
             var client = _factory.CreateClient();
 
-            var query = "query{ ProductByID( id: 1) { ProductID, productCatagory { name } } }";
-            var responseData = await _productServerConnection.GetWithID(client, query, "ProductByID");
+            var query = "query{ productById( id: 1) { productID, catagoryType { name } } }";
+            var responseData = await _productServerConnection.GetWithID(client, query, "productById");
 
             Assert.Equal(1, responseData.ProductID);
         }
@@ -172,8 +176,8 @@ namespace PostServiceTestx
         {
             var client = _factory.CreateClient();
 
-            var query = "query{ Product() { name, productCatagory { name } } }";
-            var responseData = await _productServerConnection.Get(client, query, "Product");
+            var query = "query{ producte() { productID, catagoryType { name } } }";
+            var responseData = await _productServerConnection.Get(client, query, "producte");
 
             Assert.NotEmpty(responseData);
         }
@@ -183,7 +187,7 @@ namespace PostServiceTestx
         {
             var client = _factory.CreateClient();
 
-            var query = "mutation{ setProduct ( name: \"From Test\", productCatagoryId: 1){ status }}";
+            var query = "mutation{ setProduct ( productDTO: { title: \"From Test\", description: \"From Test\" , askingPrice: 1000, userID: 48 ,catagoryTypeID: 1 , isActive: true}){ status }}";
             var responseData = await _productServerConnection.Set(client, query, "setProduct");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
@@ -193,7 +197,7 @@ namespace PostServiceTestx
         public async Task UpdateProduct_GetResponse()
         {
             var client = _factory.CreateClient();
-            var query = "mutation{ updateProduct ( id: 1, name: \"gg\",  productCatagoryId: 1) {     status   }}";
+            var query = "mutation{ updateProduct ( productDTO: \r\n{ productID: 1, title: \"From Test Update\", description: \"From Test Update\" , askingPrice: 0,catagoryTypeID: 1 , isActive: true})\r\n{ status }}";
             var responseData = await _productServerConnection.Update(client, query, "updateProduct");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
