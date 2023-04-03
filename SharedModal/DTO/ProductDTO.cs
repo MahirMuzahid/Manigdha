@@ -15,5 +15,6 @@ namespace SharedModal.DTO
         public decimal? AskingPrice { get; set; }
         public int UserID { get; set; }
         public int CatagoryTypeID { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

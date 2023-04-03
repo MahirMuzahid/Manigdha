@@ -22,14 +22,6 @@ namespace PostService.Service.Repository
             }
             return new Response(System.Net.HttpStatusCode.OK);
         }
-        public async Task<ICollection<CatagoryType>> Get()
-        {
-            return await _manager.GetAllAsync();
-        }
-        public async Task<CatagoryType> GetByID(int id)
-        {
-            return await _manager.GetFirstOrDefaultAsync(p => p.CatagoryTypeID == id);
-        }
         public async Task<Response> Set(string name, int id)
         {
             var obj = new CatagoryType() { Name = name, ProductCatagoryID = id };

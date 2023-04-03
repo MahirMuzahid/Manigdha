@@ -162,7 +162,7 @@ namespace PostServiceTestx
             var client = _factory.CreateClient();
 
             var query = "query{ ProductByID( id: 1) { ProductID, productCatagory { name } } }";
-            var responseData = await _ProductServerConnection.GetWithID(client, query, "ProductByID");
+            var responseData = await _productServerConnection.GetWithID(client, query, "ProductByID");
 
             Assert.Equal(1, responseData.ProductID);
         }
@@ -173,7 +173,7 @@ namespace PostServiceTestx
             var client = _factory.CreateClient();
 
             var query = "query{ Product() { name, productCatagory { name } } }";
-            var responseData = await _ProductServerConnection.Get(client, query, "Product");
+            var responseData = await _productServerConnection.Get(client, query, "Product");
 
             Assert.NotEmpty(responseData);
         }
@@ -184,7 +184,7 @@ namespace PostServiceTestx
             var client = _factory.CreateClient();
 
             var query = "mutation{ setProduct ( name: \"From Test\", productCatagoryId: 1){ status }}";
-            var responseData = await _ProductServerConnection.Set(client, query, "setProduct");
+            var responseData = await _productServerConnection.Set(client, query, "setProduct");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }
@@ -194,7 +194,7 @@ namespace PostServiceTestx
         {
             var client = _factory.CreateClient();
             var query = "mutation{ updateProduct ( id: 1, name: \"gg\",  productCatagoryId: 1) {     status   }}";
-            var responseData = await _ProductServerConnection.Update(client, query, "updateProduct");
+            var responseData = await _productServerConnection.Update(client, query, "updateProduct");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }
@@ -204,7 +204,7 @@ namespace PostServiceTestx
         {
             var client = _factory.CreateClient();
             var query = "mutation{ deleteProduct ( id: 1){ status }}";
-            var responseData = await _ProductServerConnection.Delete(client, query, "deleteProduct");
+            var responseData = await _productServerConnection.Delete(client, query, "deleteProduct");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }

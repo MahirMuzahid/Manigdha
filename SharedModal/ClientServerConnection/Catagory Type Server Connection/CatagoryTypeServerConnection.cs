@@ -27,6 +27,11 @@ namespace SharedModal.ClientServerConnection.Catagory_Type
             return await _serverConnection.GetWithID(client, query, queryName);
         }
 
+        public Task<List<CatagoryType>> GetWithIDList(HttpClient client, string query, string queryName)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response> Set(HttpClient client, string query, string queryName)
         {
             return await _serverConnection.Set(client, query, queryName);
