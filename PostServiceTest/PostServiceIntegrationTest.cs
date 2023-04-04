@@ -100,7 +100,7 @@ namespace PostServiceTestx
         }
 
         #endregion City
-
+         
         #region CatagoryType 
 
         [Fact]
