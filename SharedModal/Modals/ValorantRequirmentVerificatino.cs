@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharedModal.Modals
 {
-    internal class DigitalProductImageVerification
+    public class DigitalProductRequirmentVerificatino
     {
     }
 }

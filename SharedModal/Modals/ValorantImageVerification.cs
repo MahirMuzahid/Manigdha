@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharedModal.Modals
 {
-    public class NonDigitalProductImageVerification
+    public class DigitalProductImageVerification
     {
     }
 }
