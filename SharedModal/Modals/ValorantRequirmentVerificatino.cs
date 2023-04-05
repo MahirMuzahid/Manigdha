@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharedModal.Modals
 {
-    public class DigitalProductRequirmentVerificatino
+    public class ValorantRequirmentVerificatino
     {
     }
 }

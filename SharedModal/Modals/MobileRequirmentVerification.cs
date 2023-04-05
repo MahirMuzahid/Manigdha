@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SharedModal.Modals
 {
-    public class NonDigitalProductRequirmentVerification
+    public class MobileRequirmentVerification
     {
+        public int Id { get; set; }
+
     }
 }

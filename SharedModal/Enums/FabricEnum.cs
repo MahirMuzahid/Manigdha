@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace SharedModal.Enums
 {
-    internal class FrabricEnum
+    public class FabricEnum
     {
+        public enum FaribType
+        {
+            Silk,
+            Shuti
+        }
     }
 }
