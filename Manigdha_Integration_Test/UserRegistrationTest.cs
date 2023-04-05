@@ -33,6 +33,7 @@ namespace Manigdha_Integration_Test
             services.AddScoped<IUserServerConnection, UserServerConnection>();
             services.AddScoped<ICityServerConnectio, CityServerConnection>();
             services.AddScoped<IDivisioServerConnection, DivisionServerConnection>();
+
             services.AddScoped<ICURDCall<City>, CURDCall<City>>();
             services.AddScoped<ICURDCall<Division>, CURDCall<Division>>();
 

@@ -10,11 +10,13 @@ namespace PostService.Service
         private IProductCatagoryRepository _productCatagoryRepository;
         private ICatagoryTypeRepository _catagoryTypeRepository;
         private IProductRepository _productRepository;
-        public Mutation(IProductCatagoryRepository productCatagoryRepository , ICatagoryTypeRepository catagoryTypeRepository, IProductRepository productRepository)
+        private IBidRepository _bidRepository;
+        public Mutation(IProductCatagoryRepository productCatagoryRepository , ICatagoryTypeRepository catagoryTypeRepository, IProductRepository productRepository, IBidRepository bidRepository)
         {
             _productCatagoryRepository = productCatagoryRepository;
             _catagoryTypeRepository = catagoryTypeRepository;
             _productRepository = productRepository;
+            _bidRepository = bidRepository;
 
         }
 
@@ -62,5 +64,22 @@ namespace PostService.Service
             return await _productRepository.Delete(id);
         }
         #endregion
+
+        #region Bid Hostoyr
+        public async Task<Response> SetBidHistory(int bidAmount, int userId, int productId)
+        {
+            return await _bidRepository.Set(bidAmount,userId,productId);
+        }
+        public async Task<Response> UpdateBidHistory(int bidAmount, int id)
+        {
+            return await _bidRepository.Update(bidAmount, id);
+        }
+        public async Task<Response> DeleteBidHistory(int id)
+        {
+            return await _bidRepository.Delete(id);
+        }
+        #endregion
+
+
     }
 }

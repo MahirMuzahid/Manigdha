@@ -4,26 +4,18 @@ using SharedModal.Modals;
 
 namespace PostService.Service.Repository
 {
-    public class ProductCatagoryRepository : IProductCatagoryRepository
+    public class BidRepository : IBidRepository
     {
-        private IManager<ProductCatagory> _manager;
+        private IManager<BidHistory> _manager;
 
-        public ProductCatagoryRepository(IManager<ProductCatagory> manager)
+        public BidRepository(IManager<BidHistory> manager)
         {
             _manager = manager;
         }
-
-        public async Task<ICollection<ProductCatagory>> Get()
-        {
-            return _manager.GetAll();
-        }
-        public async Task<ProductCatagory> GetByID(int id)
-        {
-            return await _manager.GetFirstOrDefaultAsync(p => p.ProductCatagoryID == id);
-        }
+       
         public async Task<Response> Delete(int id)
         {
-            var obj = await _manager.GetFirstOrDefaultAsync(p => p.ProductCatagoryID == id);
+            var obj = await _manager.GetFirstOrDefaultAsync(p => p.BidHistoryID == id);
             var isDlt = await _manager.DeleteAsync(obj);
             if (!isDlt)
             {
@@ -31,9 +23,9 @@ namespace PostService.Service.Repository
             }
             return new Response(System.Net.HttpStatusCode.OK);
         }
-        public async Task<Response> Set(string name)
+        public async Task<Response> Set(int BidAmount, int UserId, int ProductId)
         {
-            var obj = new ProductCatagory() { Name = name};
+            var obj = new BidHistory() { BidAmount = BidAmount, UserID = UserId, ProductID = ProductId };
             var isDlt = await _manager.AddAsync(obj);
             if (!isDlt)
             {
@@ -50,7 +42,7 @@ namespace PostService.Service.Repository
             var isUpdate = await _manager.UpdateAsync(obj);
             if (!isUpdate)
             {
-                return new Response( "Update no done",System.Net.HttpStatusCode.NotFound);
+                return new Response("Update no done", System.Net.HttpStatusCode.NotFound);
             }
             return new Response(System.Net.HttpStatusCode.OK);
         }

@@ -6,6 +6,7 @@ using SharedModal.ClientServerConnection.Product_Catagory;
 using SharedModal.ClientServerConnection.Catagory_Type;
 using System.Net;
 using SharedModal.ClientServerConnection.Product_Server_Connection;
+using SharedModal.ClientServerConnection.Bid_History_Server_Connection;
 
 namespace PostServiceTestx
 {
@@ -15,6 +16,7 @@ namespace PostServiceTestx
         private IProductCatagoryServerConnection _productCatagoryServerConnection;
         private ICatagoryTypeServerConnection _catagoryTypeServerConnection;
         private IProductServerConnection  _productServerConnection;
+        private IBidHistoryServerConnection _bidHistoryServerConnection;
 
         private int dltID = 8;
         private int cityID = 1;
@@ -34,10 +36,12 @@ namespace PostServiceTestx
             services.AddScoped<IProductCatagoryServerConnection, ProductCatagoryServerConnection>();
             services.AddScoped<ICatagoryTypeServerConnection, CatagoryTypeServerConnection>();
             services.AddScoped<IProductServerConnection, ProductServerConnection>();
+            services.AddScoped<IBidHistoryServerConnection, BidHostoryServerConnection>();
 
             services.AddScoped<ICURDCall<ProductCatagory>, CURDCall<ProductCatagory>>();
             services.AddScoped<ICURDCall<CatagoryType>, CURDCall<CatagoryType>>();
             services.AddScoped<ICURDCall<Product>, CURDCall<Product>>();
+            services.AddScoped<ICURDCall<BidHistory>, CURDCall<BidHistory>>();
 
             // Build the ServiceCollection and get the IUserServerConnection implementation
             var serviceProvider = services.BuildServiceProvider();
@@ -45,6 +49,7 @@ namespace PostServiceTestx
             _productCatagoryServerConnection = serviceProvider.GetService<IProductCatagoryServerConnection>();
             _catagoryTypeServerConnection = serviceProvider.GetService<ICatagoryTypeServerConnection>();
             _productServerConnection = serviceProvider.GetService<IProductServerConnection>();
+            _bidHistoryServerConnection = serviceProvider.GetService<IBidHistoryServerConnection>();
         }
 
         #region ProductCatagory 
@@ -209,6 +214,63 @@ namespace PostServiceTestx
             var client = _factory.CreateClient();
             var query = "mutation{ deleteProduct ( id: 1){ status }}";
             var responseData = await _productServerConnection.Delete(client, query, "deleteProduct");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        #endregion City
+
+        #region BidHistory 
+
+        [Fact]
+        public async Task AskBidHistoryByID_GetBidHistory()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "query{ BidHistoryById( id: 1) { BidHistoryID, catagoryType { name } } }";
+            var responseData = await _bidHistoryServerConnection.GetWithID(client, query, "BidHistoryById");
+
+            Assert.Equal(1, responseData.BidHistoryID);
+        }
+
+        [Fact]
+        public async Task AskBidHistory_GetBidHistory()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "query{ BidHistorye() { BidHistoryID, catagoryType { name } } }";
+            var responseData = await _bidHistoryServerConnection.Get(client, query, "BidHistorye");
+
+            Assert.NotEmpty(responseData);
+        }
+
+        [Fact]
+        public async Task SetBidHistory_GetResponse()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "mutation{ setBidHistory ( BidHistoryDTO: { title: \"From Test\", description: \"From Test\" , askingPrice: 1000, userID: 48 ,catagoryTypeID: 1 , isActive: true}){ status }}";
+            var responseData = await _bidHistoryServerConnection.Set(client, query, "setBidHistory");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        [Fact]
+        public async Task UpdateBidHistory_GetResponse()
+        {
+            var client = _factory.CreateClient();
+            var query = "mutation{ updateBidHistory ( BidHistoryDTO: \r\n{ BidHistoryID: 1, title: \"From Test Update\", description: \"From Test Update\" , askingPrice: 0,catagoryTypeID: 1 , isActive: true})\r\n{ status }}";
+            var responseData = await _bidHistoryServerConnection.Update(client, query, "updateBidHistory");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        //[Fact]
+        public async Task DeleteBidHistory_GetResponse()
+        {
+            var client = _factory.CreateClient();
+            var query = "mutation{ deleteBidHistory ( id: 1){ status }}";
+            var responseData = await _bidHistoryServerConnection.Delete(client, query, "deleteBidHistory");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }
