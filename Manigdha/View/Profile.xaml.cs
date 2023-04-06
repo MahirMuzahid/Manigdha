@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Views;
+
 namespace Manigdha.View;
 
 public partial class Profile : ContentPage
@@ -5,7 +7,7 @@ public partial class Profile : ContentPage
 	public Profile()
 	{
 		InitializeComponent();
-	}
+    }
 
     private void Button_Clicked(object sender, EventArgs e)
     {
@@ -16,6 +18,7 @@ public partial class Profile : ContentPage
 	{
         //await Shell.Current.GoToAsync(nameof(ProductPage));
         await Navigation.PushAsync(new ProductPage());
+        
     }
 
     private void Button_Clicked_1(object sender, EventArgs e)
@@ -26,5 +29,24 @@ public partial class Profile : ContentPage
     {
         //await Shell.Current.GoToAsync(nameof(ProductPage));
         await Navigation.PushAsync(new BidHistory());
+    }
+
+    private void Button_Clicked_2(object sender, EventArgs e)
+    {
+        LoginButtonGrid.TranslateTo(-800, 0, 1400, Easing.SinOut);
+        RegisterCard.IsVisible = false;
+        LoginCard.IsVisible = true;
+    }
+
+    private void Button_Clicked_3(object sender, EventArgs e)
+    {
+        LoginButtonGrid.TranslateTo(0, 0, 1400, Easing.SinOut);
+    }
+
+    private void Button_Clicked_4(object sender, EventArgs e)
+    {
+        LoginButtonGrid.TranslateTo(-800, 0, 1400, Easing.SinOut);
+        RegisterCard.IsVisible = true;
+        LoginCard.IsVisible = false;
     }
 }

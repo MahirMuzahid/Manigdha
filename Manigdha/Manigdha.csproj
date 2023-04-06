@@ -66,6 +66,7 @@
 	  <None Remove="Resources\Images\usedmobile.jfif" />
 	  <None Remove="Resources\Images\verified.svg" />
 	  <None Remove="Resources\Images\verifyimg.jpg" />
+	  <None Remove="Resources\Images\WhiteLogo.png" />
 	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
@@ -139,6 +140,10 @@
 	  <MauiXaml Update="View\UploadImage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="View\Login Popup\" />
 	</ItemGroup>
 
 </Project>

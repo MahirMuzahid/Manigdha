@@ -5,7 +5,7 @@
              x:Class="Manigdha.View.Profile"
              Shell.NavBarHasShadow="False">
 
-    <ScrollView>
+    <Grid>
         <Grid RowDefinitions="AUTO,50,50,50,50,50,50" BackgroundColor="{AppThemeBinding Light={StaticResource LightWhite}, Dark={StaticResource Gray950}}">
             <Grid Grid.Row="0" RowDefinitions="100,AUTO">
                 <toolkit:AvatarView Grid.Row="0" ImageSource="propic.jfif" MinimumHeightRequest="100" MinimumWidthRequest="100"  CornerRadius="20" BorderColor="Transparent"/>
@@ -14,7 +14,6 @@
                     <Label Text="mahirmuzahid@gmail.com" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="10" FontAttributes="Bold"/>
                     <Label Text="01833368125" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="10" FontAttributes="Bold"/>
                     <Button Text="Edit Profile" Grid.Row="3" HorizontalOptions="Center" FontSize="10" FontAttributes="Bold" Padding="10,0,10,0" Margin="0,10,0,10"/>
-
                 </Grid>
             </Grid>
             <Grid Grid.Row="1" Margin="10,10,10,0">
@@ -72,5 +71,73 @@
 
 
         </Grid>
-    </ScrollView>
+        <Grid >
+            <Frame BackgroundColor="#99000000" CornerRadius="0"/>
+            <Grid RowDefinitions="*,400,*" >
+                
+                <Grid x:Name="LoginCard" Grid.Row="1" RowDefinitions="40,*" ColumnDefinitions="40,*,*">
+                    <Frame BackgroundColor="{StaticResource Gray900}" Grid.RowSpan="2" 
+                           Grid.ColumnSpan="3" CornerRadius="0" HasShadow="False" BorderColor="Transparent">
+                    </Frame>
+                    <Image Source="leftarrowwhite.png"  Aspect="AspectFit" Margin="7"/>
+                    <Button Margin="8" BackgroundColor="Transparent" Clicked="Button_Clicked_3"/>
+                    <Grid Grid.Row="1" Grid.ColumnSpan="3" RowDefinitions="50,AUTO,AUTO,AUTO,60,*">
+                        <Label Text="Login" Grid.Row="0" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold"/>
+                        <Entry Placeholder="Phone Number / Email" HorizontalTextAlignment="Center"
+                               Grid.Row="1" Margin="20,0,20,5" BackgroundColor="{StaticResource Gray950}"/>
+                        <Entry Placeholder="Password" HorizontalTextAlignment="Center"
+                               Grid.Row="2" Margin="20,5,20,0" BackgroundColor="{StaticResource Gray950}"/>
+                        <Grid Grid.Row="3" ColumnDefinitions="AUTO,AUTO,*,AUTO">
+                            <CheckBox Grid.Column="0" Margin="15,0,0,0"/>
+                            <Label Text="Remember Me" Grid.Column="1" VerticalOptions="Center" FontSize="12"/>
+                            <Label Text="Forgot Passowrd" Grid.Column="3" VerticalOptions="Center" FontSize="12" Margin="0,0,20,0"/>
+                        </Grid>
+                        <Button Text="Login" BackgroundColor="{StaticResource SecondPalate}" TextColor="White" Grid.Row="4" Margin="120,20,120,0"/>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="RegisterCard" Grid.Row="1" RowDefinitions="40,*" ColumnDefinitions="40,*,*">
+                    <Frame BackgroundColor="{StaticResource Gray900}" Grid.RowSpan="2" 
+                           Grid.ColumnSpan="3" CornerRadius="0" HasShadow="False" BorderColor="Transparent">
+                    </Frame>
+                    <Image Source="leftarrowwhite.png"  Aspect="AspectFit" Margin="7"/>
+                    <Button Margin="8" BackgroundColor="Transparent" Clicked="Button_Clicked_3"/>
+                    <Grid Grid.Row="1" Grid.ColumnSpan="3" RowDefinitions="50,AUTO,AUTO,AUTO,AUTO,AUTO,*">
+                        <Label Text="Register" Grid.Row="0" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold"/>
+                        <Entry Placeholder="Name" HorizontalTextAlignment="Center"
+                               Grid.Row="1" Margin="20,0,20,5" BackgroundColor="{StaticResource Gray950}"/>
+                        <Entry Placeholder="Phone Number" HorizontalTextAlignment="Center"
+                               Grid.Row="2" Margin="20,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
+                        <Entry Placeholder="Email" HorizontalTextAlignment="Center"
+                               Grid.Row="3" Margin="20,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
+                        <Grid Grid.Row="4" ColumnDefinitions="*,*">
+                            <Entry Placeholder="Password" HorizontalTextAlignment="Center"
+                               Grid.Row="4" Margin="20,5,5,5" BackgroundColor="{StaticResource Gray950}"/>
+                            <Entry Placeholder=" Confirm Password" HorizontalTextAlignment="Center" Grid.Column="1"
+                               Grid.Row="4" Margin="5,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
+                        </Grid>
+                        
+                        <Entry Placeholder="City" HorizontalTextAlignment="Center"
+                               Grid.Row="5" Margin="20,5,20,0" BackgroundColor="{StaticResource Gray950}"/>
+                        
+                        <Button Text="Register" BackgroundColor="{StaticResource SecondPalate}" TextColor="White" Grid.Row="6" Margin="240,20,20,20"/>
+                    </Grid>
+                </Grid>
+                    
+                <Grid x:Name="LoginButtonGrid" RowDefinitions="30,AUTO,100,*,*,*" Grid.Row="1">
+                    <Frame BackgroundColor="{StaticResource Gray900}" 
+                           Grid.RowSpan="6" CornerRadius="0" HasShadow="False" BorderColor="Transparent">
+                    </Frame>
+                    <Label Text="Login / Register To Continue..." Grid.Row="1" HorizontalOptions="Center" FontSize="12"/>
+                    <Image Source="whitelogo.png" Grid.Row="2" Aspect="AspectFit" Margin="0,40,0,0"/>
+                    <Button Text="Login" BackgroundColor="{StaticResource Gray950}" 
+                            Grid.Row="3" Margin="100,40,100,5" TextColor="White" Clicked="Button_Clicked_2"/>
+                    <Button Text="Register" Grid.Row="4" BackgroundColor="{StaticResource Gray950}" Clicked="Button_Clicked_4" 
+                            Margin="100,5,100,40" TextColor="White"/>
+                </Grid>
+
+                
+            </Grid>
+        </Grid>
+    </Grid>
+    
 </ContentPage>
