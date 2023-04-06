@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Manigdha.View;
 using Manigdha.ViewModel;
+using SharedModal.ClientServerConnection;
 
 namespace Manigdha;
 
@@ -19,6 +20,7 @@ public static class MauiProgram
                 fonts.AddFont("Montserrat-Bold.ttf", "MontserratBold");
             });
 		builder.Services.AddSingleton<BuyPost>();
+        builder.Services.AddScoped<IUserServerConnection, UserServerConnection>();
         builder.Services.AddSingleton<BuyPostViewModal>();
         return builder.Build();
 	}

@@ -1,4 +1,6 @@
 using CommunityToolkit.Maui.Views;
+using Manigdha.ViewModel;
+using SharedModal.ClientServerConnection;
 
 namespace Manigdha.View;
 
@@ -7,6 +9,9 @@ public partial class Profile : ContentPage
 	public Profile()
 	{
 		InitializeComponent();
+        UserServerConnection userServerConnection = new UserServerConnection();
+        ProfileViewModal profileViewModel = new ProfileViewModal(userServerConnection);
+        this.BindingContext = profileViewModel;
     }
 
     private void Button_Clicked(object sender, EventArgs e)

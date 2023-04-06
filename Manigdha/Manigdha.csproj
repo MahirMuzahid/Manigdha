@@ -146,4 +146,8 @@
 	  <Folder Include="View\Login Popup\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\SharedModal\SharedModal.csproj" />
+	</ItemGroup>
+
 </Project>

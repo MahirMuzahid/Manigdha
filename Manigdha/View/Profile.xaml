@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+              xmlns:viewmodal ="clr-namespace:Manigdha.ViewModel"
+             x:DataType="viewmodal:ProfileViewModal"
              x:Class="Manigdha.View.Profile"
              Shell.NavBarHasShadow="False">
-
+    
     <Grid>
         <Grid RowDefinitions="AUTO,50,50,50,50,50,50" BackgroundColor="{AppThemeBinding Light={StaticResource LightWhite}, Dark={StaticResource Gray950}}">
             <Grid Grid.Row="0" RowDefinitions="100,AUTO">
@@ -81,18 +83,21 @@
                     </Frame>
                     <Image Source="leftarrowwhite.png"  Aspect="AspectFit" Margin="7"/>
                     <Button Margin="8" BackgroundColor="Transparent" Clicked="Button_Clicked_3"/>
-                    <Grid Grid.Row="1" Grid.ColumnSpan="3" RowDefinitions="50,AUTO,AUTO,AUTO,60,*">
+                    <Grid Grid.Row="1" Grid.ColumnSpan="3" RowDefinitions="50,AUTO,AUTO,AUTO,AUTO,AUTO,60,*">
                         <Label Text="Login" Grid.Row="0" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold"/>
-                        <Entry Placeholder="Phone Number / Email" HorizontalTextAlignment="Center"
+                        <Entry Placeholder="Phone Number / Email" HorizontalTextAlignment="Center" Text="{Binding EmailOrPhoneNumber}"
                                Grid.Row="1" Margin="20,0,20,5" BackgroundColor="{StaticResource Gray950}"/>
-                        <Entry Placeholder="Password" HorizontalTextAlignment="Center"
-                               Grid.Row="2" Margin="20,5,20,0" BackgroundColor="{StaticResource Gray950}"/>
-                        <Grid Grid.Row="3" ColumnDefinitions="AUTO,AUTO,*,AUTO">
+                        <Label Text="{Binding EmailOrPhoneNumberErrorText}" Grid.Row="2" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
+                        <Entry Placeholder="Password" HorizontalTextAlignment="Center" Text="{Binding Password}"
+                               Grid.Row="3" Margin="20,5,20,0" BackgroundColor="{StaticResource Gray950}"/>
+                        <Label Text="{Binding PasswordErrorText}" Grid.Row="4" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
+                        <Grid Grid.Row="5" ColumnDefinitions="AUTO,AUTO,*,AUTO">
                             <CheckBox Grid.Column="0" Margin="15,0,0,0"/>
                             <Label Text="Remember Me" Grid.Column="1" VerticalOptions="Center" FontSize="12"/>
                             <Label Text="Forgot Passowrd" Grid.Column="3" VerticalOptions="Center" FontSize="12" Margin="0,0,20,0"/>
                         </Grid>
-                        <Button Text="Login" BackgroundColor="{StaticResource SecondPalate}" TextColor="White" Grid.Row="4" Margin="120,20,120,0"/>
+                        <Button Text="Login" BackgroundColor="{StaticResource SecondPalate}" Command="{Binding LoginCommand}"
+                                TextColor="White" Grid.Row="6" Margin="120,20,120,0"/>
                     </Grid>
                 </Grid>
                 <Grid x:Name="RegisterCard" Grid.Row="1" RowDefinitions="40,*" ColumnDefinitions="40,*,*">
