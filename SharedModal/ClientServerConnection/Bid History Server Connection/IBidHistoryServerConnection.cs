@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SharedModal.ClientServerConnection.Bid_History_Server_Connection
 {
-    internal interface IBidHistoryServerConnection: ICURDCall<BidHistory>
+    public interface IBidHistoryServerConnection: ICURDCall<BidHistory>
     {
     }
 }

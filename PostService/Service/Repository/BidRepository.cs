@@ -33,16 +33,16 @@ namespace PostService.Service.Repository
             }
             return new Response(System.Net.HttpStatusCode.OK);
         }
-        public async Task<Response> Update(string name, int id)
+        public async Task<Response> Update(int BidAmount, int Id)
         {
-            if (name.IsNullOrEmpty()) { return new Response("Name Not Found", System.Net.HttpStatusCode.NotFound); }
-            var obj = await _manager.GetFirstOrDefaultAsync(p => p.ProductCatagoryID == id);
-            if (obj == null) { return new Response("User Not Found With ID", System.Net.HttpStatusCode.NotFound); }
-            obj.Name = name;
+            if (BidAmount == 0) { return new Response("Not valid amount", System.Net.HttpStatusCode.NotFound); }
+            var obj = await _manager.GetFirstOrDefaultAsync(p => p.BidHistoryID == Id);
+            if (obj == null) { return new Response("Bid History With ID", System.Net.HttpStatusCode.NotFound); }
+            obj.BidAmount = BidAmount;
             var isUpdate = await _manager.UpdateAsync(obj);
             if (!isUpdate)
             {
-                return new Response("Update no done", System.Net.HttpStatusCode.NotFound);
+                return new Response("Update not done", System.Net.HttpStatusCode.NotFound);
             }
             return new Response(System.Net.HttpStatusCode.OK);
         }

@@ -227,8 +227,8 @@ namespace PostServiceTestx
         {
             var client = _factory.CreateClient();
 
-            var query = "query{ BidHistoryById( id: 1) { BidHistoryID, catagoryType { name } } }";
-            var responseData = await _bidHistoryServerConnection.GetWithID(client, query, "BidHistoryById");
+            var query = "query{bidHistoryWithID( id: 1) {bidHistoryID}}";
+            var responseData = await _bidHistoryServerConnection.GetWithID(client, query, "bidHistoryWithID");
 
             Assert.Equal(1, responseData.BidHistoryID);
         }
@@ -238,8 +238,8 @@ namespace PostServiceTestx
         {
             var client = _factory.CreateClient();
 
-            var query = "query{ BidHistorye() { BidHistoryID, catagoryType { name } } }";
-            var responseData = await _bidHistoryServerConnection.Get(client, query, "BidHistorye");
+            var query = "query{ bidHistory() { bidHistoryID } }";
+            var responseData = await _bidHistoryServerConnection.Get(client, query, "bidHistory");
 
             Assert.NotEmpty(responseData);
         }
@@ -248,8 +248,8 @@ namespace PostServiceTestx
         public async Task SetBidHistory_GetResponse()
         {
             var client = _factory.CreateClient();
-
-            var query = "mutation{ setBidHistory ( BidHistoryDTO: { title: \"From Test\", description: \"From Test\" , askingPrice: 1000, userID: 48 ,catagoryTypeID: 1 , isActive: true}){ status }}";
+            //int bidAmount, int userId, int productId
+            var query = "mutation{ setBidHistory(  bidAmount: 50, productId : 1, userId: 48){ status}}";
             var responseData = await _bidHistoryServerConnection.Set(client, query, "setBidHistory");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
@@ -259,7 +259,7 @@ namespace PostServiceTestx
         public async Task UpdateBidHistory_GetResponse()
         {
             var client = _factory.CreateClient();
-            var query = "mutation{ updateBidHistory ( BidHistoryDTO: \r\n{ BidHistoryID: 1, title: \"From Test Update\", description: \"From Test Update\" , askingPrice: 0,catagoryTypeID: 1 , isActive: true})\r\n{ status }}";
+            var query = "mutation{ updateBidHistory(  bidAmount: 100, id : 1){ status}}";
             var responseData = await _bidHistoryServerConnection.Update(client, query, "updateBidHistory");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);

@@ -22,6 +22,7 @@ builder.Services.AddAutoMapper(typeof(MapperCls).Assembly);
 builder.Services.AddScoped<IProductCatagoryRepository, ProductCatagoryRepository>();
 builder.Services.AddScoped<ICatagoryTypeRepository, CatagoryTypeRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IBidRepository, BidRepository>();
 
 builder.Services.AddScoped<IManager<ProductCatagory>, Manager<ProductCatagory>>();
 builder.Services.AddScoped<IRepository<ProductCatagory>, Repository<ProductCatagory>>();
@@ -31,6 +32,9 @@ builder.Services.AddScoped<IRepository<CatagoryType>, Repository<CatagoryType>>(
 
 builder.Services.AddScoped<IManager<Product>, Manager<Product>>();
 builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
+
+builder.Services.AddScoped<IManager<BidHistory>, Manager<BidHistory>>();
+builder.Services.AddScoped<IRepository<BidHistory>, Repository<BidHistory>>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

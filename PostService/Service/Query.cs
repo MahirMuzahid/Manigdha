@@ -81,7 +81,7 @@ namespace PostService.Service
         [UseProjection]
         public async Task<BidHistory> GetBidHistoryWithID([Service] DataContext _context, int id)
         {
-            var result = await _context.BidHistories.Include(u => u.User).Include(c => c.ProductID).FirstOrDefaultAsync(u => u.BidHistoryID == id);
+            var result = await _context.BidHistories.Include(u => u.User).Include(c => c.Product).FirstOrDefaultAsync(u => u.BidHistoryID == id);
 
             if (result == null) { return new BidHistory(); }
             return result;
