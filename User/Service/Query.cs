@@ -40,7 +40,7 @@ namespace UserService.Service
 #if DEBUG
 
 #else
-[Authorize(Roles = new string[] { "User" })]
+
 #endif
         [UseProjection]
         public  IQueryable<City> GetCity([Service] DataContext _context)
