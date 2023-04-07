@@ -125,7 +125,7 @@
                         </Grid>
                         <Grid Grid.Row="5" ColumnDefinitions="AUTO,*">
                             <Label Text="City" VerticalOptions="Center" Margin="20,0,0,0"/>
-                            <Picker HorizontalTextAlignment="Center" ItemsSource="{Binding CityList}"
+                            <Picker HorizontalTextAlignment="Center" ItemsSource="{Binding CityNameList}" 
                                Grid.Column="1" Margin="10,5,20,0" BackgroundColor="{StaticResource Gray950}">
                             </Picker>
                         </Grid>
@@ -144,7 +144,7 @@
                     <Image Source="whitelogo.png" Grid.Row="2" Aspect="AspectFit" Margin="0,40,0,0"/>
                     <Button Text="Login" BackgroundColor="{StaticResource Gray950}" 
                             Grid.Row="3" Margin="100,40,100,5" TextColor="White" Clicked="Button_Clicked_2"/>
-                    <Button Text="Register" Grid.Row="4" BackgroundColor="{StaticResource Gray950}" Clicked="Button_Clicked_4" 
+                    <Button Text="Register" Grid.Row="4" BackgroundColor="{StaticResource Gray950}" Clicked="Button_Clicked_4" Command="{Binding GetCityDataCommand}" 
                             Margin="100,5,100,40" TextColor="White"/>
                 </Grid>
 

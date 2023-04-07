@@ -41,7 +41,9 @@ namespace Manigdha.ViewModel
         [ObservableProperty]
         public string rConfirmPassword;
         [ObservableProperty]
-        public List<City> cityList;
+        public List<string> cityNameList;
+
+
         HttpClient client = new HttpClient();
         private IUserServerConnection _userserverConnection;
         private ICityServerConnectio _cityserverConnection;
@@ -53,7 +55,7 @@ namespace Manigdha.ViewModel
             client.BaseAddress = new Uri(StaticInfo.UserServiceBaseAddress);
             _userserverConnection = serverConnection;
             _cityserverConnection = cityServerConnectio;
-            GetInitData();
+            //GetInitData();
         }
         public void CleanUpUI()
         {
@@ -64,11 +66,16 @@ namespace Manigdha.ViewModel
             IsLoginBtnEnabled = true;
         }
 
-        public async Task GetInitData()
+        [RelayCommand]
+        public async Task GetCityData()
         {
             try
             {
+                List<City> CityList = new List<City>();
                 CityList = await GetCities();
+                CityNameList = new List<string>();
+                CityNameList.Clear();
+                CityNameList = CityList.Where(c => c.Name != null).Select(c => c.Name).ToList();
             }
             catch (Exception ex) 
             {
@@ -117,7 +124,7 @@ namespace Manigdha.ViewModel
 
         public async Task<List<City>> GetCities()
         {
-            var query = "query{ city() { wcityID, name, divisionID, division { divisionName } } }";
+            var query = "query{ city() { cityID, name, divisionID, division { divisionName } } }";
             return await _cityserverConnection.GetCity(client, query, "city");
         }
     }
