@@ -1,6 +1,8 @@
 using CommunityToolkit.Maui.Views;
 using Manigdha.ViewModel;
 using SharedModal.ClientServerConnection;
+using SharedModal.ClientServerConnection.City_Server_Connection;
+using SharedModal.Modals;
 
 namespace Manigdha.View;
 
@@ -9,8 +11,10 @@ public partial class Profile : ContentPage
 	public Profile()
 	{
 		InitializeComponent();
+        CURDCall<City> curd = new CURDCall<City>();
         UserServerConnection userServerConnection = new UserServerConnection();
-        ProfileViewModal profileViewModel = new ProfileViewModal(userServerConnection);
+        CityServerConnection cityServerConnection = new CityServerConnection(curd);
+        ProfileViewModal profileViewModel = new ProfileViewModal(userServerConnection, cityServerConnection);
         this.BindingContext = profileViewModel;
     }
 

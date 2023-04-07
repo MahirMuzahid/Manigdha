@@ -37,22 +37,14 @@ namespace UserService.Service
         #endregion
 
         #region City
-#if DEBUG
 
-#else
-[Authorize(Roles = new string[] { "User" })]
-#endif
         [UseProjection]
         public  IQueryable<City> GetCity([Service] DataContext _context)
         {
             return  _context.Cities.Include(u => u.Division).AsQueryable();
         }
 
-#if DEBUG
 
-#else
-[Authorize(Roles = new string[] { "User" })]
-#endif
         [UseProjection]
         public async Task<City> GetCityByID([Service] DataContext _context, int cityID)
         {

@@ -2,6 +2,7 @@
 using Manigdha.View;
 using Manigdha.ViewModel;
 using SharedModal.ClientServerConnection;
+using SharedModal.ClientServerConnection.City_Server_Connection;
 
 namespace Manigdha;
 
@@ -21,6 +22,7 @@ public static class MauiProgram
             });
 		builder.Services.AddSingleton<BuyPost>();
         builder.Services.AddScoped<IUserServerConnection, UserServerConnection>();
+        builder.Services.AddScoped<ICityServerConnectio, CityServerConnection>();
         builder.Services.AddSingleton<BuyPostViewModal>();
         return builder.Build();
 	}

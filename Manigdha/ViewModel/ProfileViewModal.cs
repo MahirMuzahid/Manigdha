@@ -1,6 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Manigdha.Model;
 using SharedModal.ClientServerConnection;
+using SharedModal.ClientServerConnection.City_Server_Connection;
+using SharedModal.Enums;
+using SharedModal.Modals;
 using SharedModal.ReponseModal;
 using System.Net;
 
@@ -10,35 +16,44 @@ namespace Manigdha.ViewModel
     {
         [ObservableProperty]
         public string emailOrPhoneNumber;
-
         [ObservableProperty]
         public string password;
-
         [ObservableProperty]
         public string testText;
-
         [ObservableProperty]
         public string emailOrPhoneNumberErrorText;
-
         [ObservableProperty]
         public string passwordErrorText;
-
         [ObservableProperty]
         public bool isBusy;
-
         [ObservableProperty]
         public string loginText;
-
         [ObservableProperty]
         public bool isLoginBtnEnabled;
-
-        private IUserServerConnection _serverConnection;
-
-        public ProfileViewModal(IUserServerConnection serverConnection)
+        [ObservableProperty]
+        public string rName;
+        [ObservableProperty]
+        public string rPhoneNumber;
+        [ObservableProperty]
+        public string rEmail;
+        [ObservableProperty]
+        public string rPassword;
+        [ObservableProperty]
+        public string rConfirmPassword;
+        [ObservableProperty]
+        public List<City> cityList;
+        HttpClient client = new HttpClient();
+        private IUserServerConnection _userserverConnection;
+        private ICityServerConnectio _cityserverConnection;
+        private ShowSnakeBar showSnake = new ShowSnakeBar();
+        public ProfileViewModal(IUserServerConnection serverConnection, ICityServerConnectio cityServerConnectio)
         {
-            CleanUpUI();
-            _serverConnection = serverConnection;
             
+            CleanUpUI();           
+            client.BaseAddress = new Uri(StaticInfo.UserServiceBaseAddress);
+            _userserverConnection = serverConnection;
+            _cityserverConnection = cityServerConnectio;
+            GetInitData();
         }
         public void CleanUpUI()
         {
@@ -48,6 +63,21 @@ namespace Manigdha.ViewModel
             LoginText = "Login";
             IsLoginBtnEnabled = true;
         }
+
+        public async Task GetInitData()
+        {
+            try
+            {
+                CityList = await GetCities();
+            }
+            catch (Exception ex) 
+            {
+               await showSnake.Show(ex.Message, SnakeBarType.Type.Danger);
+            }
+            
+        }
+        
+
         [RelayCommand]
         public async Task Login()
         {
@@ -75,10 +105,20 @@ namespace Manigdha.ViewModel
             {               
                 return new Response(HttpStatusCode.NotFound);
             }
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(StaticInfo.UserServiceBaseAddress);
             var query = "mutation {\r\n\tlogin(userLoginDTO: { loginInfo: \"" + EmailOrPhoneNumber + "\", password: \"" + Password + "\" }) {\r\n\t\tmessage\r\n\t\treturnString\r\n\t\treturnStringFour\r\n\t\treturnStringThree\r\n\t\treturnStringTwo\r\n\t\tstatus\r\n\t}\r\n}";
-            return await _serverConnection.LoginUser(client, query, "login");
+            return await _userserverConnection.LoginUser(client, query, "login");
+        }
+
+        [RelayCommand]
+        public async Task Register()
+        {
+
+        }
+
+        public async Task<List<City>> GetCities()
+        {
+            var query = "query{ city() { wcityID, name, divisionID, division { divisionName } } }";
+            return await _cityserverConnection.GetCity(client, query, "city");
         }
     }
 }

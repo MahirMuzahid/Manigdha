@@ -125,7 +125,7 @@
                         </Grid>
                         <Grid Grid.Row="5" ColumnDefinitions="AUTO,*">
                             <Label Text="City" VerticalOptions="Center" Margin="20,0,0,0"/>
-                            <Picker HorizontalTextAlignment="Center"
+                            <Picker HorizontalTextAlignment="Center" ItemsSource="{Binding CityList}"
                                Grid.Column="1" Margin="10,5,20,0" BackgroundColor="{StaticResource Gray950}">
                             </Picker>
                         </Grid>
