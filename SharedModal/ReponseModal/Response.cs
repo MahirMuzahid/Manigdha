@@ -10,14 +10,17 @@ namespace SharedModal.ReponseModal
     public class Response
     {
         public string? Message { get; set; }
-        public HttpStatusCode Status { get; set; }
+        public HttpStatusCode? Status { get; set; }
         public string? ReturnString { get; set; }
         public string? ReturnStringTwo { get; set; }
         public string? ReturnStringThree { get; set; }
         public string? ReturnStringFour { get; set; }
         public Response()
         {
-
+        }
+        public Response(string msg)
+        {
+            Message = msg;
         }
         public Response( HttpStatusCode sts)
         {

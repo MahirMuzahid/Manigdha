@@ -94,10 +94,13 @@
                         <Grid Grid.Row="5" ColumnDefinitions="AUTO,AUTO,*,AUTO">
                             <CheckBox Grid.Column="0" Margin="15,0,0,0"/>
                             <Label Text="Remember Me" Grid.Column="1" VerticalOptions="Center" FontSize="12"/>
-                            <Label Text="Forgot Passowrd" Grid.Column="3" VerticalOptions="Center" FontSize="12" Margin="0,0,20,0"/>
+                            <Label Text="Forgot Password" Grid.Column="3" VerticalOptions="Center" FontSize="12" Margin="0,0,20,0"/>
                         </Grid>
-                        <Button Text="Login" BackgroundColor="{StaticResource SecondPalate}" Command="{Binding LoginCommand}"
-                                TextColor="White" Grid.Row="6" Margin="120,20,120,0"/>
+                        <Button Text="{Binding LoginText}" BackgroundColor="{StaticResource SecondPalate}" Command="{Binding LoginCommand}"
+                                TextColor="White" Grid.Row="6" Margin="120,20,120,0" IsEnabled="{Binding IsLoginBtnEnabled}">
+                        </Button>
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="6" Margin="0,30,0,10" />
+                        
                     </Grid>
                 </Grid>
                 <Grid x:Name="RegisterCard" Grid.Row="1" RowDefinitions="40,*" ColumnDefinitions="40,*,*">
@@ -108,23 +111,28 @@
                     <Button Margin="8" BackgroundColor="Transparent" Clicked="Button_Clicked_3"/>
                     <Grid Grid.Row="1" Grid.ColumnSpan="3" RowDefinitions="50,AUTO,AUTO,AUTO,AUTO,AUTO,*">
                         <Label Text="Register" Grid.Row="0" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold"/>
-                        <Entry Placeholder="Name" HorizontalTextAlignment="Center"
+                        <Entry Placeholder="Name" HorizontalTextAlignment="Center" Text="{Binding RName}"
                                Grid.Row="1" Margin="20,0,20,5" BackgroundColor="{StaticResource Gray950}"/>
-                        <Entry Placeholder="Phone Number" HorizontalTextAlignment="Center"
+                        <Entry Placeholder="Phone Number" HorizontalTextAlignment="Center" Text="{Binding RPhoneNumber}"
                                Grid.Row="2" Margin="20,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
-                        <Entry Placeholder="Email" HorizontalTextAlignment="Center"
+                        <Entry Placeholder="Email" HorizontalTextAlignment="Center" Text="{Binding REmail}"
                                Grid.Row="3" Margin="20,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
-                        <Grid Grid.Row="4" ColumnDefinitions="*,*">
-                            <Entry Placeholder="Password" HorizontalTextAlignment="Center"
+                        <Grid Grid.Row="4" ColumnDefinitions="*,*"> 
+                            <Entry Placeholder="Password" HorizontalTextAlignment="Center" Text="{Binding RPassword}"
                                Grid.Row="4" Margin="20,5,5,5" BackgroundColor="{StaticResource Gray950}"/>
-                            <Entry Placeholder=" Confirm Password" HorizontalTextAlignment="Center" Grid.Column="1"
+                            <Entry Placeholder=" Confirm Password" HorizontalTextAlignment="Center" Grid.Column="1" Text="{Binding RConfirmPassword}"
                                Grid.Row="4" Margin="5,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
                         </Grid>
+                        <Grid Grid.Row="5" ColumnDefinitions="AUTO,*">
+                            <Label Text="City" VerticalOptions="Center" Margin="20,0,0,0"/>
+                            <Picker HorizontalTextAlignment="Center"
+                               Grid.Column="1" Margin="10,5,20,0" BackgroundColor="{StaticResource Gray950}">
+                            </Picker>
+                        </Grid>
                         
-                        <Entry Placeholder="City" HorizontalTextAlignment="Center"
-                               Grid.Row="5" Margin="20,5,20,0" BackgroundColor="{StaticResource Gray950}"/>
-                        
-                        <Button Text="Register" BackgroundColor="{StaticResource SecondPalate}" TextColor="White" Grid.Row="6" Margin="240,20,20,20"/>
+
+                        <Button Text="Register" BackgroundColor="{StaticResource SecondPalate}"  Command="{Binding RegisterCommand}"
+                                TextColor="White" Grid.Row="6" Margin="240,20,20,20"/>
                     </Grid>
                 </Grid>
                     

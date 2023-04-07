@@ -45,13 +45,14 @@ namespace SharedModal.ClientServerConnection
         public async Task<Response> LoginUser(HttpClient client, string query, string queryName)
         {
             var response = await GetQueryResponse(client, query);
-            if (response.StatusCode == HttpStatusCode.NotFound) { return new Response("User Not Found", HttpStatusCode.NotFound); }
-            var result = JsonConvert.DeserializeObject<Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
+            if (response.StatusCode == HttpStatusCode.NotFound) { return new Response(HttpStatusCode.NotFound); }
+            var queryString = JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString();
+            var result = JsonConvert.DeserializeObject<Response>(queryString);
             if (result == null)
             {
-                return new Response("User Not Found", HttpStatusCode.NotFound);
+                return new Response(HttpStatusCode.NotFound);
             }
-            return  result;
+            return result;
         }
 
         public async Task<Response> LogoutUser(HttpClient client, string query, string queryName)
@@ -79,7 +80,7 @@ namespace SharedModal.ClientServerConnection
 
         public static async Task<HttpResponseMessage> GetQueryResponse(HttpClient client, string query)
         {
-            if (query == null) { return new HttpResponseMessage() {  StatusCode = HttpStatusCode.NotFound}; }
+            if (query == null) { return new HttpResponseMessage() { StatusCode = HttpStatusCode.NotFound }; }
             var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("/graphql", content);
             response.EnsureSuccessStatusCode();

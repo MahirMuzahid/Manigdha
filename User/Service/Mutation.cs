@@ -71,7 +71,7 @@ namespace UserService.Service
                 return result;
             }
 
-            return new Response("User Not Found",  System.Net.HttpStatusCode.NotFound);
+            return new Response("User Not Found");
         }
 #if DEBUG
 

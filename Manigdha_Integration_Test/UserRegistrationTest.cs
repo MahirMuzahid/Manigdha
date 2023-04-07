@@ -34,6 +34,7 @@ namespace Manigdha_Integration_Test
             services.AddScoped<ICityServerConnectio, CityServerConnection>();
             services.AddScoped<IDivisioServerConnection, DivisionServerConnection>();
 
+           //services.AddScoped<ICURDCall<SharedModal.Modals.User>, CURDCall<SharedModal.Modals.User>>();
             services.AddScoped<ICURDCall<City>, CURDCall<City>>();
             services.AddScoped<ICURDCall<Division>, CURDCall<Division>>();
 
@@ -110,7 +111,7 @@ namespace Manigdha_Integration_Test
                 LoginInfo = "01",
                 Password = "123"
             };
-            var query = GraphQLCodeGenerator<UserLoginDTO, Response>.Parameter_Multiple_Return_Object("login", "userLoginDTO", userDTO);
+            var query = "mutation {login(userLoginDTO: { loginInfo: \"11\", password: \"11\" }) {message, status}}";
 
             // Call RegisterAndGetUser method of IUserServerConnection and get response data
             var responseData = await _serverConnection.LoginUser(client, query, "login");
