@@ -11,10 +11,7 @@ public partial class Profile : ContentPage
 	public Profile()
 	{
 		InitializeComponent();
-        CURDCall<City> curd = new CURDCall<City>();
-        UserServerConnection userServerConnection = new UserServerConnection();
-        CityServerConnection cityServerConnection = new CityServerConnection(curd);
-        ProfileViewModal profileViewModel = new ProfileViewModal(userServerConnection, cityServerConnection);
+        ProfileViewModal profileViewModel = new ProfileViewModal();
         this.BindingContext = profileViewModel;
     }
 
@@ -42,20 +39,20 @@ public partial class Profile : ContentPage
 
     private void Button_Clicked_2(object sender, EventArgs e)
     {
-        LoginButtonGrid.TranslateTo(-800, 0, 1400, Easing.SinOut);
+        LoginButtonGrid.TranslateTo(-800, 0, 1000, Easing.SinOut);
         RegisterCard.IsVisible = false;
-        LoginCard.IsVisible = true;
+
     }
 
     private void Button_Clicked_3(object sender, EventArgs e)
     {
-        LoginButtonGrid.TranslateTo(0, 0, 1400, Easing.SinOut);
+        LoginButtonGrid.TranslateTo(0, 0, 1000, Easing.SinOut);
     }
 
     private void Button_Clicked_4(object sender, EventArgs e)
     {
         LoginButtonGrid.TranslateTo(-800, 0, 1400, Easing.SinOut);
         RegisterCard.IsVisible = true;
-        LoginCard.IsVisible = false;
+
     }
 }

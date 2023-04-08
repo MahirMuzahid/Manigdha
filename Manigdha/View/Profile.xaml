@@ -75,82 +75,86 @@
         </Grid>
         <Grid >
             <Frame BackgroundColor="#99000000" CornerRadius="0"/>
-            <Grid RowDefinitions="*,480,*" >
-                
-                <Grid x:Name="LoginCard" Grid.Row="1" RowDefinitions="40,*" ColumnDefinitions="40,*,*">
+            <Grid  >
+                <Grid x:Name="RegisterCard"  RowDefinitions="40,*" ColumnDefinitions="40,*,*">
                     <Frame BackgroundColor="{StaticResource Gray900}" Grid.RowSpan="2" 
                            Grid.ColumnSpan="3" CornerRadius="0" HasShadow="False" BorderColor="Transparent">
                     </Frame>
                     <Image Source="leftarrowwhite.png"  Aspect="AspectFit" Margin="7"/>
                     <Button Margin="8" BackgroundColor="Transparent" Clicked="Button_Clicked_3"/>
-                    <Grid Grid.Row="1" Grid.ColumnSpan="3" RowDefinitions="50,AUTO,AUTO,AUTO,AUTO,AUTO,60,*">
-                        <Label Text="Login" Grid.Row="0" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold"/>
-                        <Entry Placeholder="Phone Number / Email" HorizontalTextAlignment="Center" Text="{Binding EmailOrPhoneNumber}"
-                               Grid.Row="1" Margin="20,0,20,5" BackgroundColor="{StaticResource Gray950}"/>
-                        <Label Text="{Binding EmailOrPhoneNumberErrorText}" Grid.Row="2" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
-                        <Entry Placeholder="Password" HorizontalTextAlignment="Center" Text="{Binding Password}"
-                               Grid.Row="3" Margin="20,5,20,0" BackgroundColor="{StaticResource Gray950}"/>
-                        <Label Text="{Binding PasswordErrorText}" Grid.Row="4" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
-                        <Grid Grid.Row="5" ColumnDefinitions="AUTO,AUTO,*,AUTO">
-                            <CheckBox Grid.Column="0" Margin="15,0,0,0"/>
-                            <Label Text="Remember Me" Grid.Column="1" VerticalOptions="Center" FontSize="12"/>
-                            <Label Text="Forgot Password" Grid.Column="3" VerticalOptions="Center" FontSize="12" Margin="0,0,20,0"/>
-                        </Grid>
-                        <Button Text="{Binding LoginText}" BackgroundColor="{StaticResource SecondPalate}" Command="{Binding LoginCommand}"
-                                TextColor="White" Grid.Row="6" Margin="120,20,120,0" IsEnabled="{Binding IsLoginBtnEnabled}">
-                        </Button>
-                        <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="6" Margin="0,30,0,10" />
-                        
-                    </Grid>
-                </Grid>
-                <Grid x:Name="RegisterCard" Grid.Row="1" RowDefinitions="40,*" ColumnDefinitions="40,*,*">
-                    <Frame BackgroundColor="{StaticResource Gray900}" Grid.RowSpan="2" 
-                           Grid.ColumnSpan="3" CornerRadius="0" HasShadow="False" BorderColor="Transparent">
-                    </Frame>
-                    <Image Source="leftarrowwhite.png"  Aspect="AspectFit" Margin="7"/>
-                    <Button Margin="8" BackgroundColor="Transparent" Clicked="Button_Clicked_3"/>
-                    <Grid Grid.Row="1" Grid.ColumnSpan="3" RowDefinitions="50,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,*">
+                    <Grid Grid.Row="1" Grid.ColumnSpan="3" RowDefinitions="50,20,AUTO,AUTO,20,AUTO,AUTO,20,AUTO,AUTO,20,AUTO,AUTO,20,AUTO,AUTO,60,10">
                         <Label Text="Register" Grid.Row="0" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold"/>
-                        <Entry Placeholder="Name" HorizontalTextAlignment="Center" Text="{Binding RName}"
-                               Grid.Row="1" Margin="20,0,20,5" BackgroundColor="{StaticResource Gray950}"/>
-                        <Label Text="{Binding RNameErrorText}" Grid.Row="2" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
+                        
+                        <Label Text="Name" Grid.Row="1" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="20,0,0,0"/>
+                        <Entry Placeholder="Your Name" HorizontalTextAlignment="Center" Text="{Binding RName}"
+                               Grid.Row="2" Margin="20,0,20,5" BackgroundColor="{StaticResource Gray950}"/>
+                        <Label Text="{Binding RNameErrorText}" Grid.Row="3" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
+
+                        <Label Text="Phone Number" Grid.Row="4" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="20,0,0,0"/>
                         <Entry Placeholder="Phone Number" HorizontalTextAlignment="Center" Text="{Binding RPhoneNumber}"
-                               Grid.Row="3" Margin="20,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
-                        <Label Text="{Binding RPhoneNumberErrorText}" Grid.Row="4" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
-                        <Entry Placeholder="Email" HorizontalTextAlignment="Center" Text="{Binding REmail}"
                                Grid.Row="5" Margin="20,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
-                        <Label Text="{Binding REmailErrorText}" Grid.Row="6" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
-                        <Grid Grid.Row="7" ColumnDefinitions="*,*"> 
+                        <Label Text="{Binding RPhoneNumberErrorText}" Grid.Row="6" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
+                        
+                        <Label Text="Email" Grid.Row="7" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="20,0,0,0"/>
+                        <Entry Placeholder="Email" HorizontalTextAlignment="Center" Text="{Binding REmail}"
+                               Grid.Row="8" Margin="20,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
+                        <Label Text="{Binding REmailErrorText}" Grid.Row="9" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
+
+                        <Label Text="Password" Grid.Row="10" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="20,0,0,0"/>
+                        <Grid Grid.Row="11" ColumnDefinitions="*,*"> 
                             <Entry Placeholder="Password" HorizontalTextAlignment="Center" Text="{Binding RPassword}"
                                Grid.Row="4" Margin="20,5,5,5" BackgroundColor="{StaticResource Gray950}"/>
                             <Entry Placeholder=" Confirm Password" HorizontalTextAlignment="Center" Grid.Column="1" Text="{Binding RConfirmPassword}"
                                Grid.Row="4" Margin="5,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
                         </Grid>
-                        <Label Text="{Binding RPasswordErrorText}" Grid.Row="8" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
-                        <Grid Grid.Row="9" ColumnDefinitions="AUTO,*">
+                        <Label Text="{Binding RPasswordErrorText}" Grid.Row="12" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
+                        
+                        <Grid Grid.Row="13" ColumnDefinitions="AUTO,*">
                             <Label Text="City" VerticalOptions="Center" Margin="20,0,0,0"/>
                             <Picker HorizontalTextAlignment="Center" ItemsSource="{Binding CityNameList}"
                                     SelectedItem="{Binding SelectedCity}" Grid.Column="1" Margin="10,5,20,0" BackgroundColor="{StaticResource Gray950}">
                             </Picker>
                         </Grid>
-                        <Label Text="{Binding RCityErrorText}" Grid.Row="10" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
+                        <Label Text="{Binding RCityErrorText}" Grid.Row="14" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
 
                         <Button Text="Register" BackgroundColor="{StaticResource SecondPalate}"  Command="{Binding RegisterCommand}"
-                                TextColor="White" Grid.Row="11" Margin="240,20,20,20"/>
+                                TextColor="White" Grid.Row="15" Margin="240,0,20,0"/>
                     </Grid>
                 </Grid>
                     
-                <Grid x:Name="LoginButtonGrid" RowDefinitions="30,AUTO,100,*" Grid.Row="1">
+                <Grid x:Name="LoginButtonGrid" RowDefinitions="30,AUTO,100,*" >
                     <Frame BackgroundColor="{StaticResource Gray900}" 
                            Grid.RowSpan="6" CornerRadius="0" HasShadow="False" BorderColor="Transparent">
                     </Frame>
                     <Label Text="Login / Register To Continue..." Grid.Row="1" HorizontalOptions="Center" FontSize="12"/>
                     <Image Source="whitelogo.png" Grid.Row="2" Aspect="AspectFit" Margin="0,40,0,0"/>
-                    <Grid Grid.Row="3" RowDefinitions="*,50,50,*" RowSpacing="20">
-                        <Button Text="Login" BackgroundColor="{StaticResource Gray950}" 
-                            Grid.Row="1" Margin="100,0,100,0" TextColor="White" Clicked="Button_Clicked_2"/>
-                        <Button Text="Register" Grid.Row="2" BackgroundColor="{StaticResource Gray950}" Clicked="Button_Clicked_4" Command="{Binding GetInitDataCommand}" 
-                            Margin="100,0,100,0" TextColor="White"/>
+                    <Grid Grid.Row="3" RowDefinitions="10,*,25,10" RowSpacing="20">
+                        <Grid Grid.Row="1"  RowDefinitions="*,AUTO,AUTO,AUTO,AUTO,AUTO,60,*">
+                          
+                            <Entry Placeholder="Phone Number / Email" HorizontalTextAlignment="Center" Text="{Binding EmailOrPhoneNumber}"
+                               Grid.Row="1" Margin="20,0,20,5" BackgroundColor="{StaticResource Gray950}"/>
+                            <Label Text="{Binding EmailOrPhoneNumberErrorText}" Grid.Row="2" Margin="20,0,0,0" FontSize="10" TextColor="Red" />
+                            <Entry Placeholder="Password" HorizontalTextAlignment="Center" Text="{Binding Password}"
+                               Grid.Row="3" Margin="20,5,20,0" BackgroundColor="{StaticResource Gray950}"/>
+                            <Label Text="{Binding PasswordErrorText}" Grid.Row="4" Margin="20,0,0,0" FontSize="10" TextColor="Red" />
+                            <Grid Grid.Row="5" ColumnDefinitions="AUTO,AUTO,*,AUTO">
+                                <CheckBox Grid.Column="0" Margin="15,0,0,0"/>
+                                <Label Text="Remember Me" Grid.Column="1" VerticalOptions="Center" FontSize="12"/>
+                                <Label Text="Forgot Password" Grid.Column="3" VerticalOptions="Center" FontSize="12" Margin="0,0,20,0"/>
+                            </Grid>
+                            <Button Text="{Binding LoginText}" BackgroundColor="{StaticResource SecondPalate}" Command="{Binding LoginCommand}"
+                                TextColor="White" Grid.Row="6" Margin="120,20,120,0" IsEnabled="{Binding IsLoginBtnEnabled}">
+                            </Button>
+                            <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="6" Margin="0,30,0,10" />
+
+                        </Grid>
+                        <Grid Grid.Row="2" ColumnDefinitions="*,AUTO,90,AUTO,*" >
+                            <Label Text="Do not have any account?" VerticalOptions="Center" Grid.Column="1" FontSize="12"/>
+                            <Button Text="Register" Grid.Column="2" BackgroundColor="{StaticResource Gray950}"  Margin="10,0,10,0"
+                                    Clicked="Button_Clicked_4" Command="{Binding GetInitDataCommand}"  TextColor="White"/>
+                            <Label Text="here now" VerticalOptions="Center" Grid.Column="3" FontSize="12"/>
+                        </Grid>
+                       
                     </Grid>
                 </Grid>
 

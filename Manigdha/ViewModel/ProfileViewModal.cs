@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Manigdha.GraphQL_Execution;
 using Manigdha.Model;
 using SharedModal.ClientServerConnection;
 using SharedModal.ClientServerConnection.City_Server_Connection;
@@ -57,19 +58,16 @@ namespace Manigdha.ViewModel
         public List<string> cityNameList;
         [ObservableProperty]
         public string selectedCity;
-        List<City> CityList = new List<City>();
-        HttpClient client = new HttpClient();
-        private IUserServerConnection _userserverConnection;
-        private ICityServerConnectio _cityserverConnection;
+        List<City> CityList = new List<City>();        
         private ShowSnakeBar showSnake = new ShowSnakeBar();
-        public ProfileViewModal(IUserServerConnection serverConnection, ICityServerConnectio cityServerConnectio)
+        private ProfileViewModalQuery profileViewModalQuery;
+        public ProfileViewModal()
         {
-            
+            CURDCall<City> curd = new CURDCall<City>();
+            UserServerConnection userServerConnection = new UserServerConnection();
+            CityServerConnection cityServerConnection = new CityServerConnection(curd);
+            profileViewModalQuery = new ProfileViewModalQuery(userServerConnection, cityServerConnection);
             CleanUpUI();           
-            client.BaseAddress = new Uri(StaticInfo.UserServiceBaseAddress);
-            _userserverConnection = serverConnection;
-            _cityserverConnection = cityServerConnectio;
-           
         }
         public void CleanUpUI()
         {
@@ -90,7 +88,7 @@ namespace Manigdha.ViewModel
             try
             {
                 
-                CityList = await GetCities();
+                CityList = await profileViewModalQuery.GetCities();
                 CityNameList = new List<string>();
                 CityNameList.Clear();
                 CityNameList = CityList.Where(c => c.Name != null).Select(c => c.Name).ToList();
@@ -110,7 +108,7 @@ namespace Manigdha.ViewModel
             IsLoginBtnEnabled = false;
             LoginText = "";
             IsBusy = true;
-            var result = await LoginApiExecute();
+            var result = await profileViewModalQuery.LoginApiExecute(EmailOrPhoneNumber, Password);
             if (result.Status != HttpStatusCode.OK)
             {
                 CleanUpUI();
@@ -125,15 +123,6 @@ namespace Manigdha.ViewModel
             IsLoginBtnEnabled = true;
         }
 
-        private async Task<Response> LoginApiExecute()
-        {
-            if (string.IsNullOrEmpty(EmailOrPhoneNumber) || string.IsNullOrEmpty(Password))
-            {               
-                return new Response(HttpStatusCode.NotFound);
-            }
-            var query = "mutation {\r\n\tlogin(userLoginDTO: { loginInfo: \"" + EmailOrPhoneNumber + "\", password: \"" + Password + "\" }) {\r\n\t\tmessage\r\n\t\treturnString\r\n\t\treturnStringFour\r\n\t\treturnStringThree\r\n\t\treturnStringTwo\r\n\t\tstatus\r\n\t}\r\n}";
-            return await _userserverConnection.LoginUser(client, query, "login");
-        }
 
         [RelayCommand]
         public async Task Register()
@@ -143,11 +132,10 @@ namespace Manigdha.ViewModel
             REmailErrorText = "";
             RPhoneNumberErrorText = "";
             RPasswordErrorText = "";
-            City city = CityList.FirstOrDefault(c => c.Name == SelectedCity);
-            if(city == null) { RCityErrorText = "Please select city"; return;  }
+            
             try
             {
-                UserDTO userDTO = new UserDTO(RName, RPassword, REmail, RPhoneNumber, city.CityID);
+                UserDTO userDTO = new UserDTO(RName, RPassword, REmail, RPhoneNumber, 0);
             }
             catch (ArgumentException ex)
             {
@@ -172,28 +160,16 @@ namespace Manigdha.ViewModel
                 {
                     RCityErrorText = new string(ex.Message.TakeWhile(c => c != '(').ToArray());
                 }
-
+                return ;
             }
             if (RPassword != RConfirmPassword) { RPasswordErrorText = "Password Doen't Match"; return; }
+            City city = CityList.FirstOrDefault(c => c.Name == SelectedCity);
+            if (city == null) { RCityErrorText = "Please select city"; return; }
 
-
-            await RegisterUser(city.CityID);
+            var isRegistered = await  profileViewModalQuery.RegisterUser(city.CityID,RName,RPassword,REmail,RPhoneNumber);
         }
 
 
-        public async Task<Response> RegisterUser(int cityID)
-        {
-            var query = "mutation {\r\n\tregister(userDTO: { name: \""+RName+"\", password: \""+RPassword+"\", email: \""+REmail+"\", phoneNumber: \""+RPhoneNumber+"\", cityID: "+ cityID + " }) {\r\n\t\tuserID\r\n\t}\r\n}";
-            var result = await _userserverConnection.RegisterAndGetUser(client, query);
-
-            if(result.UserID != 0) { }
-
-            return new Response();
-        }
-        public async Task<List<City>> GetCities()
-        {
-            var query = "query{ city() { cityID, name, divisionID, division { divisionName } } }";
-            return await _cityserverConnection.GetCity(client, query, "city");
-        }
+       
     }
 }
