@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using Manigdha.Model;
 using SharedModal.ClientServerConnection;
 using SharedModal.ClientServerConnection.City_Server_Connection;
+using SharedModal.DTO;
 using SharedModal.Enums;
 using SharedModal.Modals;
 using SharedModal.ReponseModal;
@@ -41,9 +42,21 @@ namespace Manigdha.ViewModel
         [ObservableProperty]
         public string rConfirmPassword;
         [ObservableProperty]
+        public string rNameErrorText;
+        [ObservableProperty]
+        public string rPhoneNumberErrorText;
+        [ObservableProperty]
+        public string rEmailErrorText;
+        [ObservableProperty]
+        public string rPasswordErrorText;
+        [ObservableProperty]
+        public string rConfirmPasswordErrorText;
+        [ObservableProperty]
         public List<string> cityNameList;
+        [ObservableProperty]
+        public string selectedCity;
 
-
+        List<City> CityList = new List<City>();
         HttpClient client = new HttpClient();
         private IUserServerConnection _userserverConnection;
         private ICityServerConnectio _cityserverConnection;
@@ -55,7 +68,7 @@ namespace Manigdha.ViewModel
             client.BaseAddress = new Uri(StaticInfo.UserServiceBaseAddress);
             _userserverConnection = serverConnection;
             _cityserverConnection = cityServerConnectio;
-            //GetInitData();
+           
         }
         public void CleanUpUI()
         {
@@ -65,17 +78,22 @@ namespace Manigdha.ViewModel
             LoginText = "Login";
             IsLoginBtnEnabled = true;
         }
-
         [RelayCommand]
+        public async Task GetInitData()
+        {
+            await GetCityData();
+        }
+        
         public async Task GetCityData()
         {
             try
             {
-                List<City> CityList = new List<City>();
+                
                 CityList = await GetCities();
                 CityNameList = new List<string>();
                 CityNameList.Clear();
                 CityNameList = CityList.Where(c => c.Name != null).Select(c => c.Name).ToList();
+
             }
             catch (Exception ex) 
             {
@@ -119,9 +137,39 @@ namespace Manigdha.ViewModel
         [RelayCommand]
         public async Task Register()
         {
+            if (RPassword != RConfirmPassword) { RPasswordErrorText = "Password Doen't Match"; }
+            try
+            {
+                UserDTO userDTO = new UserDTO(RName, RPassword, REmail, RPhoneNumber, 2);
+            }
+            catch (ArgumentException ex)
+            {
 
+                if (ex.ParamName == nameof(UserDTO.Name).ToString())
+                {
+                    RNameErrorText = new string(ex.Message.TakeWhile(c => c != '(').ToArray()); 
+                }
+                if (ex.ParamName == nameof(UserDTO.Email).ToString())
+                {
+                    REmailErrorText = new string(ex.Message.TakeWhile(c => c != '(').ToArray());
+                }
+                if (ex.ParamName == nameof(UserDTO.PhoneNumber).ToString())
+                {
+                    RPhoneNumberErrorText = new string(ex.Message.TakeWhile(c => c != '(').ToArray());
+                }
+                if (ex.ParamName == nameof(UserDTO.Password).ToString())
+                {
+                    RPasswordErrorText = new string(ex.Message.TakeWhile(c => c != '(').ToArray());
+                }
+               
+            }
+            
+            //userDTO.Name = RName;
+            var gg = SelectedCity; 
         }
 
+
+       
         public async Task<List<City>> GetCities()
         {
             var query = "query{ city() { cityID, name, divisionID, division { divisionName } } }";

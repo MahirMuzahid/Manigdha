@@ -53,14 +53,7 @@ namespace Manigdha_Integration_Test
             Random r = new Random();
 
             // GraphQL mutation query to register a new user
-            var userDTO = new UserDTO
-            {
-                CityID = 3,
-                Name = "User",
-                Password = "123",
-                Email = "gg123@gmail.com",
-                PhoneNumber = "" + r.Next(1, 100)
-            };
+            var userDTO = new UserDTO("User", "123", "gg143@gmail.com", r.Next(1, 100).ToString(), 2);
             var query = GraphQLCodeGenerator<UserDTO, RegTestReponse>.Parameter_Multiple_Return_Object("register", "userDTO", userDTO);
 
             // Call RegisterAndGetUser method of IUserServerConnection and get response data
