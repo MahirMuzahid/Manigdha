@@ -19,8 +19,10 @@ namespace SharedModal.DTO
         public UserDTO(string name, string pass, string email, string phonenumber, int cityId)
         {
             Name = Guard.Against.NullOrEmpty(name,nameof(Name),"Please fill up name");
+            Password = Guard.Against.NullOrEmpty(pass, nameof(Password), "Please fill up Password");
             Password = Guard.Against.InvalidInput(pass, nameof(Password), s => s.Length > 6, "Password Should be greater then 6 word.");
             Email = Guard.Against.NullOrEmpty(email, nameof(Email), "Please fill up email") ;
+            PhoneNumber = Guard.Against.NullOrEmpty(phonenumber, nameof(PhoneNumber), "Please fill up Phone Number");
             PhoneNumber = Guard.Against.InvalidInput(phonenumber, nameof(PhoneNumber), s => s.Length > 11, "Enter a valid phone number");
             CityID = Guard.Against.NegativeOrZero(cityId, nameof(CityID), "Please select city") ;
         }

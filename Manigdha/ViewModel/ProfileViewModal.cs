@@ -52,10 +52,11 @@ namespace Manigdha.ViewModel
         [ObservableProperty]
         public string rConfirmPasswordErrorText;
         [ObservableProperty]
+        public string rCityErrorText;
+        [ObservableProperty]
         public List<string> cityNameList;
         [ObservableProperty]
         public string selectedCity;
-
         List<City> CityList = new List<City>();
         HttpClient client = new HttpClient();
         private IUserServerConnection _userserverConnection;
@@ -137,10 +138,16 @@ namespace Manigdha.ViewModel
         [RelayCommand]
         public async Task Register()
         {
-            if (RPassword != RConfirmPassword) { RPasswordErrorText = "Password Doen't Match"; }
+            RCityErrorText = "";
+            RNameErrorText = "";
+            REmailErrorText = "";
+            RPhoneNumberErrorText = "";
+            RPasswordErrorText = "";
+            City city = CityList.FirstOrDefault(c => c.Name == SelectedCity);
+            if(city == null) { RCityErrorText = "Please select city"; return;  }
             try
             {
-                UserDTO userDTO = new UserDTO(RName, RPassword, REmail, RPhoneNumber, 2);
+                UserDTO userDTO = new UserDTO(RName, RPassword, REmail, RPhoneNumber, city.CityID);
             }
             catch (ArgumentException ex)
             {
@@ -161,15 +168,28 @@ namespace Manigdha.ViewModel
                 {
                     RPasswordErrorText = new string(ex.Message.TakeWhile(c => c != '(').ToArray());
                 }
-               
+                if (ex.ParamName == nameof(UserDTO.CityID).ToString())
+                {
+                    RCityErrorText = new string(ex.Message.TakeWhile(c => c != '(').ToArray());
+                }
+
             }
-            
-            //userDTO.Name = RName;
-            var gg = SelectedCity; 
+            if (RPassword != RConfirmPassword) { RPasswordErrorText = "Password Doen't Match"; return; }
+
+
+            await RegisterUser(city.CityID);
         }
 
 
-       
+        public async Task<Response> RegisterUser(int cityID)
+        {
+            var query = "mutation {\r\n\tregister(userDTO: { name: \""+RName+"\", password: \""+RPassword+"\", email: \""+REmail+"\", phoneNumber: \""+RPhoneNumber+"\", cityID: "+ cityID + " }) {\r\n\t\tuserID\r\n\t}\r\n}";
+            var result = await _userserverConnection.RegisterAndGetUser(client, query);
+
+            if(result.UserID != 0) { }
+
+            return new Response();
+        }
         public async Task<List<City>> GetCities()
         {
             var query = "query{ city() { cityID, name, divisionID, division { divisionName } } }";
