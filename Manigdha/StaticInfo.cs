@@ -12,5 +12,6 @@ namespace Manigdha
         public static string JWTToken { get; set; }
         public static string RefreshToken { get; set; }
         public static string UserServiceBaseAddress = "https://manigdhapi.azurewebsites.net/graphql";
+        public static bool ShouldGoOTPView { get; set; }
     }
 }

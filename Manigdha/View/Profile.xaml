@@ -84,22 +84,23 @@
                     <Grid RowDefinitions="40,AUTO, AUTO,AUTO,AUTO,30,50,*">
                         <Grid ColumnDefinitions="40,*,*">
                             <Image Source="leftarrowwhite.png"  Aspect="AspectFit" Margin="7"/>
-                            <Button Margin="8" BackgroundColor="Transparent" Clicked="Button_Clicked_3"/>
+                            <Button Margin="8" BackgroundColor="Transparent" Clicked="Button_Clicked_5"/>
                         </Grid>
                         <Label Text="We have sent an OTP to this number" Grid.Row="1" HorizontalOptions="Center" FontSize="12"/>
-                        <Label Text="01833368125" Grid.Row="2" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold" Margin="0,20,0,20"/>
+                        <Label Text="{Binding OTPSelectedNumber}" Grid.Row="2" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold" Margin="0,20,0,20"/>
                        
                         <Label Text="OTP" Grid.Row="3" HorizontalOptions="Start" FontSize="12" Margin="15,0,0,5"/>
-                        <Entry Placeholder="5 Digit OPT" Grid.Row="4" Margin="10,0,10,0" BackgroundColor="{StaticResource Gray950}" HorizontalTextAlignment="Center"/>
-                        <Grid ColumnDefinitions="*,70,20" Grid.Row="5">
-                            <Label Text="OTP Error" Grid.Column="0" Margin="10,5,0,0" FontSize="10" TextColor="Red"/>
-                            <Button Text="Send Again In 00:50 sec" Grid.Column="1" FontSize="12" Margin="0,5,0,5" 
+                        <Entry Placeholder="5 Digit OPT" Text="{Binding EnteredOTP}" Grid.Row="4" Margin="10,0,10,0" BackgroundColor="{StaticResource Gray950}" HorizontalTextAlignment="Center"/>
+                        <Grid ColumnDefinitions="*,AUTO,20" Grid.Row="5">
+                            <Label Text="{Binding OTPErrorText}" Grid.Column="0" Margin="10,5,0,0" FontSize="10" TextColor="Red"/>
+                            <Button Text="{Binding OTPSendAgainText}" Grid.Column="1" FontSize="12" Margin="0,5,0,5" 
                                     FontAttributes="Bold" BackgroundColor="Transparent" TextColor="LightSteelBlue"/>
                         </Grid>
-                        <Button Text="Check OTP And Complete Registration" Grid.Row="6" BackgroundColor="{StaticResource Primary}" TextColor="White" Margin="10,20,10,0" FontSize="12"/>
+                        <Button Text="Check OTP And Complete Registration" Grid.Row="6" Command="{Binding CheckOTPAndRegisterCommand}"
+                                BackgroundColor="{StaticResource Primary}" TextColor="White" Margin="10,20,10,0" FontSize="12"/>
                     </Grid>
                 </Grid>
-                <!--<Grid x:Name="RegisterCard"  RowDefinitions="40,*" ColumnDefinitions="40,*,*">
+                <Grid x:Name="RegisterCard"  RowDefinitions="40,*" ColumnDefinitions="40,*,*">
                     <Frame BackgroundColor="{StaticResource Gray900}" Grid.RowSpan="2" 
                            Grid.ColumnSpan="3" CornerRadius="0" HasShadow="False" BorderColor="Transparent">
                     </Frame>
@@ -142,8 +143,8 @@
                         </Picker>
                         <Label Text="{Binding RCityErrorText}" Grid.Row="15" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
 
-                        <Button Text="Next" BackgroundColor="{StaticResource Gray950}"  Command="{Binding RegisterCommand}"
-                                TextColor="White" Grid.Row="15" Margin="240,20,20,0"/>
+                        <Button Text="Next >" BackgroundColor="{StaticResource Gray950}"  Command="{Binding GoToOTPCommand}"
+                                TextColor="White" Grid.Row="15" Margin="280,20,20,10" Clicked="Button_Clicked_6"/>
                     </Grid>
                 </Grid>
                     
@@ -181,7 +182,7 @@
                         </Grid>
                        
                     </Grid>
-                </Grid>-->
+                </Grid>
 
                 
             </Grid>

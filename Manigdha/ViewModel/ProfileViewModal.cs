@@ -59,9 +59,22 @@ namespace Manigdha.ViewModel
         public List<string> cityNameList;
         [ObservableProperty]
         public string selectedCity;
+        [ObservableProperty]
+        public string oTPSelectedNumber;
+        [ObservableProperty]
+        public string oTPErrorText;
+        [ObservableProperty]
+        public string oTPSendAgainText;
+        [ObservableProperty]
+        public string enteredOTP;
+
+        int FiveDigitOTP = 0;
         List<City> CityList = new List<City>();        
         private ShowSnakeBar showSnake = new ShowSnakeBar();
         private ProfileViewModalQuery profileViewModalQuery;
+        private int selectedCityId = 0;
+       
+
         public ProfileViewModal()
         {
             CURDCall<City> curd = new CURDCall<City>();
@@ -99,7 +112,7 @@ namespace Manigdha.ViewModel
             }
             catch (Exception ex) 
             {
-               await showSnake.Show(ex.Message, SnakeBarType.Type.Danger);
+               await showSnake.Show(ex.Message, SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime);
             }
             
         }
@@ -128,8 +141,9 @@ namespace Manigdha.ViewModel
 
 
         [RelayCommand]
-        public async Task Register()
+        public async Task GoToOTP()
         {
+            StaticInfo.ShouldGoOTPView = false;
             RCityErrorText = "";
             RNameErrorText = "";
             REmailErrorText = "";
@@ -168,10 +182,28 @@ namespace Manigdha.ViewModel
             if (RPassword != RConfirmPassword) { RPasswordErrorText = "Password Doen't Match"; return; }
             City city = CityList.FirstOrDefault(c => c.Name == SelectedCity);
             if (city == null) { RCityErrorText = "Please select city"; return; }
+            selectedCityId = city.CityID;
+            OTPErrorText = "";
+            OTPSendAgainText = "Send Again";
+            OTPSelectedNumber = RPhoneNumber;
+            Random random = new Random();
+            //FiveDigitOTP = random.Next(10000,99999);
+            FiveDigitOTP = 12345;
+            await profileViewModalQuery.SendOTP(FiveDigitOTP);
+            await showSnake.Show("OTP Sent", SnakeBarType.Type.Success, SnakeBarType.Time.ShortTime);
+            StaticInfo.ShouldGoOTPView = true;         
+        }
 
-            var isRegistered = await  profileViewModalQuery.RegisterUser(city.CityID,RName,RPassword,REmail,RPhoneNumber);
-            if (!isRegistered) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger); }
+        
+
+        [RelayCommand]
+        public async Task CheckOTPAndRegister()
+        {
+            if(FiveDigitOTP.ToString() != EnteredOTP) { OTPErrorText = "OTP Doesn't Match"; }
+            var isRegistered = await profileViewModalQuery.RegisterUser(selectedCityId, RName, RPassword, REmail, RPhoneNumber);
+            if (!isRegistered) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime); }
             var result = await profileViewModalQuery.LoginApiExecute(RPhoneNumber, RPassword);
+            if(result.Status != HttpStatusCode.OK) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime); }
             StaticInfo.LoginUserID = int.Parse(result.ReturnStringTwo);
             StaticInfo.RefreshToken = result.ReturnStringThree;
             StaticInfo.JWTToken = result.ReturnString;

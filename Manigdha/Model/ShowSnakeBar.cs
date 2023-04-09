@@ -11,7 +11,7 @@ namespace Manigdha.Model
 {
     public class ShowSnakeBar
     {
-        public async Task Show(string msg, SnakeBarType.Type snakeBarType)
+        public async Task Show(string msg, SnakeBarType.Type snakeBarType, SnakeBarType.Time time)
         {
             SnakeBarType snakebarToColor = new SnakeBarType();
      
@@ -31,7 +31,7 @@ namespace Manigdha.Model
             string text = msg;
             string actionButtonText = "Exit";
            
-            TimeSpan duration = TimeSpan.FromSeconds(10);
+            TimeSpan duration = TimeSpan.FromSeconds(((int)time));
 
             var snackbar = Snackbar.Make(text, null, actionButtonText, duration, snackbarOptions);
 

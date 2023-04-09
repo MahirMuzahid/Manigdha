@@ -43,5 +43,16 @@ namespace Manigdha.GraphQL_Execution
             var query = "mutation {\r\n\tlogin(userLoginDTO: { loginInfo: \"" + EmailOrPhoneNumber + "\", password: \"" + Password + "\" }) {\r\n\t\tmessage\r\n\t\treturnString\r\n\t\treturnStringFour\r\n\t\treturnStringThree\r\n\t\treturnStringTwo\r\n\t\tstatus\r\n\t}\r\n}";
             return await _userserverConnection.LoginUser(client, query, "login");
         }
+        public async Task<Response> SendOTP(int otp)
+        {
+            if (otp < 10000)
+            {
+                return new Response(HttpStatusCode.NotFound);
+            }
+            //var query = "mutation {\r\n\tlogin(userLoginDTO: { loginInfo: \"" + EmailOrPhoneNumber + "\", password: \"" + Password + "\" }) {\r\n\t\tmessage\r\n\t\treturnString\r\n\t\treturnStringFour\r\n\t\treturnStringThree\r\n\t\treturnStringTwo\r\n\t\tstatus\r\n\t}\r\n}";
+            //return await _userserverConnection.LoginUser(client, query, "login");
+
+            return new Response(HttpStatusCode.OK);
+        }
     }
 }

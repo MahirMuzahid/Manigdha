@@ -55,4 +55,15 @@ public partial class Profile : ContentPage
         RegisterCard.IsVisible = true;
 
     }
+
+    private void Button_Clicked_5(object sender, EventArgs e)
+    {
+        RegisterCard.TranslateTo(0, 0, 1400, Easing.SinOut);
+    }
+
+    private void Button_Clicked_6(object sender, EventArgs e)
+    {
+        if (StaticInfo.ShouldGoOTPView) { RegisterCard.TranslateTo(-800, 0, 1400, Easing.SinOut); }
+        
+    }
 }

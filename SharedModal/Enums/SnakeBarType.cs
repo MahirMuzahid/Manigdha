@@ -17,7 +17,11 @@ namespace SharedModal.Enums
             Normal,
             Warning,
             Info,
-
+        }
+        public enum Time
+        {
+            ShortTime = 3,
+            LongTime = 6
         }
 
         public string TypeToColor(Type type)
