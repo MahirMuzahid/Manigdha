@@ -67,7 +67,13 @@ namespace Manigdha.ViewModel
         public string oTPSendAgainText;
         [ObservableProperty]
         public string enteredOTP;
+        [ObservableProperty]
+        public bool isSendAgainEnabled;
+        [ObservableProperty]
+        public bool isLoginCardVisible;
 
+        PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+        int timeLeft = 60;
         int FiveDigitOTP = 0;
         List<City> CityList = new List<City>();        
         private ShowSnakeBar showSnake = new ShowSnakeBar();
@@ -81,7 +87,12 @@ namespace Manigdha.ViewModel
             UserServerConnection userServerConnection = new UserServerConnection();
             CityServerConnection cityServerConnection = new CityServerConnection(curd);
             profileViewModalQuery = new ProfileViewModalQuery(userServerConnection, cityServerConnection);
+            CheckInfo();
             CleanUpUI();           
+        }
+        public void CheckInfo()
+        {
+            IsLoginCardVisible = !StaticInfo.IsUserLoggedIn;
         }
         public void CleanUpUI()
         {
@@ -135,7 +146,9 @@ namespace Manigdha.ViewModel
             CleanUpUI();
             StaticInfo.LoginUserID = int.Parse(result.ReturnStringTwo);
             StaticInfo.RefreshToken = result.ReturnStringThree;
-            StaticInfo.JWTToken = result.ReturnString;          
+            StaticInfo.JWTToken = result.ReturnString;
+            await SecureStorage.Default.SetAsync(nameof(StaticInfo.JWTToken), StaticInfo.JWTToken);
+            await SecureStorage.Default.SetAsync(nameof(StaticInfo.RefreshToken), StaticInfo.RefreshToken);
             IsLoginBtnEnabled = true;
         }
 
@@ -143,6 +156,7 @@ namespace Manigdha.ViewModel
         [RelayCommand]
         public async Task GoToOTP()
         {
+            timer.Dispose();
             StaticInfo.ShouldGoOTPView = false;
             RCityErrorText = "";
             RNameErrorText = "";
@@ -191,22 +205,42 @@ namespace Manigdha.ViewModel
             FiveDigitOTP = 12345;
             await profileViewModalQuery.SendOTP(FiveDigitOTP);
             await showSnake.Show("OTP Sent", SnakeBarType.Type.Success, SnakeBarType.Time.ShortTime);
-            StaticInfo.ShouldGoOTPView = true;         
+            IsSendAgainEnabled = false;          
+            StartOPTTimer();
+            StaticInfo.ShouldGoOTPView = true;
+          
         }
 
-        
+        public async Task StartOPTTimer()
+        {
+            timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+            while (await timer.WaitForNextTickAsync())
+            {
+                timeLeft--;
+                OTPSendAgainText = "Send Again In " + timeLeft + " Seconds";
+            }
+            OTPSendAgainText = "Send Again";
+            timeLeft = 60;
+            IsSendAgainEnabled = false;
+        }
 
         [RelayCommand]
         public async Task CheckOTPAndRegister()
         {
             if(FiveDigitOTP.ToString() != EnteredOTP) { OTPErrorText = "OTP Doesn't Match"; }
+
             var isRegistered = await profileViewModalQuery.RegisterUser(selectedCityId, RName, RPassword, REmail, RPhoneNumber);
             if (!isRegistered) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime); }
+
             var result = await profileViewModalQuery.LoginApiExecute(RPhoneNumber, RPassword);
             if(result.Status != HttpStatusCode.OK) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime); }
+
             StaticInfo.LoginUserID = int.Parse(result.ReturnStringTwo);
             StaticInfo.RefreshToken = result.ReturnStringThree;
             StaticInfo.JWTToken = result.ReturnString;
+            await SecureStorage.Default.SetAsync(nameof(StaticInfo.JWTToken), StaticInfo.JWTToken);
+            await SecureStorage.Default.SetAsync(nameof(StaticInfo.RefreshToken), StaticInfo.RefreshToken);
+            IsLoginCardVisible = false;
         }
 
 

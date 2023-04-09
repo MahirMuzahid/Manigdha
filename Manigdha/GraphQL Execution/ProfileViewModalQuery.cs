@@ -3,6 +3,7 @@ using SharedModal.ClientServerConnection;
 using SharedModal.Modals;
 using SharedModal.ReponseModal;
 using System.Net;
+using Manigdha.Model;
 
 namespace Manigdha.GraphQL_Execution
 {
@@ -21,6 +22,7 @@ namespace Manigdha.GraphQL_Execution
         }
         public async Task<bool> RegisterUser(int cityID, string RName, string RPassword, string REmail, string RPhoneNumber)
         {
+            if (!StaticInfo.IsInternetConnected()) { return false; }
             var query = "mutation {\r\n\tregister(userDTO: { name: \"" + RName + "\", password: \"" + RPassword + "\", email: \"" + REmail + "\", phoneNumber: \"" + RPhoneNumber + "\", cityID: " + cityID + " }) {\r\n\t\tuserID\r\n\t}\r\n}";
             var result = await _userserverConnection.RegisterAndGetUser(client, query);
 
@@ -31,11 +33,13 @@ namespace Manigdha.GraphQL_Execution
         }
         public async Task<List<City>> GetCities()
         {
+            if (!StaticInfo.IsInternetConnected()) { return new List<City>(); }
             var query = "query{ city() { cityID, name, divisionID, division { divisionName } } }";
             return await _cityserverConnection.GetCity(client, query, "city");
         }
         public async Task<Response> LoginApiExecute(string EmailOrPhoneNumber, string Password)
         {
+            if (!StaticInfo.IsInternetConnected()) { return new Response(); }
             if (string.IsNullOrEmpty(EmailOrPhoneNumber) || string.IsNullOrEmpty(Password))
             {
                 return new Response(HttpStatusCode.NotFound);
@@ -45,6 +49,7 @@ namespace Manigdha.GraphQL_Execution
         }
         public async Task<Response> SendOTP(int otp)
         {
+            if (!StaticInfo.IsInternetConnected()) { return new Response(); }
             if (otp < 10000)
             {
                 return new Response(HttpStatusCode.NotFound);

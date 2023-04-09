@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Manigdha.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +23,14 @@ namespace Manigdha.ViewModel
             cList.Add(2);
             cList.Add(3);
             cList.Add(4);
+            GetInitInfo();
         }
+
+        public async Task GetInitInfo()
+        {
+            await StaticInfo.GetAuthInfo();
+        }
+
+       
     }
 }

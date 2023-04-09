@@ -77,6 +77,7 @@
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="1.2.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.28.1" />
 	</ItemGroup>
 
 	<ItemGroup>
