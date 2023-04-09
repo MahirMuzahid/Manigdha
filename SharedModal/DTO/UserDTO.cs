@@ -24,7 +24,6 @@ namespace SharedModal.DTO
             Email = Guard.Against.NullOrEmpty(email, nameof(Email), "Please fill up email");
             Password = Guard.Against.NullOrEmpty(pass, nameof(Password), "Please fill up Password");
             Password = Guard.Against.InvalidInput(pass, nameof(Password), s => s.Length > 5, "Password Should be greater then 6 word.");                  
-            CityID = Guard.Against.NegativeOrZero(cityId, nameof(CityID), "Please select city") ;
         }
     }
 }

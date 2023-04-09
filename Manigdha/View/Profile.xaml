@@ -76,13 +76,36 @@
         <Grid >
             <Frame BackgroundColor="#99000000" CornerRadius="0"/>
             <Grid  >
-                <Grid x:Name="RegisterCard"  RowDefinitions="40,*" ColumnDefinitions="40,*,*">
+
+                <Grid x:Name="OTPGrid">
+                    <Frame BackgroundColor="{StaticResource Gray900}" Grid.RowSpan="2" 
+                           Grid.ColumnSpan="3" CornerRadius="0" HasShadow="False" BorderColor="Transparent">
+                    </Frame>
+                    <Grid RowDefinitions="40,AUTO, AUTO,AUTO,AUTO,30,50,*">
+                        <Grid ColumnDefinitions="40,*,*">
+                            <Image Source="leftarrowwhite.png"  Aspect="AspectFit" Margin="7"/>
+                            <Button Margin="8" BackgroundColor="Transparent" Clicked="Button_Clicked_3"/>
+                        </Grid>
+                        <Label Text="We have sent an OTP to this number" Grid.Row="1" HorizontalOptions="Center" FontSize="12"/>
+                        <Label Text="01833368125" Grid.Row="2" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold" Margin="0,20,0,20"/>
+                       
+                        <Label Text="OTP" Grid.Row="3" HorizontalOptions="Start" FontSize="12" Margin="15,0,0,5"/>
+                        <Entry Placeholder="5 Digit OPT" Grid.Row="4" Margin="10,0,10,0" BackgroundColor="{StaticResource Gray950}" HorizontalTextAlignment="Center"/>
+                        <Grid ColumnDefinitions="*,70,20" Grid.Row="5">
+                            <Label Text="OTP Error" Grid.Column="0" Margin="10,5,0,0" FontSize="10" TextColor="Red"/>
+                            <Button Text="Send Again In 00:50 sec" Grid.Column="1" FontSize="12" Margin="0,5,0,5" 
+                                    FontAttributes="Bold" BackgroundColor="Transparent" TextColor="LightSteelBlue"/>
+                        </Grid>
+                        <Button Text="Check OTP And Complete Registration" Grid.Row="6" BackgroundColor="{StaticResource Primary}" TextColor="White" Margin="10,20,10,0" FontSize="12"/>
+                    </Grid>
+                </Grid>
+                <!--<Grid x:Name="RegisterCard"  RowDefinitions="40,*" ColumnDefinitions="40,*,*">
                     <Frame BackgroundColor="{StaticResource Gray900}" Grid.RowSpan="2" 
                            Grid.ColumnSpan="3" CornerRadius="0" HasShadow="False" BorderColor="Transparent">
                     </Frame>
                     <Image Source="leftarrowwhite.png"  Aspect="AspectFit" Margin="7"/>
                     <Button Margin="8" BackgroundColor="Transparent" Clicked="Button_Clicked_3"/>
-                    <Grid Grid.Row="1" Grid.ColumnSpan="3" RowDefinitions="50,20,AUTO,AUTO,20,AUTO,AUTO,20,AUTO,AUTO,20,AUTO,AUTO,20,AUTO,AUTO,60,10">
+                    <Grid Grid.Row="1" Grid.ColumnSpan="3" RowDefinitions="50,20,AUTO,AUTO,20,AUTO,AUTO,20,AUTO,AUTO,20,AUTO,AUTO,20,AUTO, 60">
                         <Label Text="Register" Grid.Row="0" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold"/>
                         
                         <Label Text="Name" Grid.Row="1" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="20,0,0,0"/>
@@ -91,16 +114,20 @@
                         <Label Text="{Binding RNameErrorText}" Grid.Row="3" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
 
                         <Label Text="Phone Number" Grid.Row="4" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="20,0,0,0"/>
-                        <Entry Placeholder="Phone Number" HorizontalTextAlignment="Center" Text="{Binding RPhoneNumber}"
+                        <Entry Placeholder="01XXXXXXXXX" HorizontalTextAlignment="Center" Text="{Binding RPhoneNumber}"
                                Grid.Row="5" Margin="20,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
                         <Label Text="{Binding RPhoneNumberErrorText}" Grid.Row="6" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
                         
                         <Label Text="Email" Grid.Row="7" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="20,0,0,0"/>
-                        <Entry Placeholder="Email" HorizontalTextAlignment="Center" Text="{Binding REmail}"
+                        <Entry Placeholder="mail@mail.com" HorizontalTextAlignment="Center" Text="{Binding REmail}"
                                Grid.Row="8" Margin="20,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
                         <Label Text="{Binding REmailErrorText}" Grid.Row="9" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
 
-                        <Label Text="Password" Grid.Row="10" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="20,0,0,0"/>
+                        <Grid Grid.Row="10" ColumnDefinitions="*,*">
+                            <Label Text="Password" Grid.Column="0" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="20,0,0,0"/>
+                            <Label Text="Confirm Password" Grid.Column="1" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="5,0,0,0"/>
+                        </Grid>
+                        
                         <Grid Grid.Row="11" ColumnDefinitions="*,*"> 
                             <Entry Placeholder="Password" HorizontalTextAlignment="Center" Text="{Binding RPassword}"
                                Grid.Row="4" Margin="20,5,5,5" BackgroundColor="{StaticResource Gray950}"/>
@@ -108,17 +135,15 @@
                                Grid.Row="4" Margin="5,5,20,5" BackgroundColor="{StaticResource Gray950}"/>
                         </Grid>
                         <Label Text="{Binding RPasswordErrorText}" Grid.Row="12" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
-                        
-                        <Grid Grid.Row="13" ColumnDefinitions="AUTO,*">
-                            <Label Text="City" VerticalOptions="Center" Margin="20,0,0,0"/>
-                            <Picker HorizontalTextAlignment="Center" ItemsSource="{Binding CityNameList}"
-                                    SelectedItem="{Binding SelectedCity}" Grid.Column="1" Margin="10,5,20,0" BackgroundColor="{StaticResource Gray950}">
-                            </Picker>
-                        </Grid>
-                        <Label Text="{Binding RCityErrorText}" Grid.Row="14" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
 
-                        <Button Text="Register" BackgroundColor="{StaticResource SecondPalate}"  Command="{Binding RegisterCommand}"
-                                TextColor="White" Grid.Row="15" Margin="240,0,20,0"/>
+                        <Label Text="City" Grid.Row="13" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="20,0,0,0"/>
+                        <Picker HorizontalTextAlignment="Center" ItemsSource="{Binding CityNameList}" 
+                                    SelectedItem="{Binding SelectedCity}" Grid.Row="14" Margin="20,0,20,0" BackgroundColor="{StaticResource Gray950}">
+                        </Picker>
+                        <Label Text="{Binding RCityErrorText}" Grid.Row="15" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
+
+                        <Button Text="Next" BackgroundColor="{StaticResource Gray950}"  Command="{Binding RegisterCommand}"
+                                TextColor="White" Grid.Row="15" Margin="240,20,20,0"/>
                     </Grid>
                 </Grid>
                     
@@ -156,7 +181,7 @@
                         </Grid>
                        
                     </Grid>
-                </Grid>
+                </Grid>-->
 
                 
             </Grid>

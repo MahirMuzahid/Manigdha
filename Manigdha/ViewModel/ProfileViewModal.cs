@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
 using Manigdha.GraphQL_Execution;
 using Manigdha.Model;
 using SharedModal.ClientServerConnection;
@@ -80,7 +81,9 @@ namespace Manigdha.ViewModel
         [RelayCommand]
         public async Task GetInitData()
         {
+            SelectedCity = "Select City";
             await GetCityData();
+            
         }
         
         public async Task GetCityData()
@@ -167,6 +170,11 @@ namespace Manigdha.ViewModel
             if (city == null) { RCityErrorText = "Please select city"; return; }
 
             var isRegistered = await  profileViewModalQuery.RegisterUser(city.CityID,RName,RPassword,REmail,RPhoneNumber);
+            if (!isRegistered) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger); }
+            var result = await profileViewModalQuery.LoginApiExecute(RPhoneNumber, RPassword);
+            StaticInfo.LoginUserID = int.Parse(result.ReturnStringTwo);
+            StaticInfo.RefreshToken = result.ReturnStringThree;
+            StaticInfo.JWTToken = result.ReturnString;
         }
 
 
