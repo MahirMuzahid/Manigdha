@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 
 using Manigdha.GraphQL_Execution;
 using Manigdha.Model;
+using Microsoft.Maui.Storage;
 using SharedModal.ClientServerConnection;
 using SharedModal.ClientServerConnection.City_Server_Connection;
 using SharedModal.DTO;
@@ -149,6 +150,7 @@ namespace Manigdha.ViewModel
             StaticInfo.JWTToken = result.ReturnString;
             await SecureStorage.Default.SetAsync(nameof(StaticInfo.JWTToken), StaticInfo.JWTToken);
             await SecureStorage.Default.SetAsync(nameof(StaticInfo.RefreshToken), StaticInfo.RefreshToken);
+            await SecureStorage.Default.SetAsync(nameof(StaticInfo.LoginUserID), StaticInfo.LoginUserID.ToString());
             IsLoginBtnEnabled = true;
         }
 
@@ -230,16 +232,17 @@ namespace Manigdha.ViewModel
             if(FiveDigitOTP.ToString() != EnteredOTP) { OTPErrorText = "OTP Doesn't Match"; }
 
             var isRegistered = await profileViewModalQuery.RegisterUser(selectedCityId, RName, RPassword, REmail, RPhoneNumber);
-            if (!isRegistered) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime); }
+            if (!isRegistered) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime); return; }
 
             var result = await profileViewModalQuery.LoginApiExecute(RPhoneNumber, RPassword);
-            if(result.Status != HttpStatusCode.OK) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime); }
+            if(result.Status != HttpStatusCode.OK) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime); return; }
 
             StaticInfo.LoginUserID = int.Parse(result.ReturnStringTwo);
             StaticInfo.RefreshToken = result.ReturnStringThree;
             StaticInfo.JWTToken = result.ReturnString;
             await SecureStorage.Default.SetAsync(nameof(StaticInfo.JWTToken), StaticInfo.JWTToken);
             await SecureStorage.Default.SetAsync(nameof(StaticInfo.RefreshToken), StaticInfo.RefreshToken);
+            await SecureStorage.Default.SetAsync(nameof(StaticInfo.LoginUserID), StaticInfo.LoginUserID.ToString());
             IsLoginCardVisible = false;
         }
 

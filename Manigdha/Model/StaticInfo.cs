@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,10 @@ namespace Manigdha.Model
 
         public static async Task GetAuthInfo()
         {
-            JWTToken = await SecureStorage.Default.GetAsync(nameof(JWTToken));
+            var id = await SecureStorage.Default.GetAsync(nameof(StaticInfo.LoginUserID));
+            RefreshToken = await SecureStorage.Default.GetAsync(nameof(StaticInfo.RefreshToken));
+            JWTToken = await SecureStorage.Default.GetAsync(nameof(StaticInfo.JWTToken));
+            LoginUserID = int.Parse(id);
         }
 
         public static bool IsInternetConnected()
@@ -28,15 +32,26 @@ namespace Manigdha.Model
 
             return true;
         }
-        public bool IsTokenExpired(string token)
+        public static bool IsJwtTokenExpired()
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var jwtToken = tokenHandler.ReadJwtToken(token);
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.ReadJwtToken(JWTToken);
 
-            var exp = jwtToken.Payload.Exp;
-            var expirationTime = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(exp));
+            var exp = token.Claims.FirstOrDefault(claim => claim.Type == "exp")?.Value;
+            if (string.IsNullOrEmpty(exp))
+            {
+                return false;
+            }
 
-            return expirationTime <= DateTimeOffset.UtcNow;
+            var expDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(exp));
+            var isOutDatedToken = expDate <= DateTimeOffset.Now;
+
+            return isOutDatedToken;
+        }
+
+        public static (bool, bool) CheckNetAndJWTToken()
+        {
+            return (IsInternetConnected(), IsJwtTokenExpired());
         }
     }
 }
