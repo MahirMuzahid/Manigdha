@@ -93,7 +93,7 @@ namespace Manigdha.ViewModel
         }
         public void CheckInfo()
         {
-            IsLoginCardVisible = !StaticInfo.IsUserLoggedIn;
+            IsLoginCardVisible = (StaticInfo.JWTToken == null);
         }
         public void CleanUpUI()
         {
