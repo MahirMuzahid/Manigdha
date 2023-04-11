@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-              xmlns:viewmodal ="clr-namespace:Manigdha.ViewModel"
+             xmlns:viewmodal ="clr-namespace:Manigdha.ViewModel"
              x:DataType="viewmodal:ProfileViewModal"
              x:Class="Manigdha.View.Profile"
              Shell.NavBarHasShadow="False">
@@ -138,7 +138,7 @@
                         <Label Text="{Binding RPasswordErrorText}" Grid.Row="12" Margin="20,0,0,0" FontSize="12" TextColor="Red" />
 
                         <Label Text="City" Grid.Row="13" HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Margin="20,0,0,0"/>
-                        <Picker HorizontalTextAlignment="Center" ItemsSource="{Binding CityNameList}" 
+                        <Picker Title="Select City" HorizontalTextAlignment="Center" ItemsSource="{Binding CityNameList}" 
                                     SelectedItem="{Binding SelectedCity}" Grid.Row="14" Margin="20,0,20,0" BackgroundColor="{StaticResource Gray950}">
                         </Picker>
                         <Label Text="{Binding RCityErrorText}" Grid.Row="15" Margin="20,0,0,0" FontSize="12" TextColor="Red" />

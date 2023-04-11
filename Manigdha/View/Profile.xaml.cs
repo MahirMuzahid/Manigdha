@@ -23,8 +23,8 @@ public partial class Profile : ContentPage
 
 	public async Task GoToNewProductPostPage()
 	{
-        //await Shell.Current.GoToAsync(nameof(ProductPage));
-        await Navigation.PushAsync(new ProductPage());
+        await Shell.Current.GoToAsync(nameof(ProductPage));
+        //await Navigation.PushAsync(new ProductPage());
         
     }
 

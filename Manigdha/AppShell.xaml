@@ -9,24 +9,36 @@
 
 
 
-    <Tab Title="Home">
-        <ShellContent
+    <TabBar>
+        <Tab Title="Home">
+            <ShellContent
         ContentTemplate="{DataTemplate local:BuyPost}"
         Route="BuyPost" />
-    </Tab>
-   
-    <Tab Title="Profile">
-        <ShellContent
+        </Tab>
+
+        <Tab Title="Profile">
+            <ShellContent
         ContentTemplate="{DataTemplate local:Profile}"
         Route="Profile" />
-    </Tab>
-    <Tab Title="Notification">
-        <ShellContent
+        </Tab>
+        <Tab Title="Notification">
+            <ShellContent
         ContentTemplate="{DataTemplate local:Notification}"
         Route="Notification" />
+        </Tab>
+    </TabBar>
+    <Tab >
+        <ShellContent
+        ContentTemplate="{DataTemplate local:ProductPage}"
+        Route="ProductPage" />
+    </Tab>
+    <Tab >
+        <ShellContent
+        ContentTemplate="{DataTemplate local:ProductInformatinFill}"
+        Route="ProductInformatinFill" />
     </Tab>
 
-   
+
 
 
 

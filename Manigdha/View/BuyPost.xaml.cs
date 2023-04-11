@@ -36,6 +36,6 @@ public partial class BuyPost : ContentPage
 
 	public async void  GOToPD()
 	{
-		await Navigation.PushAsync(new ProductDetail());
+		await Navigation.PushAsync(new ProductInformatinFill());
 	}
 }
