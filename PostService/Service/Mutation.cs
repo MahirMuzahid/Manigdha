@@ -21,6 +21,7 @@ namespace PostService.Service
         }
 
         #region ProductCatagory
+
         public async Task<Response> SetProductCatagory(string name)
         {          
             return await _productCatagoryRepository.Set(name);

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using HotChocolate.Authorization;
 using Microsoft.EntityFrameworkCore;
 using PostService.Service.Repository;
 using SharedModal.Modals;
+using System.Data;
 
 namespace PostService.Service
 {
@@ -9,11 +11,20 @@ namespace PostService.Service
     {
 
         #region ProductCatagory
+#if DEBUG
+#else
+[Authorize(Roles = new string[] { "User" })]
+#endif
         [UseProjection]
         public async Task<IQueryable<ProductCatagory>> GetProductCatagory([Service] DataContext _context)
         {
             return _context.ProductCatagories.Include(u => u.CatagoryTypes).AsQueryable();
         }
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "User" })]
+#endif
         [UseProjection]
         public async Task<ProductCatagory> GetProductCatagoryByID([Service] DataContext _context, int id)
         {
@@ -25,11 +36,21 @@ namespace PostService.Service
         #endregion
 
         #region Catagory Type
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "User" })]
+#endif
         [UseProjection]
         public async Task<IQueryable<CatagoryType>> GetProduct([Service] DataContext _context)
         {
             return _context.CatagoryTypes.Include(u => u.ProductCatagory).AsQueryable();
         }
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "User" })]
+#endif
         [UseProjection]
         public async Task<CatagoryType> GetProductByID([Service] DataContext _context, int id)
         {

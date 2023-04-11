@@ -25,7 +25,7 @@ namespace Manigdha.GraphQL_Execution
         public async Task<bool> RegisterUser(int cityID, string RName, string RPassword, string REmail, string RPhoneNumber)
         {
 
-            var query = "mutation {\r\n\tregister(userDTO: { name: \"" + RName + "\", password: \"" + RPassword + "\", email: \"" + REmail + "\", phoneNumber: \"" + RPhoneNumber + "\", cityID: " + cityID + " }) {\r\n\t\tuserID\r\n\t}\r\n}";
+            var query = "mutation {\r\n\tregister(cityID: "+cityID+", email: \""+REmail+"\", name: \""+RName+"\", password: \""+RPassword+"\", phonenumber: \""+RPhoneNumber+"\") {\r\n\t\tuserID\r\n\t}\r\n}";
             var result = await _userserverConnection.RegisterAndGetUser(client, query);
             if (result.UserID == 0) { return false; }
             return true;

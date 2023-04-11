@@ -27,23 +27,33 @@ namespace UserService.Service
         }
 
         #region User
-        public async Task<SharedModal.Modals.User> Register([Service] DataContext _context, UserDTO userDTO)
+        public async Task<SharedModal.Modals.User> Register([Service] DataContext _context, string name, string password, string email, string phonenumber, int cityID)
         {
-            var obj = _map.Map<SharedModal.Modals.User>(userDTO);
             try
             {
-                var userRegService = new UserRegistrationService();
-                var result = userRegService.Register(obj);
-                _context.Users?.Add(result);
-                await _context.SaveChangesAsync();
-                return (result);
+                UserDTO userDTO = new UserDTO(name, password, email, phonenumber, cityID);
+                var obj = _map.Map<SharedModal.Modals.User>(userDTO);
+                obj.CityID = cityID;
+                try
+                {
+                    var userRegService = new UserRegistrationService();
+                    var result = userRegService.Register(obj);
+                    _context.Users?.Add(result);
+                    await _context.SaveChangesAsync();
+                    return (result);
 
+                }
+                catch (Exception ex)
+                {
+                    throw new GraphQLException(ex.InnerException.Message);
+
+                }
             }
             catch (Exception ex)
             {
                 throw new GraphQLException(ex.InnerException.Message);
-
             }
+            
         }
         
         public async Task<Response> Login ([Service] DataContext _context, UserLoginDTO userLoginDTO)
@@ -94,11 +104,6 @@ namespace UserService.Service
             await _context.SaveChangesAsync();
             return new Response("User Deleted ", System.Net.HttpStatusCode.OK);
         }
-#if DEBUG
-
-#else
-[Authorize(Roles = new string[] { "User" })]
-#endif
         public async Task<Response> RefreshToken ([Service] DataContext _context, int userID, string refreshToken)
         {
             if (userID < 1 || refreshToken == null)

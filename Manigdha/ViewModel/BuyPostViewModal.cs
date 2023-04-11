@@ -43,15 +43,9 @@ namespace Manigdha.ViewModel
         {
             await StaticInfo.GetAuthInfo();
             if (StaticInfo.IsJwtTokenExpired())
-            {
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri(StaticInfo.UserServiceBaseAddress);
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", StaticInfo.JWTToken);
-                var query = "mutation {\r\n\trefreshToken(refreshToken: \"" + StaticInfo.RefreshToken + "\", userID: " + StaticInfo.LoginUserID + ") {\r\n\t\tmessage\r\n\t\treturnString\r\n\t\treturnStringFour\r\n\t\treturnStringThree\r\n\t\treturnStringTwo\r\n\t\tstatus\r\n\t}\r\n}";
-                var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("/graphql", content);
-                response.EnsureSuccessStatusCode();
-                var result = JsonConvert.DeserializeObject<Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())["refreshToken"].ToString());
+            {               
+                if (!(await RefreshTokenOnExpired.RefreshTokenNow())) { ShowSnakeBar showSnakeBar = new ShowSnakeBar();
+                    await showSnakeBar.Show("Cant Refresh The Token", SharedModal.Enums.SnakeBarType.Type.Danger,  SharedModal.Enums.SnakeBarType.Time.LongTime); }
             }
         }
 

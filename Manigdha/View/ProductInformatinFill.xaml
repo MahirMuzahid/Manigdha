@@ -23,13 +23,13 @@
             <Frame BackgroundColor="#99000000" Grid.RowSpan="3"/>
             <Frame Grid.Row="1" BackgroundColor="{StaticResource Gray950}" BorderColor="Transparent" Margin="10"/>
             <Grid Grid.Row="1" ColumnDefinitions="*,*" RowDefinitions="*,AUTO,AUTO,*" RowSpacing="10" Margin="20">
-                <Label Text="Select Product Type" Grid.ColumnSpan="2" HorizontalOptions="Center"/>
+                <Label Text="Select Product Catagory" Grid.ColumnSpan="2" HorizontalOptions="Center"/>
                 <Label Text="Product Catagory" Grid.Column="0" Grid.Row="1" FontSize="12"/>
                 <Picker Grid.Row="2" BackgroundColor="{StaticResource Gray900}" 
                                     Margin="0,0,20,0" Title="Select Catagory"  FontSize="11" HorizontalTextAlignment="Center" />
-                <Label Text="Product Type" Grid.Column="2" Grid.Row="1" FontSize="12"/>
-                <Picker Grid.Row="2" Grid.Column="1" BackgroundColor="{StaticResource Gray900}"
-                                    Margin="0,0,20,0" Title="Select Type" FontSize="11" HorizontalTextAlignment="Center" />
+                <Label Text="Catagory Type" Grid.Column="2" Grid.Row="1" FontSize="12"/>
+                <Picker Grid.Row="2" Grid.Column="1" BackgroundColor="{StaticResource Gray900}" ItemsSource="{Binding PikerProductCatagoryList}"
+                                     Margin="0,0,20,0" Title="Select Catagory Type" FontSize="11" HorizontalTextAlignment="Center" />
 
             </Grid>
         </Grid>
