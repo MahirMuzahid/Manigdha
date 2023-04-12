@@ -19,11 +19,16 @@ namespace Manigdha.ViewModel
         [ObservableProperty]
         bool isSelectGridVisible;
         [ObservableProperty]
-        List<ProductCatagory> pikerProductCatagoryList;
+        bool isLodaingGridVisible;
+        [ObservableProperty]
+        bool isPickInfoVisible;
+        [ObservableProperty]
+        List<string> productCatagoryNameList;
 
+        bool isBusy;
         private ShowSnakeBar showSnake = new ShowSnakeBar();
         private ProductInformationFillViewModalQuery query;
-
+        List<ProductCatagory> PikerProductCatagoryList;
         public ProductInfoFillViewModal()
         {
             CURDCall<ProductCatagory> pc = new CURDCall<ProductCatagory>();
@@ -31,6 +36,7 @@ namespace Manigdha.ViewModel
             ProductCatagoryServerConnection pcconn = new ProductCatagoryServerConnection(pc);
             CatagoryTypeServerConnection ctconn= new CatagoryTypeServerConnection(ct);
             query = new ProductInformationFillViewModalQuery(ctconn, pcconn);
+            isBusy = false;
             IsSelectGridVisible = true;
             getProductCatagoryList();
 
@@ -38,7 +44,18 @@ namespace Manigdha.ViewModel
 
         public async Task getProductCatagoryList()
         {
-            PikerProductCatagoryList = await query.GetAllCatagory();
+            isBusy = true;
+            IsLodaingGridVisible = isBusy;
+            IsPickInfoVisible = !isBusy;
+            try
+            {
+                PikerProductCatagoryList = await query.GetAllCatagory();
+                ProductCatagoryNameList = PikerProductCatagoryList.Where(c => c.Name != null).Select(c => c.Name).ToList();
+            }
+            catch (Exception ex) { await showSnake.Show(ex.Message, SharedModal.Enums.SnakeBarType.Type.Danger, SharedModal.Enums.SnakeBarType.Time.LongTime); }
+            isBusy = false;
+            IsLodaingGridVisible = isBusy;
+            IsPickInfoVisible = !isBusy;
         }
     }
 }

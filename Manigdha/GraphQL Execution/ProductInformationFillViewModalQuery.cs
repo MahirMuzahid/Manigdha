@@ -53,7 +53,7 @@ namespace Manigdha.GraphQL_Execution
         {
             var result = StaticInfo.CheckNetAndJWTToken();
             if (!result.Item1) { return new List<ProductCatagory>(); }
-            if (!result.Item2) { await RefreshTokenOnExpired.RefreshTokenNow(); return new List<ProductCatagory>(); }
+            if (result.Item2) { await RefreshTokenOnExpired.RefreshTokenNow(); return new List<ProductCatagory>(); }
             try
             {
                 var query = "query{ productCatagory() { name  } }";

@@ -20,18 +20,23 @@
             <Button Text="Next" BackgroundColor="{StaticResource Gray900}" TextColor="White" Grid.Row="7" Clicked="Button_Clicked"/>
         </Grid>
         <Grid RowDefinitions="*,200,*" Grid.RowSpan="3" IsVisible="{Binding IsSelectGridVisible}">
+            
             <Frame BackgroundColor="#99000000" Grid.RowSpan="3"/>
             <Frame Grid.Row="1" BackgroundColor="{StaticResource Gray950}" BorderColor="Transparent" Margin="10"/>
-            <Grid Grid.Row="1" ColumnDefinitions="*,*" RowDefinitions="*,AUTO,AUTO,*" RowSpacing="10" Margin="20">
+            <Grid Grid.Row="1" ColumnDefinitions="*,*" RowDefinitions="*,AUTO,AUTO,*" RowSpacing="10" Margin="20" IsVisible="{Binding IsPickInfoVisible}" >
                 <Label Text="Select Product Catagory" Grid.ColumnSpan="2" HorizontalOptions="Center"/>
                 <Label Text="Product Catagory" Grid.Column="0" Grid.Row="1" FontSize="12"/>
-                <Picker Grid.Row="2" BackgroundColor="{StaticResource Gray900}" 
-                                    Margin="0,0,20,0" Title="Select Catagory"  FontSize="11" HorizontalTextAlignment="Center" />
+                <Picker Grid.Row="2" BackgroundColor="{StaticResource Gray900}" ItemsSource="{Binding ProductCatagoryNameList}" 
+                                    Margin="0,0,20,0" Title="Select Catagory"  FontSize="11" HorizontalTextAlignment="Center" SelectedItem="{Binding SelectedProductCatagory}" />
                 <Label Text="Catagory Type" Grid.Column="2" Grid.Row="1" FontSize="12"/>
-                <Picker Grid.Row="2" Grid.Column="1" BackgroundColor="{StaticResource Gray900}" ItemsSource="{Binding PikerProductCatagoryList}"
+                <Picker Grid.Row="2" Grid.Column="1" BackgroundColor="{StaticResource Gray900}" 
                                      Margin="0,0,20,0" Title="Select Catagory Type" FontSize="11" HorizontalTextAlignment="Center" />
-
             </Grid>
+            <Grid Grid.Row="1" RowDefinitions="*,*,*,*" IsVisible="{Binding IsLodaingGridVisible}">
+                <ActivityIndicator Color="White" Grid.Row="1"  IsRunning="True"/>
+                <Label Text="Getting Data..." Grid.Row="2" HorizontalOptions="Center"/>
+            </Grid>
+            
         </Grid>
     </Grid>
 </ContentPage>

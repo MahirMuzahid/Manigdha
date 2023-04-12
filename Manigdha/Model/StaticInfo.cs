@@ -44,9 +44,9 @@ namespace Manigdha.Model
             }
 
             var expDate = DateTimeOffset.FromUnixTimeSeconds(long.Parse(exp));
-            var isOutDatedToken = expDate <= DateTimeOffset.Now;
+            var IsJwtTokenExpired = expDate < DateTimeOffset.UtcNow;
 
-            return isOutDatedToken;
+            return IsJwtTokenExpired;
         }
 
         public static (bool, bool) CheckNetAndJWTToken()
