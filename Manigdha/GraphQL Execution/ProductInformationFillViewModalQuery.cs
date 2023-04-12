@@ -56,7 +56,7 @@ namespace Manigdha.GraphQL_Execution
             if (result.Item2) { await RefreshTokenOnExpired.RefreshTokenNow(); return new List<ProductCatagory>(); }
             try
             {
-                var query = "query{ productCatagory() { name  } }";
+                var query = "query {\r\n\tproductCatagory {\r\n\t\tcatagoryTypes {\r\n\t\t\tcatagoryTypeID\r\n\t\t\tname\r\n\t\t}\r\n\t\tname\r\n\t}\r\n}";
                 var responseData = await _productCatagoryServerConnection.Get(client, query, "productCatagory");
                 return responseData;
             }

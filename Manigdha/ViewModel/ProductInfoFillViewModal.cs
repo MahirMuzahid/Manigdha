@@ -23,7 +23,11 @@ namespace Manigdha.ViewModel
         [ObservableProperty]
         bool isPickInfoVisible;
         [ObservableProperty]
+        string selectedProductCatagory;
+        [ObservableProperty]
         List<string> productCatagoryNameList;
+        [ObservableProperty]
+        List<string> catagoryTypeNameList;
 
         bool isBusy;
         private ShowSnakeBar showSnake = new ShowSnakeBar();
@@ -51,6 +55,7 @@ namespace Manigdha.ViewModel
             {
                 PikerProductCatagoryList = await query.GetAllCatagory();
                 ProductCatagoryNameList = PikerProductCatagoryList.Where(c => c.Name != null).Select(c => c.Name).ToList();
+                TemporaryStaticInfo.PikerProductCatagoryList = PikerProductCatagoryList;
             }
             catch (Exception ex) { await showSnake.Show(ex.Message, SharedModal.Enums.SnakeBarType.Type.Danger, SharedModal.Enums.SnakeBarType.Time.LongTime); }
             isBusy = false;
