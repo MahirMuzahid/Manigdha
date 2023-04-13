@@ -11,10 +11,13 @@ namespace Manigdha.Model
 {
     public class ShowSnakeBar
     {
-        public async Task Show(string msg, SnakeBarType.Type snakeBarType, SnakeBarType.Time time)
+        public async Task Show(string msg, SnakeBarType.Type snakeBarType)
         {
             SnakeBarType snakebarToColor = new SnakeBarType();
-     
+            SnakeBarType.Time time = new SnakeBarType.Time();
+
+            if(snakeBarType == SnakeBarType.Type.Danger) { time = SnakeBarType.Time.LongTime; }
+            else { time = SnakeBarType.Time.ShortTime; }
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
             var snackbarOptions = new SnackbarOptions

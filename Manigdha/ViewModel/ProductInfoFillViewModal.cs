@@ -28,6 +28,8 @@ namespace Manigdha.ViewModel
         [ObservableProperty]
         string selectedProductCatagory;
         [ObservableProperty]
+        string selectedCatagoryType;
+        [ObservableProperty]
         List<string> productCatagoryNameList;
         [ObservableProperty]
         List<string> catagoryTypeNameList;
@@ -43,6 +45,10 @@ namespace Manigdha.ViewModel
         string descriptionError;
         [ObservableProperty]
         string priceError;
+        [ObservableProperty]
+        string catagoryTypeError;
+        [ObservableProperty]
+        string productCatagoryError;
 
         bool isBusy;
         private ShowSnakeBar showSnake = new ShowSnakeBar();
@@ -72,7 +78,7 @@ namespace Manigdha.ViewModel
                 ProductCatagoryNameList = PikerProductCatagoryList.Where(c => c.Name != null).Select(c => c.Name).ToList();
                 TemporaryStaticInfo.PikerProductCatagoryList = PikerProductCatagoryList;
             }
-            catch (Exception ex) { await showSnake.Show(ex.Message, SharedModal.Enums.SnakeBarType.Type.Danger, SharedModal.Enums.SnakeBarType.Time.LongTime); }
+            catch (Exception ex) { await showSnake.Show(ex.Message, SharedModal.Enums.SnakeBarType.Type.Danger); }
             isBusy = false;
             IsLodaingGridVisible = isBusy;
             IsPickInfoVisible = !isBusy;
@@ -84,11 +90,15 @@ namespace Manigdha.ViewModel
             TitleError = "";
             DescriptionError = "";
             PriceError = "";
+            ProductCatagoryError = "";
+            CatagoryTypeError = "";
             if (string.IsNullOrEmpty(Title)) { TitleError = "Title can't be empty"; return; }
             if (string.IsNullOrEmpty(Description)) { DescriptionError = "Description can't be empty"; return; }
             if (string.IsNullOrEmpty(Price)) { PriceError = "Price can't be empty"; return; }
             if (Price.All(char.IsDigit) == false) { PriceError = "Not a valid price"; return; }
             if (int.Parse(price) < 100) { PriceError = "Cannot sell any product less then 100 taka"; return; }
+            if (string.IsNullOrEmpty(SelectedProductCatagory)) { ProductCatagoryError = "Please select product catagory"; return; }
+            if (string.IsNullOrEmpty(SelectedCatagoryType)) { CatagoryTypeError = "Please select product catagory type"; return; }
 
             GoToVerification();
         }

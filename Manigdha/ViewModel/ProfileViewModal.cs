@@ -120,7 +120,7 @@ namespace Manigdha.ViewModel
             }
             catch (Exception ex) 
             {
-               await showSnake.Show(ex.Message, SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime);
+               await showSnake.Show(ex.Message, SnakeBarType.Type.Danger);
             }
             
         }
@@ -202,7 +202,7 @@ namespace Manigdha.ViewModel
             //FiveDigitOTP = random.Next(10000,99999);
             FiveDigitOTP = 12345;
             await profileViewModalQuery.SendOTP(FiveDigitOTP);
-            await showSnake.Show("OTP Sent", SnakeBarType.Type.Success, SnakeBarType.Time.ShortTime);
+            await showSnake.Show("OTP Sent", SnakeBarType.Type.Success);
             IsSendAgainEnabled = false;          
             StartOPTTimer();
             StaticInfo.ShouldGoOTPView = true;
@@ -228,10 +228,10 @@ namespace Manigdha.ViewModel
             if(FiveDigitOTP.ToString() != EnteredOTP) { OTPErrorText = "OTP Doesn't Match"; }
 
             var isRegistered = await profileViewModalQuery.RegisterUser(selectedCityId, RName, RPassword, REmail, RPhoneNumber);
-            if (!isRegistered) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime); return; }
+            if (!isRegistered) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger); return; }
 
             var result = await profileViewModalQuery.LoginApiExecute(RPhoneNumber, RPassword);
-            if(result.Status != HttpStatusCode.OK) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger, SnakeBarType.Time.LongTime); return; }
+            if(result.Status != HttpStatusCode.OK) { await showSnake.Show("There is a problem try again!", SnakeBarType.Type.Danger); return; }
 
             StaticInfo.LoginUserID = int.Parse(result.ReturnStringTwo);
             StaticInfo.RefreshToken = result.ReturnStringThree;

@@ -45,17 +45,17 @@ namespace Manigdha.ViewModel
         }
         public async Task GetInitInfo()
         {
-            IsLoading = true;
-            await StaticInfo.GetAuthInfo();
+            IsLoading = true;           
+            await StaticInfo.GetAuthInfo();           
             if (StaticInfo.IsJwtTokenExpired())
             {
                 ShowSnakeBar showSnakeBar = new ShowSnakeBar();
                 if (!(await RefreshTokenOnExpired.RefreshTokenNow())) 
                 {
-                    await showSnakeBar.Show("Cant Refresh The Token", SharedModal.Enums.SnakeBarType.Type.Danger,  SharedModal.Enums.SnakeBarType.Time.LongTime);
+                    await showSnakeBar.Show("Cant Refresh The Token", SharedModal.Enums.SnakeBarType.Type.Danger);
                 }         
             }
-            //IsLoading = false;
+            IsLoading = false;
         }   
     }
 }

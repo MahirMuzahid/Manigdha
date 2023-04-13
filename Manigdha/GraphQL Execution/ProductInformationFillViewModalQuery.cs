@@ -21,7 +21,6 @@ namespace Manigdha.GraphQL_Execution
         private ICatagoryTypeServerConnection _catagoryTypeServerConnection;
         private IProductCatagoryServerConnection _productCatagoryServerConnection;
         ShowSnakeBar showSnakeBar = new ShowSnakeBar();
-
         public ProductInformationFillViewModalQuery(
             ICatagoryTypeServerConnection catagoryTypeServerConnection,
             IProductCatagoryServerConnection productCatagoryServerConnection)
@@ -44,7 +43,7 @@ namespace Manigdha.GraphQL_Execution
             }
             catch (Exception ex) 
             {
-                await showSnakeBar.Show(ex.Message, SharedModal.Enums.SnakeBarType.Type.Danger, SharedModal.Enums.SnakeBarType.Time.LongTime );
+                await showSnakeBar.Show(ex.Message, SharedModal.Enums.SnakeBarType.Type.Danger );
                 return new CatagoryType();
             }
             
@@ -62,7 +61,7 @@ namespace Manigdha.GraphQL_Execution
             }
             catch (Exception ex)
             {
-                await showSnakeBar.Show(ex.Message, SharedModal.Enums.SnakeBarType.Type.Danger, SharedModal.Enums.SnakeBarType.Time.LongTime);
+                await showSnakeBar.Show(ex.Message, SharedModal.Enums.SnakeBarType.Type.Danger);
                 return new List<ProductCatagory>();
             }
            

@@ -108,10 +108,10 @@ namespace UserService.Service
         {
             if (userID < 1 || refreshToken == null)
             {
-                return new Response("User doesn't exits", System.Net.HttpStatusCode.NotFound);
+                return new Response("User doesn't exits");
             }
             var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userID);
-            if (user == null) { return new Response("User doesn't exits", System.Net.HttpStatusCode.NotFound); }
+            if (user == null) { return new Response("User doesn't exits"); }
 
             var result = _userLoginService.RefreshToken(user, refreshToken);
             if (result.Status != System.Net.HttpStatusCode.OK) { return result; }
@@ -149,6 +149,11 @@ namespace UserService.Service
             return new Response( System.Net.HttpStatusCode.OK);
         }
 
+#if DEBUG
+
+#else
+[Authorize(Roles = new string[] { "User" })]
+#endif
         public async Task<Response> UpdateUser([Service ] DataContext _context, UserUpdateDTO userDTO)
         {
             var updatedObj = _map.Map<SharedModal.Modals.User>(userDTO);

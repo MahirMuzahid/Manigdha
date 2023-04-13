@@ -32,13 +32,10 @@ public partial class ProductInformatinFill : ContentPage
             TemporaryStaticInfo.SelectedProductCatagoryName = picker.Items[selectedIndex];
             var selectedCatagoryTypeList = TemporaryStaticInfo.PikerProductCatagoryList.FirstOrDefault(p => p.Name == picker.Items[selectedIndex]).CatagoryTypes.ToList();
             CatagoryTypePicker.ItemsSource = selectedCatagoryTypeList.Where(c => c.Name != null).Select(c => c.Name).ToList();
-
+            CatagoryTypePicker.IsVisible = true;
 
         }
     }
 
-    private void CatagoryTypePicker_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        selectGrid.IsVisible = false;
-    }
+ 
 }

@@ -70,7 +70,9 @@ namespace SharedModal.ClientServerConnection
         {
             var response = await GetQueryResponse(client, query);
             if (response.StatusCode == HttpStatusCode.NotFound) { return new Response("Invalid Token", HttpStatusCode.NotFound); }
-            var result = JsonConvert.DeserializeObject<Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
+            var data = JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString();
+            var result = JsonConvert.DeserializeObject<Response>(JObject.Parse(data)["refreshToken"].ToString());
+            //var result = JsonConvert.DeserializeObject<Response>(JObject.Parse(JObject.Parse(await response.Content.ReadAsStringAsync())["data"].ToString())[queryName].ToString());
             if (result == null)
             {
                 return new Response("User Not Found", HttpStatusCode.NotFound);

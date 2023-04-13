@@ -7,9 +7,9 @@
              xmlns:viewmodal ="clr-namespace:Manigdha.ViewModel"
              x:DataType="viewmodal:BuyPostViewModal"
              Shell.NavBarHasShadow="False">
-    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightWhite}, Dark={StaticResource Gray950}}">
+    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightWhite}, Dark={StaticResource Gray950}}" RowDefinitions="50,*">
         
-        <Grid  RowDefinitions="50,*" Margin="0">
+        <Grid  RowDefinitions="50,*" Margin="0" Grid.RowSpan="2">
             <Grid Grid.Row="0"  RowDefinitions="*,45,*" ColumnDefinitions="*,50,20">
                 <Frame Grid.ColumnSpan="3" Grid.RowSpan="2"  BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" 
                        BorderColor="Transparent"
@@ -235,11 +235,11 @@
                
             </ScrollView>
         </Grid>
-        <Grid RowDefinitions="250,250,400">
+        <Grid RowDefinitions="250,250,300" BackgroundColor="{StaticResource Gray950}" Grid.Row="1" IsVisible="{Binding IsLoading}" >
 
-            <Frame BackgroundColor="{StaticResource Gray950}" Margin="50,50,50,0"/>
+            <Frame BackgroundColor="{StaticResource Gray950}" Margin="00,50,50,0"/>
             <Frame BackgroundColor="{StaticResource Gray900}"
-                   Margin="50,50,50,0" sk:Skeleton.IsParent="True"
+                   Margin="50,20,50,0" sk:Skeleton.IsParent="True"
 	               sk:Skeleton.IsBusy="{Binding IsLoading}"
 	               sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"/>
 
@@ -295,6 +295,20 @@
                 <Frame BackgroundColor="{StaticResource Gray950}" Margin="14,-22,39,45" Grid.Row="2" Grid.Column="2"/>
                 <Frame BackgroundColor="{StaticResource Gray900}" Margin="14,-22,39,45" Grid.Row="2" Grid.Column="2"
                    sk:Skeleton.IsParent="True" 
+	               sk:Skeleton.IsBusy="{Binding IsLoading}"
+	               sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"/>
+            </Grid>
+
+            <Grid Grid.Row="2" ColumnDefinitions="*,*">
+                <Frame BackgroundColor="{StaticResource Gray950}" Margin="10,-40,02,60"/>
+                <Frame BackgroundColor="{StaticResource Gray900}"
+                   Margin="10,-40,02,60" sk:Skeleton.IsParent="True"
+	               sk:Skeleton.IsBusy="{Binding IsLoading}"
+	               sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"/>
+
+                <Frame BackgroundColor="{StaticResource Gray950}" Grid.Column="1" Margin="10,-40,02,60"/>
+                <Frame BackgroundColor="{StaticResource Gray900}" Grid.Column="1"
+                   Margin="10,-40,02,60" sk:Skeleton.IsParent="True"
 	               sk:Skeleton.IsBusy="{Binding IsLoading}"
 	               sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"/>
             </Grid>

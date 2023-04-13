@@ -28,7 +28,7 @@ namespace Manigdha.Model
         {
             ShowSnakeBar showSnakeBar = new ShowSnakeBar();
             NetworkAccess accessType = Connectivity.Current.NetworkAccess;
-            if(accessType != NetworkAccess.Internet) { showSnakeBar.Show("No Internet Connection", SharedModal.Enums.SnakeBarType.Type.Danger, SharedModal.Enums.SnakeBarType.Time.LongTime); return false; }
+            if(accessType != NetworkAccess.Internet) { showSnakeBar.Show("No Internet Connection", SharedModal.Enums.SnakeBarType.Type.Danger); return false; }
 
             return true;
         }

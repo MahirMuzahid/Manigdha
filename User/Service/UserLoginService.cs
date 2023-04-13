@@ -71,7 +71,7 @@ namespace UserService.Service
         {
             if (!user.RefreshToken.Equals(refreshtoken))
             {
-                return new Response(System.Net.HttpStatusCode.NetworkAuthenticationRequired);
+                return new Response(System.Net.HttpStatusCode.NotFound);
             }
             else if (user.TokenExpires < DateTime.Now)
             {
