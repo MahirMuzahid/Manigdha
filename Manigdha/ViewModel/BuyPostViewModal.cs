@@ -24,6 +24,10 @@ namespace Manigdha.ViewModel
     {
         [ObservableProperty]
         ObservableCollection<int> cList;
+        [ObservableProperty]
+        bool isLoading;
+
+
         private ProfileViewModalQuery profileViewModalQuery;
         public BuyPostViewModal()
         {         
@@ -41,14 +45,17 @@ namespace Manigdha.ViewModel
         }
         public async Task GetInitInfo()
         {
+            IsLoading = true;
             await StaticInfo.GetAuthInfo();
             if (StaticInfo.IsJwtTokenExpired())
-            {               
-                if (!(await RefreshTokenOnExpired.RefreshTokenNow())) { ShowSnakeBar showSnakeBar = new ShowSnakeBar();
-                    await showSnakeBar.Show("Cant Refresh The Token", SharedModal.Enums.SnakeBarType.Type.Danger,  SharedModal.Enums.SnakeBarType.Time.LongTime); }
+            {
+                ShowSnakeBar showSnakeBar = new ShowSnakeBar();
+                if (!(await RefreshTokenOnExpired.RefreshTokenNow())) 
+                {
+                    await showSnakeBar.Show("Cant Refresh The Token", SharedModal.Enums.SnakeBarType.Type.Danger,  SharedModal.Enums.SnakeBarType.Time.LongTime);
+                }         
             }
-        }
-
-       
+            //IsLoading = false;
+        }   
     }
 }

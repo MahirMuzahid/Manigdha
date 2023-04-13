@@ -11,6 +11,9 @@ using Manigdha.Model;
 using SharedModal.ClientServerConnection.Product_Catagory;
 using SharedModal.ClientServerConnection.Catagory_Type;
 using Manigdha.GraphQL_Execution;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Manigdha.View;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Manigdha.ViewModel
 {
@@ -28,6 +31,18 @@ namespace Manigdha.ViewModel
         List<string> productCatagoryNameList;
         [ObservableProperty]
         List<string> catagoryTypeNameList;
+        [ObservableProperty]
+        string title;
+        [ObservableProperty]
+        string description;
+        [ObservableProperty]
+        string price;
+        [ObservableProperty]
+        string titleError;
+        [ObservableProperty]
+        string descriptionError;
+        [ObservableProperty]
+        string priceError;
 
         bool isBusy;
         private ShowSnakeBar showSnake = new ShowSnakeBar();
@@ -61,6 +76,25 @@ namespace Manigdha.ViewModel
             isBusy = false;
             IsLodaingGridVisible = isBusy;
             IsPickInfoVisible = !isBusy;
+        }
+
+        [RelayCommand]
+        public void GotoImageVerification()
+        {
+            TitleError = "";
+            DescriptionError = "";
+            PriceError = "";
+            if (string.IsNullOrEmpty(Title)) { TitleError = "Title can't be empty"; return; }
+            if (string.IsNullOrEmpty(Description)) { DescriptionError = "Description can't be empty"; return; }
+            if (string.IsNullOrEmpty(Price)) { PriceError = "Price can't be empty"; return; }
+            if (Price.All(char.IsDigit) == false) { PriceError = "Not a valid price"; return; }
+            if (int.Parse(price) < 100) { PriceError = "Cannot sell any product less then 100 taka"; return; }
+
+            GoToVerification();
+        }
+        public async Task GoToVerification()
+        {
+            await Shell.Current.GoToAsync(nameof(UploadImage));
         }
     }
 }

@@ -36,4 +36,9 @@ public partial class ProductInformatinFill : ContentPage
 
         }
     }
+
+    private void CatagoryTypePicker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        selectGrid.IsVisible = false;
+    }
 }
