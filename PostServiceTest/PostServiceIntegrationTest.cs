@@ -326,7 +326,7 @@ namespace PostServiceTestx
             var client = _factory.CreateClient();
             var query = "mutation {\r\n\tupdateNonDigitalProductImage(nonDigitalProductImageVerification: " +
                 "{ id: 1, upperSideImageURL: \"string\", lowerSideImageURL: \"string\", laftSideImageURL: \"string\", rightSideImageURL: \"string\", " +
-                "frontSideImageURL: \"string\", backSideImageURL: \"string\", productID: 10 }) " +
+                "frontSideImageURL: \"string\", backSideImageURL: \"string\", productID: 1 }) " +
                 "{\r\n\t\tmessage\r\n\t\treturnString\r\n\t\treturnStringFour\r\n\t\treturnStringThree\r\n\t\treturnStringTwo\r\n\t\tstatus\r\n\t}\r\n}";
             var responseData = await _nonDigitalProductImageVerificationServerConnection.Update(client, query, "updateNonDigitalProductImage");
 

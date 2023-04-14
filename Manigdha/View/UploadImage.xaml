@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodal ="clr-namespace:Manigdha.ViewModel"
+             x:DataType="viewmodal:UploadNonDigitalImageRequirmentViewModal"
              x:Class="Manigdha.View.UploadImage"
              NavigationPage.HasNavigationBar="True"
              Title="UploadImage">
@@ -8,13 +10,14 @@
         <Grid RowDefinitions="AUTO, *">
             
             <Grid Grid.RowSpan="2">
-                <Frame   BackgroundColor="{StaticResource Primary}" CornerRadius="20" BorderColor="Transparent" />
+                <Frame   BackgroundColor="{StaticResource Gray900}" CornerRadius="20" BorderColor="Transparent" />
                 <Grid RowDefinitions="AUTO,2,10,AUTO,AUTO,AUTO,AUTO" Margin="10,50,0,20">
                     <Label Text="Verification Steps" FontSize="13"/>
                     <Frame BackgroundColor="White" Grid.Row="1" BorderColor="Transparent" Margin="0,0,10,0"/>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="3" Margin="10,0,0,0">
                         <Label Text="Front Side Image" FontSize="11" />
                         <Image Source="verified.svg" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Button Grid.ColumnSpan="3" BackgroundColor="Transparent" />
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="4" Margin="10,0,0,0">
                         <Label Text="Back Side Image" FontSize="11" />
@@ -30,8 +33,8 @@
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid ColumnDefinitions="30,10,*" BackgroundColor="{StaticResource Primary}">
-                <Button BackgroundColor="Transparent" Grid.ColumnSpan="2" Margin="0,10,0,0"/>
+            <Grid ColumnDefinitions="30,10,*" BackgroundColor="{StaticResource Gray900}">
+                <Button BackgroundColor="Transparent" Grid.ColumnSpan="2" Margin="0,10,0,0" />
                 <Image Source="leftarrowwhite.png" Aspect="AspectFit" Margin="10,10,0,0"/>
                 <Label Text="Image Verification" Grid.ColumnSpan="3" FontSize="15" HorizontalOptions="Center" Margin="0,10,0,0" FontAttributes="Bold"/>
             </Grid>
@@ -53,6 +56,7 @@
                         </Grid>
                     </Grid>
                     <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
+                    <Button BackgroundColor="Transparent" Command="{Binding TakePhotoCommand}"/>
                 </Grid>
                 <Grid Grid.Row="1">
 

@@ -75,6 +75,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Azure.Storage.Blobs" Version="12.16.0" />
 	  <PackageReference Include="CommunityToolkit.Maui" Version="1.2.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	  <PackageReference Include="Sharpnado.HorusSkeleton.Maui" Version="2.0.0" />

@@ -31,6 +31,7 @@ namespace Manigdha.GraphQL_Execution
                 if (result.Status != System.Net.HttpStatusCode.OK) { return false; }
                 await SecureStorage.Default.SetAsync(nameof(StaticInfo.JWTToken), result.ReturnStringTwo);
                 await SecureStorage.Default.SetAsync(nameof(StaticInfo.RefreshToken), result.ReturnString);
+                await StaticInfo.GetAuthInfo();
                 return true;
             }
             catch (Exception ex) 
