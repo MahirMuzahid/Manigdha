@@ -11,12 +11,15 @@ namespace PostService.Service
         private ICatagoryTypeRepository _catagoryTypeRepository;
         private IProductRepository _productRepository;
         private IBidRepository _bidRepository;
-        public Mutation(IProductCatagoryRepository productCatagoryRepository , ICatagoryTypeRepository catagoryTypeRepository, IProductRepository productRepository, IBidRepository bidRepository)
+        private INonDegitalProductRequirmentsVerificationRepository _nondigiImageProduct;
+        public Mutation(IProductCatagoryRepository productCatagoryRepository , ICatagoryTypeRepository catagoryTypeRepository, 
+            IProductRepository productRepository, IBidRepository bidRepository , INonDegitalProductRequirmentsVerificationRepository nondigiImageProduct)
         {
             _productCatagoryRepository = productCatagoryRepository;
             _catagoryTypeRepository = catagoryTypeRepository;
             _productRepository = productRepository;
             _bidRepository = bidRepository;
+            _nondigiImageProduct = nondigiImageProduct;
 
         }
 
@@ -66,7 +69,7 @@ namespace PostService.Service
         }
         #endregion
 
-        #region Bid Hostoyr
+        #region Bid Hostory
         public async Task<Response> SetBidHistory(int bidAmount, int userId, int productId)
         {
             return await _bidRepository.Set(bidAmount,userId,productId);
@@ -78,6 +81,22 @@ namespace PostService.Service
         public async Task<Response> DeleteBidHistory(int id)
         {
             return await _bidRepository.Delete(id);
+        }
+        #endregion
+
+        #region NonDigitalProductImageRepository
+        public async Task<Response> SetNonDigitalProductImage(NonDigitalProductImageVerification nonDigitalProductImageVerification)
+        {
+            nonDigitalProductImageVerification.Id = 0;
+            return await _nondigiImageProduct.Set(nonDigitalProductImageVerification);
+        }
+        public async Task<Response> UpdateNonDigitalProductImage(NonDigitalProductImageVerification nonDigitalProductImageVerification)
+        {
+            return await _nondigiImageProduct.Update(nonDigitalProductImageVerification);
+        }
+        public async Task<Response> DeleteNonDigitalProductImage(int id)
+        {
+            return await _nondigiImageProduct.Delete(id);
         }
         #endregion
 

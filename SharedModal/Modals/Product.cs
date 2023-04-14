@@ -12,11 +12,11 @@ namespace SharedModal.Modals
         public int ProductID { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }
-        public decimal? AskingPrice { get; set; }
+        public double? AskingPrice { get; set; }
         public DateTime DateAdded { get; set; }= DateTime.Now;
-       // public DateTime LastUpdate { get; set; }
+        public DateTime LastUpdate { get; set; }
         public string? BaseImageUrl { get; set; }
-        public decimal? TopBid { get; set; }
+        public double? TopBid { get; set; }
         public bool IsActive { get; set; } = true;
 
         [ForeignKey("User")]

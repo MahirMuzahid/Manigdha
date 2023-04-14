@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace UserService.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230414152017_AddedNonDigitalProductImageVerification")]
+    partial class AddedNonDigitalProductImageVerification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,51 +96,6 @@ namespace UserService.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("SharedModal.Modals.ClothsRequirmentVerification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("BuyingTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FabricType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsReceiptAvailable")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsTears")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("NumberOfCloths")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SizeType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SizeTypeType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TearsPlace")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("ClothsRequirmentVerifications");
-                });
-
             modelBuilder.Entity("SharedModal.Modals.Division", b =>
                 {
                     b.Property<int>("DivisionID")
@@ -198,8 +156,8 @@ namespace UserService.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentID"));
 
-                    b.Property<double>("PaymentAmount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("PaymentAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("PaymentTime")
                         .HasColumnType("datetime2");
@@ -396,17 +354,6 @@ namespace UserService.Migrations
                         .HasForeignKey("DivisionID");
 
                     b.Navigation("Division");
-                });
-
-            modelBuilder.Entity("SharedModal.Modals.ClothsRequirmentVerification", b =>
-                {
-                    b.HasOne("SharedModal.Modals.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("SharedModal.Modals.NonDigitalProductImageVerification", b =>

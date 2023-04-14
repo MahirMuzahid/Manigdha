@@ -7,6 +7,7 @@ using SharedModal.ClientServerConnection.Catagory_Type;
 using System.Net;
 using SharedModal.ClientServerConnection.Product_Server_Connection;
 using SharedModal.ClientServerConnection.Bid_History_Server_Connection;
+using SharedModal.ClientServerConnection.Non_Digital_Product_ImageVerification;
 
 namespace PostServiceTestx
 {
@@ -17,6 +18,7 @@ namespace PostServiceTestx
         private ICatagoryTypeServerConnection _catagoryTypeServerConnection;
         private IProductServerConnection  _productServerConnection;
         private IBidHistoryServerConnection _bidHistoryServerConnection;
+        private INonDigitalProductImageVerificationServerConnection _nonDigitalProductImageVerificationServerConnection;
 
         private int dltID = 8;
         private int cityID = 1;
@@ -37,11 +39,13 @@ namespace PostServiceTestx
             services.AddScoped<ICatagoryTypeServerConnection, CatagoryTypeServerConnection>();
             services.AddScoped<IProductServerConnection, ProductServerConnection>();
             services.AddScoped<IBidHistoryServerConnection, BidHostoryServerConnection>();
+            services.AddScoped<INonDigitalProductImageVerificationServerConnection, NonDigitalProductImageVerificationServerConnection>();
 
             services.AddScoped<ICURDCall<ProductCatagory>, CURDCall<ProductCatagory>>();
             services.AddScoped<ICURDCall<CatagoryType>, CURDCall<CatagoryType>>();
             services.AddScoped<ICURDCall<Product>, CURDCall<Product>>();
             services.AddScoped<ICURDCall<BidHistory>, CURDCall<BidHistory>>();
+            services.AddScoped<ICURDCall<NonDigitalProductImageVerification>, CURDCall<NonDigitalProductImageVerification>>();
 
             // Build the ServiceCollection and get the IUserServerConnection implementation
             var serviceProvider = services.BuildServiceProvider();
@@ -50,6 +54,7 @@ namespace PostServiceTestx
             _catagoryTypeServerConnection = serviceProvider.GetService<ICatagoryTypeServerConnection>();
             _productServerConnection = serviceProvider.GetService<IProductServerConnection>();
             _bidHistoryServerConnection = serviceProvider.GetService<IBidHistoryServerConnection>();
+            _nonDigitalProductImageVerificationServerConnection = serviceProvider.GetService<INonDigitalProductImageVerificationServerConnection>();
         }
 
         #region ProductCatagory 
@@ -271,6 +276,70 @@ namespace PostServiceTestx
             var client = _factory.CreateClient();
             var query = "mutation{ deleteBidHistory ( id: 1){ status }}";
             var responseData = await _bidHistoryServerConnection.Delete(client, query, "deleteBidHistory");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        #endregion City
+
+        #region BidHistory 
+
+        [Fact]
+        public async Task AskNonDigitalProductImageVerificationByID_GetNonDigitalProductImageVerification()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "query {\r\n\tnonDigitalProductImageWithID(id: 1) {\r\n\t\tid\r\n\t}\r\n}";
+            var responseData = await _nonDigitalProductImageVerificationServerConnection.GetWithID(client, query, "nonDigitalProductImageWithID");
+
+            Assert.Equal(1, responseData.Id);
+        }
+
+        [Fact]
+        public async Task AskNonDigitalProductImageVerification_GetNonDigitalProductImageVerification()
+        {
+            var client = _factory.CreateClient();
+
+            var query = "query {\r\n\tnonDigitalProductImage {\r\n\t\tid\r\n\t}\r\n}";
+            var responseData = await _nonDigitalProductImageVerificationServerConnection.Get(client, query, "nonDigitalProductImage");
+
+            Assert.NotEmpty(responseData);
+        }
+
+        [Fact]
+        public async Task SetNonDigitalProductImageVerification_GetResponse()
+        {
+            var client = _factory.CreateClient();
+            //int bidAmount, int userId, int productId
+            var query = "mutation {\r\n\tsetNonDigitalProductImage(nonDigitalProductImageVerification: " +
+                "{id: 0,upperSideImageURL: \"string\", lowerSideImageURL: \"string\", laftSideImageURL: \"string\"," +
+                " rightSideImageURL: \"string\", frontSideImageURL: \"string\", backSideImageURL: \"string\", productID: 1 })" +
+                " {\r\n\t\tmessage\r\n\t\treturnString\r\n\t\treturnStringFour\r\n\t\treturnStringThree\r\n\t\treturnStringTwo\r\n\t\tstatus\r\n\t}\r\n}";
+            var responseData = await _nonDigitalProductImageVerificationServerConnection.Set(client, query, "setNonDigitalProductImage");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        [Fact]
+        public async Task UpdateNonDigitalProductImageVerification_GetResponse()
+        {
+            var client = _factory.CreateClient();
+            var query = "mutation {\r\n\tupdateNonDigitalProductImage(nonDigitalProductImageVerification: " +
+                "{ id: 1, upperSideImageURL: \"string\", lowerSideImageURL: \"string\", laftSideImageURL: \"string\", rightSideImageURL: \"string\", " +
+                "frontSideImageURL: \"string\", backSideImageURL: \"string\", productID: 10 }) " +
+                "{\r\n\t\tmessage\r\n\t\treturnString\r\n\t\treturnStringFour\r\n\t\treturnStringThree\r\n\t\treturnStringTwo\r\n\t\tstatus\r\n\t}\r\n}";
+            var responseData = await _nonDigitalProductImageVerificationServerConnection.Update(client, query, "updateNonDigitalProductImage");
+
+            Assert.Equal(HttpStatusCode.OK, responseData.Status);
+        }
+
+        //[Fact]
+        public async Task DeleteNonDigitalProductImageVerification_GetResponse()
+        {
+            var client = _factory.CreateClient();
+            var query = "mutation {\r\n\tdeleteNonDigitalProductImage(id: 1) " +
+                "{\r\n\t\tmessage\r\n\t\treturnString\r\n\t\treturnStringFour\r\n\t\treturnStringThree\r\n\t\treturnStringTwo\r\n\t\tstatus\r\n\t}\r\n}";
+            var responseData = await _nonDigitalProductImageVerificationServerConnection.Delete(client, query, "deleteNonDigitalProductImage");
 
             Assert.Equal(HttpStatusCode.OK, responseData.Status);
         }

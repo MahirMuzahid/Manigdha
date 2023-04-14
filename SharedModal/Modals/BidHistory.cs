@@ -11,7 +11,7 @@ namespace SharedModal.Modals
     {
         public int BidHistoryID { get; set; }
         public DateTime? BidTime { get; set; } = DateTime.Now;
-        public decimal BidAmount { get; set; } = 0;
+        public double BidAmount { get; set; } = 0;
 
         [ForeignKey("Product")]
         public int? ProductID { get; set; }

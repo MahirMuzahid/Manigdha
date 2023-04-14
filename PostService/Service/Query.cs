@@ -109,5 +109,22 @@ namespace PostService.Service
         }
 
         #endregion
+
+        #region NonDigitalProductImageRepository
+        [UseProjection]
+        public IQueryable<NonDigitalProductImageVerification> GetNonDigitalProductImage([Service] DataContext _context)
+        {
+            return _context.NonDigitalProductImageVerifications.Include(c => c.Product).AsQueryable();
+        }
+        [UseProjection]
+        public async Task<NonDigitalProductImageVerification> GetNonDigitalProductImageWithID([Service] DataContext _context, int id)
+        {
+            var result = await _context.NonDigitalProductImageVerifications.Include(c => c.Product).FirstOrDefaultAsync(u => u.Id == id);
+
+            if (result == null) { return new NonDigitalProductImageVerification(); }
+            return result;
+        }
+
+        #endregion
     }
 }

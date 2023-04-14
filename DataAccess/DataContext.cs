@@ -24,6 +24,8 @@ namespace DataAccess
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCatagory> ProductCatagories { get; set; }
+        public DbSet<NonDigitalProductImageVerification> NonDigitalProductImageVerifications { get; set; }
+        public DbSet<ClothsRequirmentVerification> ClothsRequirmentVerifications { get; set; }
 
 
 

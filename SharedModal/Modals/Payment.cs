@@ -11,7 +11,7 @@ namespace SharedModal.Modals
     {
         public int PaymentID { get; set; }
         public DateTime? PaymentTime { get; set; } = DateTime.Now;
-        public decimal PaymentAmount { get; set; } = 0;
+        public double PaymentAmount { get; set; } = 0;
 
         [ForeignKey("PaymentType")]
         public int PaymentTypeID { get; set; }

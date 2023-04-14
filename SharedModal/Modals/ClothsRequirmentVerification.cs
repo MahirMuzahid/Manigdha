@@ -13,7 +13,6 @@ namespace SharedModal.Modals
         public string? SizeTypeType { get;set; }
         public DateTime BuyingTime { get; set; }
         public bool IsReceiptAvailable { get; set; }
-        public int NumberOfCloths { get; set; }
 
         [ForeignKey("Product")]
         public int ProductID { get; set; }

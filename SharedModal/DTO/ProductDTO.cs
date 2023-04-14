@@ -13,7 +13,7 @@ namespace SharedModal.DTO
         public int ProductID { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }
-        public decimal? AskingPrice { get; set; }
+        public double? AskingPrice { get; set; }
         public int CatagoryTypeID { get; set; }
         public bool IsActive { get; set; } = true;
     }
