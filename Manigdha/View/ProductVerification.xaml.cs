@@ -14,6 +14,6 @@ public partial class ProductVerification : ContentPage
 
     public async Task GoToUploadImage()
     {
-        await Navigation.PushModalAsync(new UploadImage());
+        await Shell.Current.GoToAsync(nameof(UploadImage));
     }
 }

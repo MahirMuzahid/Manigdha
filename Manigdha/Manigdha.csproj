@@ -80,6 +80,7 @@
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	  <PackageReference Include="Sharpnado.HorusSkeleton.Maui" Version="2.0.0" />
 	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.28.1" />
+	  <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
 	</ItemGroup>
 
 	<ItemGroup>

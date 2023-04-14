@@ -10,6 +10,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(ProductPage), typeof(ProductPage));
         Routing.RegisterRoute(nameof(ProductInformatinFill), typeof(ProductInformatinFill));
         Routing.RegisterRoute(nameof(ProductVerification), typeof(ProductVerification));
+        Routing.RegisterRoute(nameof(UploadImage), typeof(UploadImage));
 
     }
 }
