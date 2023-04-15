@@ -11,6 +11,10 @@ namespace Manigdha.ViewModel
 {
     public partial class UploadNonDigitalImageRequirmentViewModal: ObservableObject
     {
+        [ObservableProperty]
+        string imageURl;
+
+
         [RelayCommand]
         public async Task TakePhoto()
         {
@@ -27,7 +31,7 @@ namespace Manigdha.ViewModel
 
                     UploadImageAzure uploadImageAzure = new UploadImageAzure();
 
-                    await uploadImageAzure.UploadImage(sourceStream);
+                    ImageURl = await uploadImageAzure.UploadImage(sourceStream);
                 }
             }
         }

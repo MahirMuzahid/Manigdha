@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
@@ -22,11 +23,11 @@ namespace Manigdha.Model
             
         }
 
-        public async Task UploadImage(Stream stream)
+        public async Task<string> UploadImage(Stream stream)
         {
             var fileName =  StaticInfo.GenerateRandomString(20, StaticInfo.UploadImageType.ImageVerification);
+            blob = container.GetBlobClient(fileName + ".jpg");
             
-            blob = container.GetBlobClient(fileName);
             try
             {
                 await blob.UploadAsync(stream);
@@ -38,22 +39,13 @@ namespace Manigdha.Model
             }
 
             BlobServiceClient blobServiceClient = new BlobServiceClient(blobStorageConnectionString);
-            BlobClient blobClient = blobServiceClient.GetBlobContainerClient(bloblContainerName).GetBlobClient(fileName);
+            BlobClient blobClient = blobServiceClient.GetBlobContainerClient(bloblContainerName).GetBlobClient(fileName + ".jpg");
 
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(blobStorageConnectionString);
-
-            // Create the blob client.
-            CloudBlobClient blobClients = storageAccount.CreateCloudBlobClient();
-
-            // Retrieve reference to a previously created container.
-            CloudBlobContainer containerw = blobClients.GetContainerReference(bloblContainerName);
-
-            // Retrieve reference to a blob with given name.
-            CloudBlockBlob blockBlob = containerw.GetBlockBlobReference(fileName);
 
             // Get the file path of the blob.
-            string filePath = blockBlob.Uri.ToString();
             var path = blobClient.Uri.AbsoluteUri;
+
+            return path;
 
         }
     }
