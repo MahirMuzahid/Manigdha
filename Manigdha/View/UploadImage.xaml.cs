@@ -11,12 +11,4 @@ public partial class UploadImage : ContentPage
 
     }
 
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-        GoToPage();
-    }
-    public async Task GoToPage()
-    {
-        await Navigation.PushModalAsync(new RequirmentVerification());
-    }
 }

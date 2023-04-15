@@ -121,7 +121,7 @@
 	  <MauiXaml Update="View\Profile.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\RequirmentVerification.xaml">
+	  <MauiXaml Update="View\ClothsRequirementVerificationView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ReviewProductInfo.xaml">
@@ -147,6 +147,12 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\SharedModal\SharedModal.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="View\ClothsRequirementVerificationView.xaml.cs">
+	    <DependentUpon>ClothsRequirementVerificationView.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

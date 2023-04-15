@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Manigdha.Model;
 using Manigdha.Model.StaticFolder;
 using Manigdha.View;
+using SharedModal.Modals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,18 +103,18 @@ namespace Manigdha.ViewModel
         [RelayCommand]
         public async Task CheckImage()
         {
-            ErrorText = "";
-            if ( FrontImageURl == null ||
-                BackImageURl == null ||
-                UpperImageURl == null ||
-                LowerImageURl == null ||
-                LeftImageURl == null ||
-                RightImageURl == null)
-            {
-                ErrorText = "Please upload all type of image";
-                return;
-            }
-            await Shell.Current.GoToAsync(nameof(RequirmentVerification));
+            //ErrorText = "";
+            //if ( FrontImageURl == null ||
+            //    BackImageURl == null ||
+            //    UpperImageURl == null ||
+            //    LowerImageURl == null ||
+            //    LeftImageURl == null ||
+            //    RightImageURl == null)
+            //{
+            //    ErrorText = "Please upload all type of image";
+            //    return;
+            //}
+            await Shell.Current.GoToAsync(nameof(ClothsRequirementVerificationView));
 
         }
     }

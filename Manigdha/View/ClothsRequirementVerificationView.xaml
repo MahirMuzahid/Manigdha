@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodal ="clr-namespace:Manigdha.ViewModel"
+             x:DataType="viewmodal:ClothsRequirementVerificationViewModal"
+             x:Class="Manigdha.View.ClothsRequirementVerificationView"
+             Title="RequirmentVerification">
+    <Grid RowDefinitions="AUTO,*" BackgroundColor="{StaticResource Gray950}">
+        <Grid RowDefinitions="AUTO, *">
+
+            <Grid Grid.RowSpan="2" BackgroundColor="{StaticResource Gray900}" Margin="0,0,0,0">
+                <Grid RowDefinitions="AUTO,2,10,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO" Margin="10,10,0,20">
+                    <Label Text="Verification Steps" FontSize="13"/>
+                    
+                    <Frame BackgroundColor="White" Grid.Row="1" BorderColor="Transparent" Margin="0,0,10,0"/>
+                    <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="3" Margin="10,0,0,0">
+                        <Label Text="Cloth tearing info" FontSize="11" />
+                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Button Grid.ColumnSpan="3" BackgroundColor="Transparent" />
+                    </Grid>
+                    <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="4" Margin="10,0,0,0">
+                        <Label Text="Fabric info" FontSize="11" />
+                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="5" Margin="10,0,0,0">
+                        <Label Text="Cloth size info" FontSize="11" />
+                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="6" Margin="10,0,0,0">
+                        <Label Text="Lower Back Side Image" FontSize="11" />
+                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="7" Margin="10,0,0,0">
+                        <Label Text="Buying time" FontSize="11" />
+                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="8" Margin="10,0,0,0">
+                        <Label Text="Recipt info" FontSize="11" />
+                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+        </Grid>
+        <ScrollView Grid.Row="1" Margin="0,0,0,0">
+            <Grid RowDefinitions="AUTO,AUTO,AUTO,AUTO,AUTO,20, 30">
+                <Grid RowDefinitions="30,5,AUTO,AUTO" ColumnDefinitions="*,*" Margin="0,20,0,0" >
+                    <Label Text="Is there any tearing in cloth?" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
+                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <Grid Grid.Row="2" ColumnDefinitions="AUTO,*">
+                        <CheckBox  HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <Label Text="Yes" Grid.Column="1" FontSize="12" VerticalOptions="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1" ColumnDefinitions="AUTO,*">
+                        <CheckBox  HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <Label Text="No" Grid.Column="1" FontSize="12" VerticalOptions="Center"/>
+                    </Grid>
+                    <Editor Grid.Row="3" Grid.ColumnSpan="2" FontSize="12" Placeholder="Write details of tearing Place" BackgroundColor="{StaticResource Gray900}" Margin="10,0,10,0"/>
+                </Grid>
+                <Grid Grid.Row="1" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
+                    <Label Text="What is the fabric type" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
+                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <Picker Grid.Row="2" Grid.ColumnSpan="2" Title="Select fabric type" FontSize="12" Margin="10,0,0,0" BackgroundColor="{StaticResource Gray900}"/>
+                </Grid>
+
+                <Grid Grid.Row="2" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
+                    <Label Text="What is the size type" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
+                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <Picker Grid.Row="2"  Title="Select size type" FontSize="12" Margin="10,0,0,0" BackgroundColor="{StaticResource Gray900}"/>
+                    <Picker Grid.Row="2" Grid.Column="1"  Title="Select size" FontSize="12" Margin="10,0,0,0" BackgroundColor="{StaticResource Gray900}"/>
+                </Grid>
+
+                <Grid Grid.Row="3" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
+                    <Label Text="When did you buy?" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
+                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <DatePicker Grid.Row="2" FontSize="12" Margin="10,0,0,0" BackgroundColor="{StaticResource Gray900}"/>
+                </Grid>
+                <Grid Grid.Row="4" RowDefinitions="30,5,AUTO,AUTO" ColumnDefinitions="*,*" Margin="0,30,0,0" >
+                    <Label Text="Is receipt available" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
+                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <Grid Grid.Row="2" ColumnDefinitions="AUTO,*">
+                        <CheckBox  HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <Label Text="Yes" FontSize="12" Grid.Column="1" VerticalOptions="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1" ColumnDefinitions="AUTO,*">
+                        <CheckBox  HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <Label Text="No" FontSize="12" Grid.Column="1" VerticalOptions="Center"/>
+                    </Grid>
+                    
+                </Grid>
+                <Button Text="Next" Grid.Row="6" TextColor="White" BackgroundColor="{StaticResource Gray900}" Margin="260,0,20,0"/>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>
