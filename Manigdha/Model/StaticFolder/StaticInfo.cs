@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Manigdha.Model
+namespace Manigdha.Model.StaticFolder
 {
     public class StaticInfo
     {
@@ -23,9 +23,9 @@ namespace Manigdha.Model
 
         public static async Task GetAuthInfo()
         {
-            var id = await SecureStorage.Default.GetAsync(nameof(StaticInfo.LoginUserID));
-            RefreshToken = await SecureStorage.Default.GetAsync(nameof(StaticInfo.RefreshToken));
-            JWTToken = await SecureStorage.Default.GetAsync(nameof(StaticInfo.JWTToken));
+            var id = await SecureStorage.Default.GetAsync(nameof(LoginUserID));
+            RefreshToken = await SecureStorage.Default.GetAsync(nameof(RefreshToken));
+            JWTToken = await SecureStorage.Default.GetAsync(nameof(JWTToken));
             LoginUserID = int.Parse(id);
         }
 
@@ -33,7 +33,7 @@ namespace Manigdha.Model
         {
             ShowSnakeBar showSnakeBar = new ShowSnakeBar();
             NetworkAccess accessType = Connectivity.Current.NetworkAccess;
-            if(accessType != NetworkAccess.Internet) { showSnakeBar.Show("No Internet Connection", SharedModal.Enums.SnakeBarType.Type.Danger); return false; }
+            if (accessType != NetworkAccess.Internet) { showSnakeBar.Show("No Internet Connection", SharedModal.Enums.SnakeBarType.Type.Danger); return false; }
 
             return true;
         }
@@ -52,7 +52,7 @@ namespace Manigdha.Model
             {
                 name = LoginUserID + "__ProfilePicture__" + randomString;
             }
-            
+
 
             return name;
         }

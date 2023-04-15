@@ -1,4 +1,4 @@
-using Manigdha.Model;
+using Manigdha.Model.StaticFolder;
 using Manigdha.ViewModel;
 
 namespace Manigdha.View;

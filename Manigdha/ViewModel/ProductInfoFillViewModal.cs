@@ -14,6 +14,7 @@ using Manigdha.GraphQL_Execution;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Manigdha.View;
 using CommunityToolkit.Mvvm.Input;
+using Manigdha.Model.StaticFolder;
 
 namespace Manigdha.ViewModel
 {
@@ -104,7 +105,7 @@ namespace Manigdha.ViewModel
         }
         public async Task GoToVerification()
         {
-            await Shell.Current.GoToAsync(nameof(ProductVerification));
+            await Shell.Current.GoToAsync(nameof(UploadImage));
         }
     }
 }

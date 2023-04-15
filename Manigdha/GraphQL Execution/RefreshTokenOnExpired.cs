@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Manigdha.Model;
 using SharedModal.ClientServerConnection;
+using Manigdha.Model.StaticFolder;
 
 namespace Manigdha.GraphQL_Execution
 {

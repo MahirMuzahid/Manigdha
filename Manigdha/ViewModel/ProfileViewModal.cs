@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Manigdha.GraphQL_Execution;
 using Manigdha.Model;
+using Manigdha.Model.StaticFolder;
 using SharedModal.ClientServerConnection;
 using SharedModal.ClientServerConnection.City_Server_Connection;
 using SharedModal.DTO;

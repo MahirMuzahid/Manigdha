@@ -12,6 +12,7 @@ using SharedModal.ClientServerConnection.Product_Catagory;
 using SharedModal.Modals;
 using System.Xml.Linq;
 using SharedModal.ClientServerConnection.Catagory_Type;
+using Manigdha.Model.StaticFolder;
 
 namespace Manigdha.GraphQL_Execution
 {

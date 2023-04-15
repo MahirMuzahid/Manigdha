@@ -3,8 +3,8 @@ using SharedModal.ClientServerConnection;
 using SharedModal.Modals;
 using SharedModal.ReponseModal;
 using System.Net;
-using Manigdha.Model;
 using System.Net.Http.Headers;
+using Manigdha.Model.StaticFolder;
 
 namespace Manigdha.GraphQL_Execution
 {

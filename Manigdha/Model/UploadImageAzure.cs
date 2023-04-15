@@ -1,5 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Manigdha.Model.StaticFolder;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
@@ -12,8 +13,9 @@ namespace Manigdha.Model
 {
     public class UploadImageAzure
     {
-        string blobStorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=manigdhaimagestorage;AccountKey=qwGujuhIM0bIr2pqrlM/AUg/LKb87AlcOtzFQVBxHKD/+LKNN+6gLr+iAD3GvGJXLsbzsjSlrH1Z+AStmfkc/Q==;EndpointSuffix=core.windows.net";
-        string bloblContainerName = "manigdhanondigitalrequitmentimage";
+        private string blobStorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=manigdhaimagestorage;AccountKey=qwGujuhIM0bIr2pqrlM/AUg/LKb87AlcOtzFQVBxHKD/+LKNN+6gLr+iAD3GvGJXLsbzsjSlrH1Z+AStmfkc/Q==;EndpointSuffix=core.windows.net";
+        private string bloblContainerName = "manigdhanondigitalrequitmentimage";
+        private string blobUserphotoImageContainerName = "manigdhauserphotoimage";
         BlobContainerClient container;
         BlobClient blob;
 
@@ -23,10 +25,10 @@ namespace Manigdha.Model
             
         }
 
-        public async Task<string> UploadImage(Stream stream)
+        public async Task<string> UploadProductImage(Stream stream)
         {
-            var fileName =  StaticInfo.GenerateRandomString(20, StaticInfo.UploadImageType.ImageVerification);
-            blob = container.GetBlobClient(fileName + ".jpg");
+            var fileName =  StaticInfo.GenerateRandomString(20, StaticInfo.UploadImageType.ImageVerification) + ".jpg";
+            blob = container.GetBlobClient(fileName );
             
             try
             {
@@ -38,14 +40,7 @@ namespace Manigdha.Model
                 await showSnakeBar.Show(ex.Message, SharedModal.Enums.SnakeBarType.Type.Danger);
             }
 
-            BlobServiceClient blobServiceClient = new BlobServiceClient(blobStorageConnectionString);
-            BlobClient blobClient = blobServiceClient.GetBlobContainerClient(bloblContainerName).GetBlobClient(fileName + ".jpg");
-
-
-            // Get the file path of the blob.
-            var path = blobClient.Uri.AbsoluteUri;
-
-            return path;
+            return fileName;
 
         }
     }

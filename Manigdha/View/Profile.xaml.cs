@@ -1,5 +1,5 @@
 using CommunityToolkit.Maui.Views;
-using Manigdha.Model;
+using Manigdha.Model.StaticFolder;
 using Manigdha.ViewModel;
 using SharedModal.ClientServerConnection;
 using SharedModal.ClientServerConnection.City_Server_Connection;

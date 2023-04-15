@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using SharedModal.ReponseModal;
 using System.Net;
 using System.Net.Http.Headers;
+using Manigdha.Model.StaticFolder;
 
 namespace Manigdha.ViewModel
 {
