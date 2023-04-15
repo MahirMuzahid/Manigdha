@@ -105,7 +105,7 @@ namespace Manigdha.ViewModel
         }
         public async Task GoToVerification()
         {
-            await Shell.Current.GoToAsync(nameof(UploadImage));
+            await Shell.Current.GoToAsync(nameof(ProductVerification));
         }
     }
 }

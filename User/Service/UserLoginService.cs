@@ -27,19 +27,11 @@ namespace UserService.Service
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-#if DEBUG
             var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: cred
-                );
-#else
-                var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(15),
-                signingCredentials: cred
-                );
-#endif
+                            claims: claims,
+                            expires: DateTime.Now.AddDays(1),
+                            signingCredentials: cred
+                            );
 
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
