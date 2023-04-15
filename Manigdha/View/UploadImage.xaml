@@ -6,7 +6,7 @@
              x:Class="Manigdha.View.UploadImage"
              NavigationPage.HasNavigationBar="False"
              Title="UploadImage">
-    <Grid RowDefinitions="AUTO,*" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}">
+    <Grid RowDefinitions="AUTO,*" BackgroundColor="{StaticResource Gray950}">
         <Grid RowDefinitions="AUTO, *">
 
             <Grid Grid.RowSpan="2">
@@ -15,28 +15,28 @@
                     <Frame BackgroundColor="White" Grid.Row="1" BorderColor="Transparent" Margin="0,0,10,0"/>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="3" Margin="10,0,0,0">
                         <Label Text="Front Side Image" FontSize="11" />
-                        <Image Source="verified.svg" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding FrontImageVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                         <Button Grid.ColumnSpan="3" BackgroundColor="Transparent" />
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="4" Margin="10,0,0,0">
                         <Label Text="Back Side Image" FontSize="11" />
-                        <Image Source="verified.svg" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding BackImageVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="5" Margin="10,0,0,0">
                         <Label Text="Upper Side Image" FontSize="11" />
-                        <Image Source="verified.svg" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding UpperImageVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="6" Margin="10,0,0,0">
                         <Label Text="Lower Back Side Image" FontSize="11" />
-                        <Image Source="verified.svg" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding LowerImageVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="7" Margin="10,0,0,0">
                         <Label Text="Left Side Image" FontSize="11" />
-                        <Image Source="verified.svg" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding LeftImageVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="8" Margin="10,0,0,0">
                         <Label Text="Right Side Image" FontSize="11" />
-                        <Image Source="verified.svg" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding RightImageVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                 </Grid>
             </Grid>
@@ -49,12 +49,12 @@
                         <Frame BackgroundColor="{StaticResource Gray900}" CornerRadius="0"/>
                         <Grid ColumnDefinitions="AUTO,*,25">
                             <Label Text="Front Side Image" Margin="10,0,0,0" VerticalOptions="Center" FontSize="11"/>
-                            <Image Source="verified.svg" Grid.Column="2" Margin="0,0,10,0" />
+                            <Image Source="{Binding FrontImageVerificationStatus}" Grid.Column="2" Margin="0,0,10,0" />
                         </Grid>
-                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" >
-                            <Frame BackgroundColor="#10ffffff"  BorderColor="Transparent" Grid.Column="1" Margin="0,10,0,10"/>
-                            <Label Text="Upload Image +" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Image Source="{Binding FrontImageURl}" Grid.ColumnSpan="3" Aspect="AspectFit"/>
+                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" RowDefinitions="*,*" >
+                            <Label Text="Upload Image" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Image Source="upload.png" Grid.Column="1" Opacity=".7" Grid.RowSpan="2" Aspect="AspectFit" Margin="15"/>
+                            <Image Source="{Binding FrontImageURl}" Grid.RowSpan="2" Grid.ColumnSpan="3" Aspect="AspectFit" Margin="0,10,0,10"/>
                         </Grid>
                     </Grid>
                     <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
@@ -66,12 +66,12 @@
                         <Frame BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource LightWhite1}}" CornerRadius="0"/>
                         <Grid ColumnDefinitions="AUTO,*,25">
                             <Label Text="Back Side Image" Margin="10,0,0,0" VerticalOptions="Center" FontSize="11"/>
-                            <Image Source="verified.svg" Grid.Column="2" Margin="0,0,10,0" />
+                            <Image Source="{Binding BackImageVerificationStatus}" Grid.Column="2" Margin="0,0,10,0" />
                         </Grid>
-                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" >
-                            <Frame BackgroundColor="#10ffffff"  BorderColor="Transparent" Grid.Column="1" Margin="0,10,0,10"/>
-                            <Label Text="Upload Image +" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Image Source="" Grid.ColumnSpan="3" Aspect="AspectFit"/>
+                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" RowDefinitions="*,*" >
+                            <Label Text="Upload Image" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Image Source="upload.png" Grid.Column="1" Opacity=".7" Grid.RowSpan="2" Aspect="AspectFit" Margin="15"/>
+                            <Image Source="{Binding BackImageURl}" Grid.RowSpan="2" Grid.ColumnSpan="3" Aspect="AspectFit" Margin="0,10,0,10"/>
                         </Grid>
                     </Grid>
                     <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
@@ -83,12 +83,13 @@
                         <Frame BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource LightWhite1}}" CornerRadius="0"/>
                         <Grid ColumnDefinitions="AUTO,*,25">
                             <Label Text="Upper Side Image" Margin="10,0,0,0" VerticalOptions="Center" FontSize="11"/>
-                            <Image Source="verified.svg" Grid.Column="2" Margin="0,0,10,0" />
+                            <Image Source="{Binding UpperImageVerificationStatus}" Grid.Column="2" Margin="0,0,10,0" />
                         </Grid>
-                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" >
-                            <Frame BackgroundColor="#10ffffff"  BorderColor="Transparent" Grid.Column="1" Margin="0,10,0,10"/>
-                            <Label Text="Upload Image +" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Image Source="" Grid.ColumnSpan="3" Aspect="AspectFit"/>
+                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" RowDefinitions="*,*" >
+
+                            <Label Text="Upload Image" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Image Source="upload.png" Grid.Column="1" Opacity=".7" Grid.RowSpan="2" Aspect="AspectFit" Margin="15"/>
+                            <Image Source="{Binding UpperImageURl}" Grid.RowSpan="2" Grid.ColumnSpan="3" Aspect="AspectFit" Margin="0,10,0,10"/>
                         </Grid>
                     </Grid>
                     <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
@@ -100,12 +101,13 @@
                         <Frame BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource LightWhite1}}" CornerRadius="0"/>
                         <Grid ColumnDefinitions="AUTO,*,25">
                             <Label Text="Lower Side Image" Margin="10,0,0,0" VerticalOptions="Center" FontSize="11"/>
-                            <Image Source="verified.svg" Grid.Column="2" Margin="0,0,10,0" />
+                            <Image Source="{Binding LowerImageVerificationStatus}" Grid.Column="2" Margin="0,0,10,0" />
                         </Grid>
-                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" >
-                            <Frame BackgroundColor="#10ffffff"  BorderColor="Transparent" Grid.Column="1" Margin="0,10,0,10"/>
-                            <Label Text="Upload Image +" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Image Source="" Grid.ColumnSpan="3" Aspect="AspectFit"/>
+                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" RowDefinitions="*,*" >
+
+                            <Label Text="Upload Image" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Image Source="upload.png" Grid.Column="1" Opacity=".7" Grid.RowSpan="2" Aspect="AspectFit" Margin="15"/>
+                            <Image Source="{Binding LowerImageURl}" Grid.RowSpan="2" Grid.ColumnSpan="3" Aspect="AspectFit" Margin="0,10,0,10"/>
                         </Grid>
                     </Grid>
                     <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
@@ -117,36 +119,37 @@
                         <Frame BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource LightWhite1}}" CornerRadius="0"/>
                         <Grid ColumnDefinitions="AUTO,*,25">
                             <Label Text="Left Side Image" Margin="10,0,0,0" VerticalOptions="Center" FontSize="11"/>
-                            <Image Source="verified.svg" Grid.Column="2" Margin="0,0,10,0" />
+                            <Image Source="{Binding LeftImageVerificationStatus}" Grid.Column="2" Margin="0,0,10,0" />
                         </Grid>
-                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" >
-                            <Frame BackgroundColor="#10ffffff"  BorderColor="Transparent" Grid.Column="1" Margin="0,10,0,10"/>
-                            <Label Text="Upload Image +" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Image Source="" Grid.ColumnSpan="3" Aspect="AspectFit"/>
+                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" RowDefinitions="*,*" >
+                            <Label Text="Upload Image" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Image Source="upload.png" Grid.Column="1" Opacity=".7" Grid.RowSpan="2" Aspect="AspectFit" Margin="15"/>
+                            <Image Source="{Binding LeftImageURl}" Grid.RowSpan="2" Grid.ColumnSpan="3" Aspect="AspectFit" Margin="0,10,0,10"/>
                         </Grid>
                     </Grid>
                     <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
                     <Button BackgroundColor="Transparent" Command="{Binding ExecuteTakingPhotCommand}" CommandParameter="5"/>
                 </Grid>
                 <Grid Grid.Row="5">
-
                     <Grid RowDefinitions="30,*" >
                         <Frame BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900}, Light={StaticResource LightWhite1}}" CornerRadius="0"/>
                         <Grid ColumnDefinitions="AUTO,*,25">
                             <Label Text="Right Side Image" Margin="10,0,0,0" VerticalOptions="Center" FontSize="11"/>
-                            <Image Source="verified.svg" Grid.Column="2" Margin="0,0,10,0" />
+                            <Image Source="{Binding RightImageVerificationStatus}" Grid.Column="2" Margin="0,0,10,0" />
                         </Grid>
-                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" >
-                            <Frame BackgroundColor="#10ffffff"  BorderColor="Transparent" Grid.Column="1" Margin="0,10,0,10"/>
-                            <Label Text="Upload Image +" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Image Source="" Grid.ColumnSpan="3" Aspect="AspectFit"/>
+                        <Grid Grid.Row="2" ColumnDefinitions="*,100,*" RowDefinitions="*,*" >
+                            <Label Text="Upload Image" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Image Source="upload.png" Grid.Column="1" Opacity=".7" Grid.RowSpan="2" Aspect="AspectFit" Margin="15"/>
+                            <Image Source="{Binding RightImageURl}" Grid.RowSpan="2"
+                                   Grid.ColumnSpan="3" Aspect="AspectFit" Margin="0,10,0,10"/>
                         </Grid>
                     </Grid>
                     <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
                     <Button BackgroundColor="Transparent" Command="{Binding ExecuteTakingPhotCommand}" CommandParameter="6"/>
                 </Grid>
                 <Grid ColumnDefinitions="*, 100" Grid.Row="6">
-                    <Button Text="Next" Grid.Column="1" BackgroundColor="#20ffffff" TextColor="White" Clicked="Button_Clicked"/>
+                    <Label Text="{Binding ErrorText}" VerticalOptions="Center" TextColor="Red" FontSize="12"/>
+                    <Button Text="Next" Grid.Column="1" BackgroundColor="#20ffffff" TextColor="White" Command="{Binding CheckImageCommand}"/>
                 </Grid>
             </Grid>
         </ScrollView>

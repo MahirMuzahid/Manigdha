@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Manigdha.Model;
 using Manigdha.Model.StaticFolder;
+using Manigdha.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,34 +16,52 @@ namespace Manigdha.ViewModel
         [ObservableProperty]
         ImageSource frontImageURl;
         [ObservableProperty]
-        string backImageURl;
+        ImageSource backImageURl;
         [ObservableProperty]
-        string upperImageURl;
+        ImageSource upperImageURl;
         [ObservableProperty]
-        string lowerImageURl;
+        ImageSource lowerImageURl;
         [ObservableProperty]
-        string leftImageURl;
+        ImageSource leftImageURl;
         [ObservableProperty]
-        string rightImageURl;
+        ImageSource rightImageURl;
+        [ObservableProperty]
+        string frontImageVerificationStatus;
+        [ObservableProperty]
+        string backImageVerificationStatus;
+        [ObservableProperty]
+        string upperImageVerificationStatus;
+        [ObservableProperty]
+        string lowerImageVerificationStatus;
+        [ObservableProperty]
+        string leftImageVerificationStatus;
+        [ObservableProperty]
+        string rightImageVerificationStatus;
+        [ObservableProperty]
+        string errorText;
+
+        public UploadNonDigitalImageRequirmentViewModal()
+        {
+            //verified.svg
+            //notverified.png
+            FrontImageVerificationStatus = "notverified.png";
+            BackImageVerificationStatus = "notverified.png";
+            UpperImageVerificationStatus = "notverified.png";
+            LowerImageVerificationStatus = "notverified.png";
+            LeftImageVerificationStatus = "notverified.png";
+            RightImageVerificationStatus = "notverified.png";
+        }
 
         [RelayCommand]
         public async Task ExecuteTakingPhot(string index)
         {
             int i = int.Parse(index);
-            if (i == 1) 
-            { 
-                StaticAddProductImage.FrontSideImageURL = await TakePhoto();
-                //FrontImageURl = ImageSource.FromStream(() => StaticAddProductImage.FrontSideImageURL).ToString(); 
-            }
-            if (i == 2) { StaticAddProductImage.BackSideImageURL = await TakePhoto(); }
-            if (i == 3) { StaticAddProductImage.UpperSideImageURL = await TakePhoto(); }
-            if (i == 4) { StaticAddProductImage.LowerSideImageURL = await TakePhoto(); }
-            if (i == 5) { StaticAddProductImage.LaftSideImageURL = await TakePhoto(); }
-            if (i == 6) { StaticAddProductImage.RightSideImageURL = await TakePhoto(); }
+
+            await TakePhoto(i);
 
            
         }
-        public async Task<Stream> TakePhoto()
+        public async Task TakePhoto(int i)
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
@@ -55,14 +74,47 @@ namespace Manigdha.ViewModel
 
 
                     Stream sourceStream = await photo.OpenReadAsync();
-                    FrontImageURl = ImageSource.FromStream(() => sourceStream);
-                    return sourceStream;
-
-
+                    if (i == 1) { FrontImageURl = ImageSource.FromStream(() => sourceStream); 
+                        StaticAddProductImage.FrontSideImageURL = sourceStream; FrontImageVerificationStatus = "verified.svg";}
+                    if (i == 2) { BackImageURl = ImageSource.FromStream(() => sourceStream);  
+                        StaticAddProductImage.BackSideImageURL = sourceStream; BackImageVerificationStatus = "verified.svg";}
+                    if (i == 3) { UpperImageURl = ImageSource.FromStream(() => sourceStream); 
+                        StaticAddProductImage.UpperSideImageURL = sourceStream; UpperImageVerificationStatus = "verified.svg";}
+                    if (i == 4) { LowerImageURl = ImageSource.FromStream(() => sourceStream); 
+                        StaticAddProductImage.LowerSideImageURL = sourceStream; LowerImageVerificationStatus = "verified.svg";}
+                    if (i == 5) { LeftImageURl = ImageSource.FromStream(() => sourceStream);  
+                        StaticAddProductImage.LeftSideImageURL = sourceStream; LeftImageVerificationStatus = "verified.svg";}
+                    if (i == 6) { RightImageURl = ImageSource.FromStream(() => sourceStream); 
+                        StaticAddProductImage.RightSideImageURL = sourceStream; RightImageVerificationStatus = "verified.svg";}
                 }
-                return null;
+                return ;
             }
-            return null;
+            return ;
+        }
+
+        [RelayCommand]
+        public void GoNext()
+        {
+
+        }
+
+
+        [RelayCommand]
+        public async Task CheckImage()
+        {
+            ErrorText = "";
+            if ( FrontImageURl == null ||
+                BackImageURl == null ||
+                UpperImageURl == null ||
+                LowerImageURl == null ||
+                LeftImageURl == null ||
+                RightImageURl == null)
+            {
+                ErrorText = "Please upload all type of image";
+                return;
+            }
+            await Shell.Current.GoToAsync(nameof(RequirmentVerification));
+
         }
     }
 }

@@ -11,6 +11,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(ProductInformatinFill), typeof(ProductInformatinFill));
         Routing.RegisterRoute(nameof(ProductVerification), typeof(ProductVerification));
         Routing.RegisterRoute(nameof(UploadImage), typeof(UploadImage));
+        Routing.RegisterRoute(nameof(RequirmentVerification), typeof(RequirmentVerification));
 
     }
 }

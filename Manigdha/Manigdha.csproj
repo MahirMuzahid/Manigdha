@@ -63,6 +63,7 @@
 	  <None Remove="Resources\Images\rightandroarrow.png" />
 	  <None Remove="Resources\Images\rightarrow.svg" />
 	  <None Remove="Resources\Images\rightarrowwhite.svg" />
+	  <None Remove="Resources\Images\upload.png" />
 	  <None Remove="Resources\Images\usedmobile.jfif" />
 	  <None Remove="Resources\Images\verified.svg" />
 	  <None Remove="Resources\Images\verifyimg.jpg" />

@@ -10,7 +10,7 @@ namespace Manigdha.Model.StaticFolder
     {
         public static Stream UpperSideImageURL { get; set; }
         public static Stream LowerSideImageURL { get; set; }
-        public static Stream LaftSideImageURL { get; set; }
+        public static Stream LeftSideImageURL { get; set; }
         public static Stream RightSideImageURL { get; set; }
         public static Stream FrontSideImageURL { get; set; }
         public static Stream BackSideImageURL { get; set; }
