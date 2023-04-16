@@ -8,7 +8,7 @@
     <Grid BackgroundColor="{StaticResource Gray950}">
         <Grid RowDefinitions="AUTO,3,*" Margin="20,0,20,0">
 
-            <Grid Grid.Row="0" ColumnDefinitions="*,*" RowDefinitions="AUTO,AUTO,AUTO,AUTO,AUTO,10" RowSpacing="10" Margin="0,20,0,0" IsVisible="{Binding IsPickInfoVisible}" >
+            <Grid Grid.Row="0" ColumnDefinitions="*,*" RowDefinitions="AUTO,AUTO,AUTO,AUTO,AUTO,10" RowSpacing="10"  IsVisible="{Binding IsPickInfoVisible}" >
                 <Label Text="Select Product Catagory" Grid.ColumnSpan="2" HorizontalOptions="Start" Margin="0,0,0,10"/>
                 <Label Text="Product Catagory" Grid.Column="0" Grid.Row="1" FontSize="12"/>
                 <Picker Grid.Row="2" BackgroundColor="{StaticResource Gray900}" ItemsSource="{Binding ProductCatagoryNameList}" 
