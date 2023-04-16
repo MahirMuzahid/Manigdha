@@ -130,9 +130,9 @@ namespace PostService.Service
 
         #region FabricType
         [UseProjection]
-        public Fabric GetFabricType([Service] DataContext _context)
+        public FabricSizeAndSizeType GetFabricType([Service] DataContext _context)
         {
-            Fabric result = new Fabric();
+            FabricSizeAndSizeType result = new FabricSizeAndSizeType();
              
             List<string> fabricName = new List<string>()
             {

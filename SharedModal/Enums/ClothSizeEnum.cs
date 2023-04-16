@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 
 namespace SharedModal.Enums
 {
-    public class SizeEnum
+    public class ClothSizeEnum
     {
-        public enum SizeType
+
+        public enum UpperBodySizeLetterSize
         {
-            NumericSize,
-            LetterSize
+            XS,
+            S,
+            M,
+            L,
+            XL,
+            XXL,
+            XXXL
         }
+
+        
 
     }
 }

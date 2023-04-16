@@ -1,4 +1,5 @@
 using Manigdha.ViewModel;
+using SharedModal.Other_Modals;
 
 namespace Manigdha.View;
 
@@ -49,6 +50,8 @@ public partial class ClothsRequirementVerificationView : ContentPage
     private void Picker_SelectedIndexChanged(object sender, EventArgs e)
     {
         fabricSizePicker.IsVisible = true;
+        
+        fabricSizePicker.ItemsSource = ClothingSize.GetSizes( ClothingSize.SizeType.Numeric, ClothingSize.Gender.Male);
     }
 
     private void CheckBox_CheckedChanged_2(object sender, CheckedChangedEventArgs e)

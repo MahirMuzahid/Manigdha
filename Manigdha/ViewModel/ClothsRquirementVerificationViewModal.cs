@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SharedModal.Enums;
+using SharedModal.Other_Modals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,11 @@ namespace Manigdha.ViewModel
         string tearingInfoText;
 
         [ObservableProperty]
+        List<string> genderList;
+        [ObservableProperty]
+        string selectedGender;
+
+        [ObservableProperty]
         string selectedFabricType;
         [ObservableProperty]
         List<string> fabricTypeList;
@@ -36,6 +43,10 @@ namespace Manigdha.ViewModel
         string selectedSizeType;
         [ObservableProperty]
         string selectedSize;
+        [ObservableProperty]
+        List<string> sizeTypeList;
+        [ObservableProperty]
+        List<string> sizeList;
 
         [ObservableProperty]
         DateTime selectedDate;
@@ -43,20 +54,24 @@ namespace Manigdha.ViewModel
         [ObservableProperty]
         bool isReceiptAvailableNoChecked;
         [ObservableProperty]
-        bool isReceiptAvailableYesChecked;
-        [ObservableProperty]
         Stream receiptPhoto;
-
 
         public ClothsRequirementVerificationViewModal()
         {
-            
+            GetInitInfo();
         }
 
-        public async Task GetInitInfo()
+        public void GetInitInfo()
         {
+            List<string> genderl = new List<string>()
+            {
+                "Man",
+                "Women"
+            };
+            GenderList = genderl;
+            FabricTypeList = Enum.GetNames(typeof(FabricEnum.FabricType)).ToList();
 
+            SizeTypeList = Enum.GetNames(typeof(ClothingSize.SizeType)).ToList();
         }
-
     }
 }

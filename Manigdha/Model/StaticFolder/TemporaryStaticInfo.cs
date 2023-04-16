@@ -12,5 +12,7 @@ namespace Manigdha.Model.StaticFolder
         public static List<string> SelectedCataroryTypeNameList { get; set; }
         public static List<ProductCatagory> PikerProductCatagoryList;
         public static string SelectedProductCatagoryName { get; set; }
+
+        public static string SelectedSizeType { get; set; }
     }
 }
