@@ -56,7 +56,7 @@
                 <Grid Grid.Row="1" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
                     <Label Text="What is the fabric type" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
-                    <Picker Grid.Row="2" Grid.ColumnSpan="2" Title="Select fabric type" FontSize="12" Margin="10,0,0,0" BackgroundColor="{StaticResource Gray900}"/>
+                    <Picker Grid.Row="2" Grid.ColumnSpan="2" Title="Select fabric type" FontSize="12" Margin="10,0,20,0" BackgroundColor="{StaticResource Gray900}"/>
                 </Grid>
 
                 <Grid Grid.Row="2" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
@@ -74,11 +74,11 @@
                 <Grid Grid.Row="4" RowDefinitions="30,5,AUTO,AUTO,AUTO" ColumnDefinitions="*,*" Margin="0,30,0,0" >
                     <Label Text="Is receipt available" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
-                    <Grid Grid.Row="2" ColumnDefinitions="AUTO,*">
+                    <Grid  Grid.Row="2" ColumnDefinitions="AUTO,*">
                         <CheckBox x:Name="receiptCheckYes" HorizontalOptions="Start" Margin="10,0,0,0" CheckedChanged="CheckBox_CheckedChanged_2"/>
                         <Label Text="Yes" FontSize="12" Grid.Column="1" VerticalOptions="Center"/>
                     </Grid>
-                    <Grid Grid.Row="2" Grid.Column="1" ColumnDefinitions="AUTO,*">
+                    <Grid  Grid.Row="2" Grid.Column="1" ColumnDefinitions="AUTO,*">
                         <CheckBox x:Name="receiptCheckNo" HorizontalOptions="Start" Margin="10,0,0,0" CheckedChanged="CheckBox_CheckedChanged_3"/>
                         <Label Text="No" FontSize="12" Grid.Column="1" VerticalOptions="Center"/>
                     </Grid>

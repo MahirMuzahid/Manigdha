@@ -282,7 +282,7 @@ namespace PostServiceTestx
 
         #endregion City
 
-        #region BidHistory 
+        #region Product Image Verification 
 
         [Fact]
         public async Task AskNonDigitalProductImageVerificationByID_GetNonDigitalProductImageVerification()

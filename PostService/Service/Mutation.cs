@@ -100,6 +100,13 @@ namespace PostService.Service
         }
         #endregion
 
+        #region FabricType
+        public Fabric GetAllFabric()
+        {
+            return  new Fabric();
+        }
+        #endregion
+
 
     }
 }

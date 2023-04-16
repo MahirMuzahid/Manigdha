@@ -8,10 +8,18 @@ namespace SharedModal.Enums
 {
     public class FabricEnum
     {
-        public enum FaribType
+        public enum FabricType
         {
+            Cotton,
+            Polyester,
             Silk,
-            Shuti
+            Wool,
+            Rayon,
+            Nylon,
+            Linen,
+            Denim,
+            Velvet,
+            Leather
         }
     }
 }

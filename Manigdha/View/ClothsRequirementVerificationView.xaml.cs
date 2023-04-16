@@ -35,7 +35,6 @@ public partial class ClothsRequirementVerificationView : ContentPage
             if (!tearCheckYes.IsChecked)
             {
                 tearingInfoEditor.IsVisible = false;
-                //if (tearCheckNo.IsChecked) { tearCheckNo.IsChecked = false; }
             }
             return;
         }
@@ -46,12 +45,6 @@ public partial class ClothsRequirementVerificationView : ContentPage
             tearingInfoEditor.IsVisible = false;
             if(tearCheckYes.IsChecked){ tearCheckYes.IsChecked = false; }
         }
-        if (!tearCheckNo.IsChecked)
-        {
-            //if (tearingInfoEditor.IsVisible) { tearingInfoEditor.IsVisible = false; }
-            //if (tearCheckYes.IsChecked) { tearCheckYes.IsChecked = false; }
-
-        }
     }
     private void Picker_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -60,15 +53,36 @@ public partial class ClothsRequirementVerificationView : ContentPage
 
     private void CheckBox_CheckedChanged_2(object sender, CheckedChangedEventArgs e)
     {
-        receiptCheckNo.IsChecked = false;
-        if (receiptCheckYes.IsChecked) { uploadReceiptImage.IsVisible = true; return; }
-        uploadReceiptImage.IsVisible = false;
+        CheckReceiptCheck(true);
     }
 
     private void CheckBox_CheckedChanged_3(object sender, CheckedChangedEventArgs e)
     {
-        receiptCheckYes.IsChecked = false;
-        if (receiptCheckYes.IsChecked) { uploadReceiptImage.IsVisible = true; return; }
-        uploadReceiptImage.IsVisible = false;
+        CheckReceiptCheck(false);
+    }
+
+    public void CheckReceiptCheck(bool isYesChecked)
+    {
+        if (isYesChecked)
+        {
+            if (receiptCheckYes.IsChecked)
+            {
+                uploadReceiptImage.IsVisible = true;
+                if (receiptCheckNo.IsChecked) { receiptCheckNo.IsChecked = false; }
+
+            }
+            if (!receiptCheckYes.IsChecked)
+            {
+                uploadReceiptImage.IsVisible = false;
+            }
+            return;
+        }
+
+
+        if (receiptCheckNo.IsChecked)
+        {
+            uploadReceiptImage.IsVisible = false;
+            if (receiptCheckYes.IsChecked) { receiptCheckYes.IsChecked = false; }
+        }
     }
 }

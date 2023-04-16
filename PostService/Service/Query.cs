@@ -2,6 +2,7 @@
 using HotChocolate.Authorization;
 using Microsoft.EntityFrameworkCore;
 using PostService.Service.Repository;
+using SharedModal.Enums;
 using SharedModal.Modals;
 using System.Data;
 
@@ -125,6 +126,30 @@ namespace PostService.Service
             return result;
         }
 
+        #endregion
+
+        #region FabricType
+        [UseProjection]
+        public Fabric GetFabricType([Service] DataContext _context)
+        {
+            Fabric result = new Fabric();
+             
+            List<string> fabricName = new List<string>()
+            {
+                 FabricEnum.FabricType.Wool.ToString(),
+                 FabricEnum.FabricType.Velvet.ToString(),
+                 FabricEnum.FabricType.Silk.ToString(),
+                 FabricEnum.FabricType.Rayon.ToString(),
+                 FabricEnum.FabricType.Polyester.ToString(),
+                 FabricEnum.FabricType.Nylon.ToString(),
+                 FabricEnum.FabricType.Linen.ToString(),
+                 FabricEnum.FabricType.Leather.ToString(),
+                 FabricEnum.FabricType.Cotton.ToString(),
+                 FabricEnum.FabricType.Denim.ToString()
+            };
+            result.AllFabric = fabricName;
+            return result;
+        }
         #endregion
     }
 }

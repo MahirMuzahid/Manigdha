@@ -53,7 +53,10 @@ namespace Manigdha.ViewModel
             
         }
 
+        public async Task GetInitInfo()
+        {
 
+        }
 
     }
 }
