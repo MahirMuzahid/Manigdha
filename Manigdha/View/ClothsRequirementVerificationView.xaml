@@ -27,15 +27,11 @@
                         <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="6" Margin="10,0,0,0">
-                        <Label Text="Lower Back Side Image" FontSize="11" />
+                        <Label Text="Buying Time" FontSize="11" />
                         <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="7" Margin="10,0,0,0">
-                        <Label Text="Buying time" FontSize="11" />
-                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
-                    </Grid>
-                    <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="8" Margin="10,0,0,0">
-                        <Label Text="Recipt info" FontSize="11" />
+                        <Label Text="Receipt info" FontSize="11" />
                         <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                 </Grid>
@@ -48,14 +44,14 @@
                     <Label Text="Is there any tearing in cloth?" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Grid Grid.Row="2" ColumnDefinitions="AUTO,*">
-                        <CheckBox  HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <CheckBox  HorizontalOptions="Start" Margin="10,0,0,0" CheckedChanged="CheckBox_CheckedChanged"/>
                         <Label Text="Yes" Grid.Column="1" FontSize="12" VerticalOptions="Center"/>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" ColumnDefinitions="AUTO,*">
                         <CheckBox  HorizontalOptions="Start" Margin="10,0,0,0"/>
                         <Label Text="No" Grid.Column="1" FontSize="12" VerticalOptions="Center"/>
                     </Grid>
-                    <Editor Grid.Row="3" Grid.ColumnSpan="2" FontSize="12" Placeholder="Write details of tearing Place" BackgroundColor="{StaticResource Gray900}" Margin="10,0,10,0"/>
+                    <Editor x:Name="tearingInfoEditor" Grid.Row="3" Grid.ColumnSpan="2" FontSize="12" IsVisible="false" Placeholder="Write details of tearing Place" BackgroundColor="{StaticResource Gray900}" Margin="10,0,10,0"/>
                 </Grid>
                 <Grid Grid.Row="1" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
                     <Label Text="What is the fabric type" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
@@ -75,7 +71,7 @@
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <DatePicker Grid.Row="2" FontSize="12" Margin="10,0,0,0" BackgroundColor="{StaticResource Gray900}"/>
                 </Grid>
-                <Grid Grid.Row="4" RowDefinitions="30,5,AUTO,AUTO" ColumnDefinitions="*,*" Margin="0,30,0,0" >
+                <Grid Grid.Row="4" RowDefinitions="30,5,AUTO,AUTO,AUTO" ColumnDefinitions="*,*" Margin="0,30,0,0" >
                     <Label Text="Is receipt available" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Grid Grid.Row="2" ColumnDefinitions="AUTO,*">
@@ -86,7 +82,22 @@
                         <CheckBox  HorizontalOptions="Start" Margin="10,0,0,0"/>
                         <Label Text="No" FontSize="12" Grid.Column="1" VerticalOptions="Center"/>
                     </Grid>
-                    
+                    <Grid Grid.Row="3" Grid.ColumnSpan="2" Margin="10" IsVisible="true">
+                        <Grid RowDefinitions="30,150" >
+                            <Frame BackgroundColor="{StaticResource Gray900}" CornerRadius="0"/>
+                            <Grid ColumnDefinitions="AUTO,*,25">
+                                <Label Text="Receipt Image" Margin="10,0,0,0" VerticalOptions="Center" FontSize="11"/>
+                                <Image Source="{Binding FrontImageVerificationStatus}" Grid.Column="2" Margin="0,0,10,0" />
+                            </Grid>
+                            <Grid Grid.Row="2" ColumnDefinitions="*,100,*" RowDefinitions="*,*" >
+                                <Label Text="Upload Image" Grid.Column="1" Grid.Row="1" FontSize="10"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Image Source="upload.png" Grid.Column="1" Opacity=".7" Grid.RowSpan="2" Aspect="AspectFit" Margin="15"/>
+                                <Image Source="{Binding FrontImageURl}" Grid.RowSpan="2" Grid.ColumnSpan="3" Aspect="AspectFit" Margin="0,10,0,10"/>
+                            </Grid>
+                        </Grid>
+                        <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
+                        <Button BackgroundColor="Transparent" Command="{Binding ExecuteTakingPhotCommand}" CommandParameter="1"/>
+                    </Grid>
                 </Grid>
                 <Button Text="Next" Grid.Row="6" TextColor="White" BackgroundColor="{StaticResource Gray900}" Margin="260,0,20,0"/>
             </Grid>

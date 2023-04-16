@@ -10,4 +10,8 @@ public partial class ClothsRequirementVerificationView : ContentPage
         this.BindingContext = new ClothsRequirementVerificationViewModal();
 	}
 
+    private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
 }
