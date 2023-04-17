@@ -40,6 +40,11 @@ namespace Manigdha.ViewModel
         List<string> fabricTypeList;
 
         [ObservableProperty]
+        string selectedClothType;
+        [ObservableProperty]
+        List<string> clothTypeList;
+
+        [ObservableProperty]
         string selectedSizeType;
         [ObservableProperty]
         string selectedSize;
@@ -63,14 +68,9 @@ namespace Manigdha.ViewModel
 
         public void GetInitInfo()
         {
-            List<string> genderl = new List<string>()
-            {
-                "Man",
-                "Women"
-            };
-            GenderList = genderl;
+            GenderList = Enum.GetNames(typeof(ClothingSize.Gender)).ToList();
             FabricTypeList = Enum.GetNames(typeof(FabricEnum.FabricType)).ToList();
-
+            ClothTypeList = Enum.GetNames(typeof(ClothingSize.ClothingType)).ToList();
             SizeTypeList = Enum.GetNames(typeof(ClothingSize.SizeType)).ToList();
         }
     }

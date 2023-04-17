@@ -8,11 +8,20 @@ namespace SharedModal.Other_Modals
 {
     public class ClothingSize
     {
+        public enum ClothingType
+        {
+            Blazers,
+            Footwear,
+            JacketsAndCoats,
+            JeansAndTrousers,
+            Shirts,
+            TShirtsAndPoloShirts,
+            UnderwearLoungewearAndSocks,
+        }
         public enum SizeType
         {
             Numeric,
-            Alpha,
-            Pants
+            Word
         }
 
         public enum Gender
@@ -21,97 +30,102 @@ namespace SharedModal.Other_Modals
             Female
         }
 
-        public static List<string> GetSizes(SizeType sizeType, Gender gender)
+        public static List<string> GetSizes(SizeType sizeType, Gender gender, ClothingType clothingType)
         {
             List<string> sizes = new List<string>();
-            if (sizeType == SizeType.Numeric)
+            switch (clothingType)
             {
-                sizes = GetNumericSizes(gender);
+                case ClothingType.Blazers:
+                    sizes = GetNumericSizes(gender, 32, 56);
+                    break;
+                case ClothingType.Footwear:
+                    sizes = GetNumericSizes(gender, 6, 12);
+                    break;
+                case ClothingType.JacketsAndCoats:
+                    sizes = GetNumericSizes(gender, 32, 60);
+                    break;
+                case ClothingType.JeansAndTrousers:
+                    sizes = GetNumericSizes(gender, 28, 40);
+                    break;
+                case ClothingType.Shirts:
+                    sizes = GetNumericSizes(gender, 14, 20);
+                    break;
+                case ClothingType.TShirtsAndPoloShirts:
+                    sizes = GetWordSizes(gender).ConvertAll(size => size.ToString());
+                    break;
+                case ClothingType.UnderwearLoungewearAndSocks:
+                    sizes = GetWaistSizes(gender);
+                    break;
+                default:
+                    break;
             }
-            else if (sizeType == SizeType.Alpha)
+
+            if (sizeType == SizeType.Word)
             {
-                sizes = GetAlphaSizes(gender);
+                sizes = sizes.Select(size => ConvertToWordSize(int.Parse(size))).ToList();
             }
-            else if (sizeType == SizeType.Pants)
+
+            return sizes;
+        }
+       
+
+
+
+
+
+
+
+        private static List<string> GetNumericSizes(Gender gender, int minSize, int maxSize)
+        {
+            List<string> sizes = new List<string>();
+            for (int i = minSize; i <= maxSize; i++)
             {
-                sizes.AddRange(GetWaistSizes(gender));
-                sizes.AddRange(GetInseamSizes(gender));
+                sizes.Add(i.ToString());
             }
+
+            if (gender == Gender.Female)
+            {
+                sizes.RemoveAll(size => int.Parse(size) % 2 != 0);
+            }
+
             return sizes;
         }
 
-        private static List<string> GetNumericSizes(Gender gender)
+        private static List<int> GetWordSizes(Gender gender)
         {
-            List<string> sizes = new List<string>();
+            List<int> sizes = new List<int>();
             if (gender == Gender.Female)
             {
-                for (int i = 0; i <= 30; i++)
-                {
-                    sizes.Add(i.ToString());
-                }
+                sizes.AddRange(new int[] { 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24 });
             }
             else if (gender == Gender.Male)
             {
-                for (int i = 28; i <= 60; i++)
-                {
-                    sizes.Add(i.ToString());
-                }
-            }
-            return sizes;
-        }
-
-        private static List<string> GetAlphaSizes(Gender gender)
-        {
-            List<string> sizes = new List<string>();
-            if (gender == Gender.Female)
-            {
-                sizes.AddRange(new string[] { "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL" });
-            }
-            else if (gender == Gender.Male)
-            {
-                sizes.AddRange(new string[] { "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL" });
+                sizes.AddRange(new int[] { 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60 });
             }
             return sizes;
         }
 
         private static List<string> GetWaistSizes(Gender gender)
         {
-            List<string> sizes = new List<string>();
-            if (gender == Gender.Female)
-            {
-                for (int i = 24; i <= 40; i += 2)
-                {
-                    sizes.Add(i.ToString());
-                }
-            }
-            else if (gender == Gender.Male)
-            {
-                for (int i = 28; i <= 60; i += 2)
-                {
-                    sizes.Add(i.ToString());
-                }
-            }
-            return sizes;
+            return GetNumericSizes(gender, 24, 40);
         }
 
         private static List<string> GetInseamSizes(Gender gender)
         {
-            List<string> sizes = new List<string>();
-            if (gender == Gender.Female)
-            {
-                for (int i = 28; i <= 36; i += 2)
-                {
-                    sizes.Add(i.ToString());
-                }
-            }
-            else if (gender == Gender.Male)
-            {
-                for (int i = 28; i <= 36; i += 2)
-                {
-                    sizes.Add(i.ToString());
-                }
-            }
-            return sizes;
+            return GetNumericSizes(gender, 28, 36);
         }
+
+        private static string ConvertToWordSize(int numericSize)
+        {
+            if (numericSize < 28) return "XS";
+            if (numericSize < 32) return "S";
+            if (numericSize < 36) return "M";
+            if (numericSize < 40) return "L";
+            if (numericSize < 44) return "XL";
+            if (numericSize < 48) return "XXL";
+            if (numericSize < 52) return "XXXL";
+            return "XXXXL";
+        }
+
     }
 }

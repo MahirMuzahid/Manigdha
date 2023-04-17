@@ -1,10 +1,12 @@
 using Manigdha.ViewModel;
 using SharedModal.Other_Modals;
+using static SharedModal.Other_Modals.ClothingSize;
 
 namespace Manigdha.View;
 
 public partial class ClothsRequirementVerificationView : ContentPage
 {
+    string selectedGender = "", selectedCloth = "", selectedType = "";
 	public ClothsRequirementVerificationView()
 	{
 		InitializeComponent();
@@ -50,10 +52,22 @@ public partial class ClothsRequirementVerificationView : ContentPage
     private void Picker_SelectedIndexChanged(object sender, EventArgs e)
     {
         fabricSizePicker.IsVisible = true;
-        
-        fabricSizePicker.ItemsSource = ClothingSize.GetSizes( ClothingSize.SizeType.Numeric, ClothingSize.Gender.Male);
+        var picker = (Picker)sender;
+        int selectedIndex = picker.SelectedIndex;
+        if (selectedIndex != -1)
+        {
+            selectedType = (string)picker.ItemsSource[selectedIndex];
+        }
+        PopulateSizePicker();
     }
-
+    public void PopulateSizePicker()
+    {
+        if (string.IsNullOrEmpty(selectedType) || string.IsNullOrEmpty(selectedGender) || string.IsNullOrEmpty(selectedCloth)) { return; }
+        SizeType sizeType = (SizeType)Enum.Parse(typeof(SizeType), selectedType);
+        Gender gender = (Gender)Enum.Parse(typeof(Gender), selectedGender);
+        ClothingType cloth = (ClothingType)Enum.Parse(typeof(ClothingType), selectedCloth);
+        fabricSizePicker.ItemsSource = ClothingSize.GetSizes(sizeType, gender, cloth);
+    }
     private void CheckBox_CheckedChanged_2(object sender, CheckedChangedEventArgs e)
     {
         CheckReceiptCheck(true);
@@ -87,5 +101,27 @@ public partial class ClothsRequirementVerificationView : ContentPage
             uploadReceiptImage.IsVisible = false;
             if (receiptCheckYes.IsChecked) { receiptCheckYes.IsChecked = false; }
         }
+    }
+
+    private void Picker_SelectedIndexChanged_1(object sender, EventArgs e)
+    {
+        var picker = (Picker)sender;
+        int selectedIndex = picker.SelectedIndex;
+        if (selectedIndex != -1)
+        {
+            selectedGender = (string)picker.ItemsSource[selectedIndex];
+        }
+        PopulateSizePicker();
+    }
+
+    private void Picker_SelectedIndexChanged_2(object sender, EventArgs e)
+    {
+        var picker = (Picker)sender;
+        int selectedIndex = picker.SelectedIndex;
+        if (selectedIndex != -1)
+        {
+            selectedCloth = (string)picker.ItemsSource[selectedIndex];
+        }
+        PopulateSizePicker();
     }
 }

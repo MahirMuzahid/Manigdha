@@ -88,18 +88,18 @@ namespace Manigdha.ViewModel
         [RelayCommand]
         public void GotoImageVerification()
         {
-            TitleError = "";
-            DescriptionError = "";
-            PriceError = "";
-            ProductCatagoryError = "";
-            CatagoryTypeError = "";
-            if (string.IsNullOrEmpty(Title)) { TitleError = "Title can't be empty"; return; }
-            if (string.IsNullOrEmpty(Description)) { DescriptionError = "Description can't be empty"; return; }
-            if (string.IsNullOrEmpty(Price)) { PriceError = "Price can't be empty"; return; }
-            if (Price.All(char.IsDigit) == false) { PriceError = "Not a valid price"; return; }
-            if (int.Parse(price) < 100) { PriceError = "Cannot sell any product less then 100 taka"; return; }
-            if (string.IsNullOrEmpty(SelectedProductCatagory)) { ProductCatagoryError = "Please select product catagory"; return; }
-            if (string.IsNullOrEmpty(SelectedCatagoryType)) { CatagoryTypeError = "Please select product catagory type"; return; }
+            //TitleError = "";
+            //DescriptionError = "";
+            //PriceError = "";
+            //ProductCatagoryError = "";
+            //CatagoryTypeError = "";
+            //if (string.IsNullOrEmpty(Title)) { TitleError = "Title can't be empty"; return; }
+            //if (string.IsNullOrEmpty(Description)) { DescriptionError = "Description can't be empty"; return; }
+            //if (string.IsNullOrEmpty(Price)) { PriceError = "Price can't be empty"; return; }
+            //if (Price.All(char.IsDigit) == false) { PriceError = "Not a valid price"; return; }
+            //if (int.Parse(price) < 100) { PriceError = "Cannot sell any product less then 100 taka"; return; }
+            //if (string.IsNullOrEmpty(SelectedProductCatagory)) { ProductCatagoryError = "Please select product catagory"; return; }
+            //if (string.IsNullOrEmpty(SelectedCatagoryType)) { CatagoryTypeError = "Please select product catagory type"; return; }
 
             GoToVerification();
         }
