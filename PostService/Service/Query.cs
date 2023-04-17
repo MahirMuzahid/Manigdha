@@ -64,9 +64,9 @@ namespace PostService.Service
 
         #region Product
         [UseProjection]
-        public  IQueryable<Product> GetProducte([Service] DataContext _context)
+        public IQueryable<Product> GetProducte([Service] DataContext _context)
         {
-            return  _context.Products.Include(u => u.User).Include(c => c.CatagoryType).AsQueryable();
+            return _context.Products.Include(u => u.User).Include(c => c.CatagoryType).AsQueryable();
         }
         [UseProjection]
         public async Task<Product> GetProductById([Service] DataContext _context, int id)
@@ -77,7 +77,7 @@ namespace PostService.Service
             return result;
         }
         [UseProjection]
-        public  async Task<List<Product>> GetProductByUserId([Service] DataContext _context, int id)
+        public async Task<List<Product>> GetProductByUserId([Service] DataContext _context, int id)
         {
             var result = await _context.Products.Include(u => u.User).Include(c => c.CatagoryType).Where(u => u.UserID == id).ToListAsync();
 
@@ -128,28 +128,6 @@ namespace PostService.Service
 
         #endregion
 
-        #region FabricType
-        [UseProjection]
-        public FabricSizeAndSizeType GetFabricType([Service] DataContext _context)
-        {
-            FabricSizeAndSizeType result = new FabricSizeAndSizeType();
-             
-            List<string> fabricName = new List<string>()
-            {
-                 FabricEnum.FabricType.Wool.ToString(),
-                 FabricEnum.FabricType.Velvet.ToString(),
-                 FabricEnum.FabricType.Silk.ToString(),
-                 FabricEnum.FabricType.Rayon.ToString(),
-                 FabricEnum.FabricType.Polyester.ToString(),
-                 FabricEnum.FabricType.Nylon.ToString(),
-                 FabricEnum.FabricType.Linen.ToString(),
-                 FabricEnum.FabricType.Leather.ToString(),
-                 FabricEnum.FabricType.Cotton.ToString(),
-                 FabricEnum.FabricType.Denim.ToString()
-            };
-            result.AllFabric = fabricName;
-            return result;
-        }
-        #endregion
+
     }
 }

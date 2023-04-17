@@ -8,15 +8,27 @@ namespace SharedModal.Other_Modals
 {
     public class ClothingSize
     {
-        public enum ClothingType
+        public enum MenClothingType
         {
             Blazers,
-            Footwear,
             JacketsAndCoats,
             JeansAndTrousers,
             Shirts,
             TShirtsAndPoloShirts,
-            UnderwearLoungewearAndSocks,
+        }
+        public enum WomenClothingType
+        {
+            CoatsAndJackets,
+            Jeans,
+            Trousers,
+            Leggings,
+            Shorts,
+            Skirts,
+            Tshirts,
+            Tops,
+            Saree,
+            Blouse,
+
         }
         public enum SizeType
         {
@@ -30,91 +42,96 @@ namespace SharedModal.Other_Modals
             Female
         }
 
-        public static List<string> GetSizes(SizeType sizeType, Gender gender, ClothingType clothingType)
+        public static List<string> GetMenSizes( Gender gender, MenClothingType clothingType)
         {
             List<string> sizes = new List<string>();
             switch (clothingType)
             {
-                case ClothingType.Blazers:
-                    sizes = GetNumericSizes(gender, 32, 56);
+                case MenClothingType.Blazers:
+                    sizes = GetWordSizes();
                     break;
-                case ClothingType.Footwear:
-                    sizes = GetNumericSizes(gender, 6, 12);
+                case MenClothingType.JacketsAndCoats:
+                    sizes = GetWordSizes();
                     break;
-                case ClothingType.JacketsAndCoats:
-                    sizes = GetNumericSizes(gender, 32, 60);
+                case MenClothingType.JeansAndTrousers:
+                    sizes = GetNumericSizes(gender).ConvertAll(size => size.ToString());
                     break;
-                case ClothingType.JeansAndTrousers:
-                    sizes = GetNumericSizes(gender, 28, 40);
+                case MenClothingType.Shirts:
+                    sizes = GetWordSizes();
                     break;
-                case ClothingType.Shirts:
-                    sizes = GetNumericSizes(gender, 14, 20);
-                    break;
-                case ClothingType.TShirtsAndPoloShirts:
-                    sizes = GetWordSizes(gender).ConvertAll(size => size.ToString());
-                    break;
-                case ClothingType.UnderwearLoungewearAndSocks:
-                    sizes = GetWaistSizes(gender);
+                case MenClothingType.TShirtsAndPoloShirts:
+                    sizes = GetWordSizes();
                     break;
                 default:
                     break;
             }
-
-            if (sizeType == SizeType.Word)
-            {
-                sizes = sizes.Select(size => ConvertToWordSize(int.Parse(size))).ToList();
-            }
-
             return sizes;
         }
-       
 
-
-
-
-
-
-
-        private static List<string> GetNumericSizes(Gender gender, int minSize, int maxSize)
+        public static List<string> GetWomenSizes(Gender gender, WomenClothingType clothingType)
         {
             List<string> sizes = new List<string>();
-            for (int i = minSize; i <= maxSize; i++)
+            switch (clothingType)
             {
-                sizes.Add(i.ToString());
+                case WomenClothingType.CoatsAndJackets:
+                    sizes = GetWordSizes();
+                    break;
+                case WomenClothingType.Jeans:
+                    sizes = GetNumericWomenWaistSizes().ConvertAll(size => size.ToString());
+                    break;
+                case WomenClothingType.Trousers:
+                    sizes = GetNumericWomenWaistSizes().ConvertAll(size => size.ToString());
+                    break;
+                case WomenClothingType.Leggings:
+                    sizes = GetNumericWomenWaistSizes().ConvertAll(size => size.ToString());
+                    break;
+                case WomenClothingType.Shorts:
+                    sizes = GetNumericWomenWaistSizes().ConvertAll(size => size.ToString());
+                    break;
+                case WomenClothingType.Skirts:
+                    sizes = GetWordSizes();
+                    break;
+                case WomenClothingType.Tshirts:
+                    sizes = GetNumericWomenWaistSizes().ConvertAll(size => size.ToString());
+                    break;
+                case WomenClothingType.Tops:
+                    sizes = GetWordSizes();
+                    break;
+                case WomenClothingType.Saree:
+                    sizes = GetWordSizes();
+                    break;
+                case WomenClothingType.Blouse:
+                    sizes = GetNumericWomenWaistSizes().ConvertAll(size => size.ToString());
+                    break;
+                default:
+                    break;
             }
-
-            if (gender == Gender.Female)
-            {
-                sizes.RemoveAll(size => int.Parse(size) % 2 != 0);
-            }
-
             return sizes;
         }
 
-        private static List<int> GetWordSizes(Gender gender)
+
+        private static List<int> GetNumericSizes(Gender gender)
         {
             List<int> sizes = new List<int>();
-            if (gender == Gender.Female)
-            {
-                sizes.AddRange(new int[] { 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24 });
-            }
-            else if (gender == Gender.Male)
-            {
-                sizes.AddRange(new int[] { 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60 });
-            }
+            if(Gender.Male == gender) { sizes.AddRange(new int[] { 34, 36, 38, 40, 42, 44, 46 }); }
+            if (Gender.Female == gender) { sizes.AddRange(new int[] { 34, 36, 38, 40, 42, 44, 46 }); }
             return sizes;
         }
 
-        private static List<string> GetWaistSizes(Gender gender)
+        private static List<int> GetNumericWomenWaistSizes()
         {
-            return GetNumericSizes(gender, 24, 40);
+            List<int> sizes = new List<int>();
+            sizes.AddRange(new int[] { 24, 25, 26, 28, 30, 31, 33, 36 });
+            return sizes;
         }
 
-        private static List<string> GetInseamSizes(Gender gender)
+        private static List<string> GetWordSizes()
         {
-            return GetNumericSizes(gender, 28, 36);
+            List<string> sizes = new List<string>();
+            sizes.AddRange(new string[] { "XS", "S", "M", "L", "XL", "XXL", "XXXL" });
+            return sizes;
         }
-
+     
         private static string ConvertToWordSize(int numericSize)
         {
             if (numericSize < 28) return "XS";

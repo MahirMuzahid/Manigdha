@@ -11,7 +11,6 @@ public partial class ClothsRequirementVerificationView : ContentPage
 	{
 		InitializeComponent();
         this.BindingContext = new ClothsRequirementVerificationViewModal();
-        fabricSizePicker.IsVisible = false;
         tearingInfoEditor.IsVisible = false;
         uploadReceiptImage.IsVisible = false;
     }
@@ -49,24 +48,20 @@ public partial class ClothsRequirementVerificationView : ContentPage
             if(tearCheckYes.IsChecked){ tearCheckYes.IsChecked = false; }
         }
     }
-    private void Picker_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        fabricSizePicker.IsVisible = true;
-        var picker = (Picker)sender;
-        int selectedIndex = picker.SelectedIndex;
-        if (selectedIndex != -1)
-        {
-            selectedType = (string)picker.ItemsSource[selectedIndex];
-        }
-        PopulateSizePicker();
-    }
+    
     public void PopulateSizePicker()
     {
-        if (string.IsNullOrEmpty(selectedType) || string.IsNullOrEmpty(selectedGender) || string.IsNullOrEmpty(selectedCloth)) { return; }
-        SizeType sizeType = (SizeType)Enum.Parse(typeof(SizeType), selectedType);
+        if ( string.IsNullOrEmpty(selectedGender) || string.IsNullOrEmpty(selectedCloth)) { return; }
         Gender gender = (Gender)Enum.Parse(typeof(Gender), selectedGender);
-        ClothingType cloth = (ClothingType)Enum.Parse(typeof(ClothingType), selectedCloth);
-        fabricSizePicker.ItemsSource = ClothingSize.GetSizes(sizeType, gender, cloth);
+        if(gender == Gender.Male) {
+            MenClothingType cloth = (MenClothingType)Enum.Parse(typeof(MenClothingType), selectedCloth);
+            fabricSizePicker.ItemsSource = ClothingSize.GetMenSizes(gender, cloth);
+        }
+        if (gender == Gender.Female) { 
+            WomenClothingType cloth = (WomenClothingType)Enum.Parse(typeof(WomenClothingType), selectedCloth);
+            fabricSizePicker.ItemsSource = ClothingSize.GetWomenSizes( gender, cloth);
+        }
+      
     }
     private void CheckBox_CheckedChanged_2(object sender, CheckedChangedEventArgs e)
     {
@@ -105,13 +100,17 @@ public partial class ClothsRequirementVerificationView : ContentPage
 
     private void Picker_SelectedIndexChanged_1(object sender, EventArgs e)
     {
+        selectedCloth = "";
+        fabricSizePicker.ItemsSource = null;
         var picker = (Picker)sender;
         int selectedIndex = picker.SelectedIndex;
         if (selectedIndex != -1)
         {
             selectedGender = (string)picker.ItemsSource[selectedIndex];
         }
-        PopulateSizePicker();
+        Gender gender = (Gender)Enum.Parse(typeof(Gender), selectedGender);
+        if (gender == Gender.Male) { clothTypepicker.ItemsSource = Enum.GetNames(typeof(ClothingSize.MenClothingType)).ToList(); }
+        if (gender == Gender.Female) { clothTypepicker.ItemsSource = Enum.GetNames(typeof(ClothingSize.WomenClothingType)).ToList(); }
     }
 
     private void Picker_SelectedIndexChanged_2(object sender, EventArgs e)
@@ -122,6 +121,7 @@ public partial class ClothsRequirementVerificationView : ContentPage
         {
             selectedCloth = (string)picker.ItemsSource[selectedIndex];
         }
+        
         PopulateSizePicker();
     }
 }

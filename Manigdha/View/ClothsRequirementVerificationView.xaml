@@ -68,13 +68,12 @@
                 <Grid Grid.Row="3" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
                     <Label Text="What is the cloth type" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
-                    <Picker Grid.Row="2" Grid.ColumnSpan="2" SelectedIndexChanged="Picker_SelectedIndexChanged_2" ItemsSource="{Binding ClothTypeList}" SelectedIndex="{Binding SelectedClothType}" Title="Select cloth type" FontSize="12" Margin="10,0,20,0" BackgroundColor="{StaticResource Gray900}"/>
+                    <Picker x:Name="clothTypepicker" Grid.Row="2" Grid.ColumnSpan="2" SelectedIndexChanged="Picker_SelectedIndexChanged_2" ItemsSource="{Binding ClothTypeList}" SelectedIndex="{Binding SelectedClothType}" Title="Select cloth type" FontSize="12" Margin="10,0,20,0" BackgroundColor="{StaticResource Gray900}"/>
                 </Grid>
 
-                <Grid Grid.Row="4" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
-                    <Label Text="What is the size type" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
+                <Grid Grid.Row="4" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0"  >
+                    <Label Text="What is the size" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
-                    <Picker x:Name="fabricSizeTypePicker" Grid.Row="2"  Title="Select size type" ItemsSource="{Binding SizeTypeList}" SelectedIndex="{Binding SelectedSizeType}" SelectedIndexChanged="Picker_SelectedIndexChanged" FontSize="12" Margin="10,0,0,0" BackgroundColor="{StaticResource Gray900}"/>
                     <Picker x:Name="fabricSizePicker" Grid.Row="2" ItemsSource="{Binding SizeList}" SelectedIndex="{Binding SelectedSize}" Grid.Column="1"  Title="Select size" FontSize="12" Margin="10,0,0,0" BackgroundColor="{StaticResource Gray900}"/>
                 </Grid>
 
@@ -111,7 +110,7 @@
                         <Button BackgroundColor="Transparent"  CommandParameter="1"/>
                     </Grid>
                 </Grid>
-                <Button Text="Next" Grid.Row="8" TextColor="White" BackgroundColor="{StaticResource Gray900}" Margin="260,0,20,0"/>
+                <Button Text="Next" Grid.Row="8" TextColor="White" Command="{Binding GoToReviewCommand}" BackgroundColor="{StaticResource Gray900}" Margin="260,0,20,0"/>
             </Grid>
         </ScrollView>
     </Grid>

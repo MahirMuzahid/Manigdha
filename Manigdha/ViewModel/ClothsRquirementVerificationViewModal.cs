@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Manigdha.View;
 using SharedModal.Enums;
 using SharedModal.Other_Modals;
 using System;
@@ -70,8 +72,13 @@ namespace Manigdha.ViewModel
         {
             GenderList = Enum.GetNames(typeof(ClothingSize.Gender)).ToList();
             FabricTypeList = Enum.GetNames(typeof(FabricEnum.FabricType)).ToList();
-            ClothTypeList = Enum.GetNames(typeof(ClothingSize.ClothingType)).ToList();
             SizeTypeList = Enum.GetNames(typeof(ClothingSize.SizeType)).ToList();
+        }
+
+        [RelayCommand]
+        public async Task GoToReview()
+        {
+            await Shell.Current.GoToAsync(nameof(ReviewProductInfo));
         }
     }
 }
