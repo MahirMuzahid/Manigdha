@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharedModal.Other_Modals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,6 @@ namespace Manigdha.Model.StaticFolder
         public static Stream FrontSideImageURL { get; set; }
         public static Stream BackSideImageURL { get; set; }
 
-        public static List<Tuple<string, bool>> Verification { get; set; }
+        public static List<ReviewVerificationStatus> Verification { get; set; }
     }
 }
