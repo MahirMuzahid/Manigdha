@@ -18,11 +18,11 @@
                     <Frame BackgroundColor="White" Grid.Row="1" BorderColor="Transparent" HasShadow="False"/>
                     <Grid Grid.Row="2" RowDefinitions="AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO" Margin="10,10,0,0">
                         <Label Text="Title" FontSize="12" TextColor="#90ffffff" />
-                        <Label Text="This will the Title of product" Grid.Row="1" FontSize="12" />
+                        <Label Text="{Binding Title}" Grid.Row="1" FontSize="12" />
                         <Label Text="Discription" FontSize="12" Grid.Row="2"  TextColor="#90ffffff"/>
-                        <Label Text="This will the Title of product" Grid.Row="3" FontSize="12"/>
+                        <Label Text="{Binding Description}" Grid.Row="3" FontSize="12"/>
                         <Label Text="Price" FontSize="12" Grid.Row="4"  TextColor="#90ffffff"/>
-                        <Label Text="This will the Title of product" Grid.Row="5" FontSize="12"/>
+                        <Label Text="{Binding Price}" Grid.Row="5" FontSize="12"/>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" RowDefinitions="20,2, AUTO" Margin="10,20,0,0">
@@ -37,14 +37,13 @@
                         <Grid RowDefinitions="AUTO,*" >
                             <Frame BackgroundColor="Transparent" Grid.RowSpan="2" BorderColor="Transparent" />
                             <Grid Grid.Row="1" RowDefinitions="*,AUTO">
-                                
-                                <Image Source="product.jpg"
+
+                                <Image Source="{Binding UpperSideImageURL}"
                                        Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"
                                        Aspect="AspectFit" Margin="10"/>
                                 <Grid Grid.Row="1" RowDefinitions="AUTO,*">
-                                    <Label Text="Front Side Image" Grid.Row="0" 
+                                    <Label Text="Front Side Image" Grid.Row="0"               
                                        HorizontalOptions="Center" FontSize="12" Margin="0,10,10,0"/>
-                                   
                                 </Grid>
                                
                             </Grid>
@@ -54,7 +53,7 @@
                             <Frame BackgroundColor="Transparent" Grid.RowSpan="2" BorderColor="Transparent" />
                             <Grid Grid.Row="1" RowDefinitions="*,AUTO">
 
-                                <Image Source="product.jpg"
+                                <Image Source="{Binding LowerSideImageURL}"
                                        Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"
                                        Aspect="AspectFit" Margin="10"/>
                                 <Grid Grid.Row="1" RowDefinitions="AUTO,*">
@@ -70,7 +69,7 @@
                             <Frame BackgroundColor="Transparent" Grid.RowSpan="2" BorderColor="Transparent" />
                             <Grid Grid.Row="1" RowDefinitions="*,AUTO">
 
-                                <Image Source="product.jpg"
+                                <Image Source="{Binding FrontSideImageURL}"
                                        Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"
                                        Aspect="AspectFit" Margin="10"/>
                                 <Grid Grid.Row="1" RowDefinitions="AUTO,*">
@@ -86,7 +85,7 @@
                             <Frame BackgroundColor="Transparent" Grid.RowSpan="2" BorderColor="Transparent" />
                             <Grid Grid.Row="1" RowDefinitions="*,AUTO">
 
-                                <Image Source="product.jpg"
+                                <Image Source="{Binding BackSideImageURL}"
                                        Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"
                                        Aspect="AspectFit" Margin="10"/>
                                 <Grid Grid.Row="1" RowDefinitions="AUTO,*">
@@ -102,7 +101,7 @@
                             <Frame BackgroundColor="Transparent" Grid.RowSpan="2" BorderColor="Transparent" />
                             <Grid Grid.Row="1" RowDefinitions="*,AUTO">
 
-                                <Image Source="product.jpg"
+                                <Image Source="{Binding LeftSideImageURL}"
                                        Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"
                                        Aspect="AspectFit" Margin="10"/>
                                 <Grid Grid.Row="1" RowDefinitions="AUTO,*">
@@ -118,7 +117,7 @@
                             <Frame BackgroundColor="Transparent" Grid.RowSpan="2" BorderColor="Transparent" />
                             <Grid Grid.Row="1" RowDefinitions="*,AUTO">
 
-                                <Image Source="product.jpg"
+                                <Image Source="{Binding RightSideImageURL}"
                                        Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"
                                        Aspect="AspectFit" Margin="10"/>
                                 <Grid Grid.Row="1" RowDefinitions="AUTO,*">
@@ -141,7 +140,7 @@
                     </Grid>
                     <Frame BackgroundColor="White" Grid.Row="1" BorderColor="Transparent" HasShadow="False"/>
                     <Grid Grid.Row="2"  Margin="0,10,0,0" RowSpacing="10">
-                        <ListView>
+                        <ListView ItemsSource="{Binding Verification}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
