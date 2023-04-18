@@ -50,10 +50,10 @@
     <Color x:Key="Blue300Accent">#A7CBF6</Color>
 
     <LinearGradientBrush x:Key="VerificationButtonGradient" StartPoint="0,0"
-                     EndPoint="1,1">
-        <GradientStop Color="{StaticResource Primary}"
-                  Offset="0.0" />
-        <GradientStop Color="{StaticResource Tertiary}"
+                     EndPoint="0,1">
+        <GradientStop Color="#176A30"
+                  Offset="0.2" />
+        <GradientStop Color="#FBFD02"
                   Offset="1" />
     </LinearGradientBrush>
     
