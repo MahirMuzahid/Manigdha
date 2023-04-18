@@ -16,7 +16,6 @@
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="3" Margin="10,0,0,0">
                         <Label Text="Cloth tearing info" FontSize="11" />
                         <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
-                        <Button Grid.ColumnSpan="3" BackgroundColor="Transparent" />
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="4" Margin="10,0,0,0">
                         <Label Text="Fabric info" FontSize="11" />
@@ -40,7 +39,7 @@
         </Grid>
         <ScrollView Grid.Row="1" Margin="0,0,0,0">
             <Grid RowDefinitions="AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,20, 30">
-                <Grid RowDefinitions="30,5,AUTO,AUTO" ColumnDefinitions="*,*" Margin="0,20,0,0" >
+                <Grid RowDefinitions="30,5,AUTO,AUTO,AUTO" ColumnDefinitions="*,*" Margin="0,20,0,0" >
                     <Label Text="Is there any tearing in cloth?" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Grid Grid.Row="2" ColumnDefinitions="AUTO,*">
@@ -52,35 +51,41 @@
                         <Label Text="No" Grid.Column="1" FontSize="12" VerticalOptions="Center"/>
                     </Grid>
                     <Editor x:Name="tearingInfoEditor" Grid.Row="3" Grid.ColumnSpan="2" FontSize="12" IsVisible="false" Placeholder="Write details of tearing Place" BackgroundColor="{StaticResource Gray900}" Margin="10,0,10,0"/>
+                    <Label Text="{Binding TearError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
-                <Grid Grid.Row="1" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
+                <Grid Grid.Row="1" RowDefinitions="30,5,AUTO,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
                     <Label Text="Gender" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Picker Grid.Row="2" Grid.ColumnSpan="2" SelectedIndexChanged="Picker_SelectedIndexChanged_1" ItemsSource="{Binding GenderList}" SelectedIndex="{Binding SelectedGender}" Title="Select gender" FontSize="12" Margin="10,0,20,0" BackgroundColor="{StaticResource Gray900}"/>
+                    <Label Text="{Binding GenderError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
 
-                <Grid Grid.Row="2" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
+                <Grid Grid.Row="2" RowDefinitions="30,5,AUTO,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
                     <Label Text="What is the fabric type" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Picker Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding FabricTypeList}" SelectedIndex="{Binding SelectedFabricType}" Title="Select fabric type" FontSize="12" Margin="10,0,20,0" BackgroundColor="{StaticResource Gray900}"/>
+                    <Label Text="{Binding FabricError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
 
-                <Grid Grid.Row="3" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
+                <Grid Grid.Row="3" RowDefinitions="30,5,AUTO,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
                     <Label Text="What is the cloth type" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Picker x:Name="clothTypepicker" Grid.Row="2" Grid.ColumnSpan="2" SelectedIndexChanged="Picker_SelectedIndexChanged_2" ItemsSource="{Binding ClothTypeList}" SelectedIndex="{Binding SelectedClothType}" Title="Select cloth type" FontSize="12" Margin="10,0,20,0" BackgroundColor="{StaticResource Gray900}"/>
+                    <Label Text="{Binding ClothTypeError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
 
                 <Grid Grid.Row="4" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0"  >
                     <Label Text="What is the size" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Picker x:Name="fabricSizePicker" Grid.Row="2" ItemsSource="{Binding SizeList}" SelectedIndex="{Binding SelectedSize}" Grid.Column="1"  Title="Select size" FontSize="12" Margin="10,0,0,0" BackgroundColor="{StaticResource Gray900}"/>
+                    <Label Text="{Binding SizeError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
 
-                <Grid Grid.Row="5" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
+                <Grid Grid.Row="5" RowDefinitions="30,5,AUTO,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
                     <Label Text="When did you buy?" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
                     <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <DatePicker Grid.Row="2" FontSize="12" Margin="10,0,0,0" Date="{Binding SelectedDate}" BackgroundColor="{StaticResource Gray900}"/>
+                    <Label Text="{Binding BuyError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
                 <Grid Grid.Row="6" RowDefinitions="30,5,AUTO,AUTO,AUTO" ColumnDefinitions="*,*" Margin="0,30,0,0" >
                     <Label Text="Is receipt available" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
@@ -109,6 +114,7 @@
                         <Frame BackgroundColor="Transparent" BorderColor="#30ffffff"/>
                         <Button BackgroundColor="Transparent"  CommandParameter="1"/>
                     </Grid>
+                    <Label Text="{Binding ReceiptError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
                 <Button Text="Next" Grid.Row="8" TextColor="White" Command="{Binding GoToReviewCommand}" BackgroundColor="{StaticResource Gray900}" Margin="260,0,20,0"/>
             </Grid>

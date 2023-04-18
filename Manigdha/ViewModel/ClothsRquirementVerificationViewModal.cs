@@ -67,6 +67,22 @@ namespace Manigdha.ViewModel
         [ObservableProperty]
         Stream receiptPhoto;
 
+        [ObservableProperty]
+        string tearError;
+        [ObservableProperty]
+        string genderError;
+        [ObservableProperty]
+        string fabricError;
+        [ObservableProperty]
+        string clothTypeError;
+        [ObservableProperty]
+        string sizeError;
+        [ObservableProperty]
+        string buyError;
+        [ObservableProperty]
+        string receiptError;
+
+
         List<ReviewVerificationStatus> verify = new List<ReviewVerificationStatus>();
         public ClothsRequirementVerificationViewModal()
         {
@@ -75,23 +91,39 @@ namespace Manigdha.ViewModel
 
         public void GetInitInfo()
         {
+            TearError = "";
+            GenderError = "";
+            FabricError = "";
+            ClothTypeError = "";
+            SizeError = "";
+            BuyError = "";
+            ReceiptError = "";
             GenderList = Enum.GetNames(typeof(ClothingSize.Gender)).ToList();
             FabricTypeList = Enum.GetNames(typeof(FabricEnum.FabricType)).ToList();
             SizeTypeList = Enum.GetNames(typeof(ClothingSize.SizeType)).ToList();
-            
+            var gg = DateTime.Now.ToString("dd/M/yyyy");
+            SelectedDate = DateTime.Parse(gg);
+
+
         }
 
         [RelayCommand]
         public async Task GoToReview()
         {
-            ShowSnakeBar snakeBar = new ShowSnakeBar();
-            if(!IsTearingInfoNoChecked || !IsTearingInfoYesChecked) { await snakeBar.Show("Select Tearing Info", SnakeBarType.Type.Danger); return; }
-            if (string.IsNullOrEmpty(SelectedGender)) { await snakeBar.Show("Select Gender Info", SnakeBarType.Type.Danger); return; }
-            if (string.IsNullOrEmpty(SelectedFabricType)) { await snakeBar.Show("Select Fabric Type", SnakeBarType.Type.Danger); return; }
-            if (string.IsNullOrEmpty(SelectedClothType)) { await snakeBar.Show("Select Cloth Type", SnakeBarType.Type.Danger); return; }
-            if (string.IsNullOrEmpty(SelectedSize)) { await snakeBar.Show("Select Size", SnakeBarType.Type.Danger); return; }
-            if (!IsReceiptAvailableNoChecked || !IsReceiptAvailableYesChecked) { await snakeBar.Show("Select Receipt Info", SnakeBarType.Type.Danger); return; }
-            if (SelectedDate >= DateTime.Now) { await snakeBar.Show("Select Buying Date Info", SnakeBarType.Type.Danger); return; }
+            TearError = "";
+            GenderError = "";
+            FabricError = "";
+            ClothTypeError = "";
+            SizeError = "";
+            BuyError = "";
+            ReceiptError = "";
+            if(!IsTearingInfoNoChecked && !IsTearingInfoYesChecked) { TearError = "Select Tearing Info"; return; }
+            if (string.IsNullOrEmpty(SelectedGender)) { GenderError = "Select Gender Info"; return; }
+            if (string.IsNullOrEmpty(SelectedFabricType)) { FabricError = "Select Fabric Type"; return; }
+            if (string.IsNullOrEmpty(SelectedClothType)) { ClothTypeError = "Select Cloth Type"; return; }
+            if (string.IsNullOrEmpty(SelectedSize)) { SizeError = "Select Size";  return; }            
+            if (SelectedDate >= DateTime.Now) { ReceiptError = "Select Buying Date Info";   return; }
+            if (!IsReceiptAvailableNoChecked || !IsReceiptAvailableYesChecked) { BuyError = "Select Receipt Info"; return; }
 
 
             await Shell.Current.GoToAsync(nameof(ReviewProductInfo));
