@@ -82,6 +82,21 @@ namespace Manigdha.ViewModel
         [ObservableProperty]
         string receiptError;
 
+        [ObservableProperty]
+        string tearVerificationStatus;
+        [ObservableProperty]
+        string genderVerificationStatus;
+        [ObservableProperty]
+        string fabricVerificationStatus;
+        [ObservableProperty]
+        string clothTypeVerificationStatus;
+        [ObservableProperty]
+        string sizeVerificationStatus;
+        [ObservableProperty]
+        string buyVerificationStatus;
+        [ObservableProperty]
+        string receiptVerificationStatus;
+
 
         List<ReviewVerificationStatus> verify = new List<ReviewVerificationStatus>();
         public ClothsRequirementVerificationViewModal()
@@ -98,11 +113,17 @@ namespace Manigdha.ViewModel
             SizeError = "";
             BuyError = "";
             ReceiptError = "";
+            TearVerificationStatus = "notverified.png";
+            GenderVerificationStatus = "notverified.png";
+            FabricVerificationStatus = "notverified.png";
+            ClothTypeVerificationStatus = "notverified.png";
+            SizeVerificationStatus = "notverified.png";
+            BuyVerificationStatus = "notverified.png";
+            ReceiptVerificationStatus = "notverified.png";
             GenderList = Enum.GetNames(typeof(ClothingSize.Gender)).ToList();
             FabricTypeList = Enum.GetNames(typeof(FabricEnum.FabricType)).ToList();
             SizeTypeList = Enum.GetNames(typeof(ClothingSize.SizeType)).ToList();
-            var gg = DateTime.Now.ToString("dd/M/yyyy");
-            SelectedDate = DateTime.Parse(gg);
+            SelectedDate = DateTime.Now;
 
 
         }
@@ -117,13 +138,20 @@ namespace Manigdha.ViewModel
             SizeError = "";
             BuyError = "";
             ReceiptError = "";
-            if(!IsTearingInfoNoChecked && !IsTearingInfoYesChecked) { TearError = "Select Tearing Info"; return; }
-            if (string.IsNullOrEmpty(SelectedGender)) { GenderError = "Select Gender Info"; return; }
-            if (string.IsNullOrEmpty(SelectedFabricType)) { FabricError = "Select Fabric Type"; return; }
-            if (string.IsNullOrEmpty(SelectedClothType)) { ClothTypeError = "Select Cloth Type"; return; }
-            if (string.IsNullOrEmpty(SelectedSize)) { SizeError = "Select Size";  return; }            
-            if (SelectedDate >= DateTime.Now) { ReceiptError = "Select Buying Date Info";   return; }
-            if (!IsReceiptAvailableNoChecked || !IsReceiptAvailableYesChecked) { BuyError = "Select Receipt Info"; return; }
+            if(!IsTearingInfoNoChecked && !IsTearingInfoYesChecked) { TearError = "Select Tearing Info"; TearVerificationStatus = "notverified.png"; return; }
+            TearVerificationStatus = "verified.svg";
+            if (string.IsNullOrEmpty(SelectedGender)) { GenderError = "Select Gender Info"; GenderVerificationStatus = "notverified.png"; return; }
+            GenderVerificationStatus = "verified.png";
+            if (string.IsNullOrEmpty(SelectedFabricType)) { FabricError = "Select Fabric Type"; FabricVerificationStatus = "notverified.png"; return; }
+            FabricVerificationStatus = "verified.png";
+            if (string.IsNullOrEmpty(SelectedClothType)) { ClothTypeError = "Select Cloth Type"; ClothTypeVerificationStatus = "notverified.png"; return; }
+            ClothTypeVerificationStatus = "verified.png";
+            if (string.IsNullOrEmpty(SelectedSize)) { SizeError = "Select Size"; ClothTypeVerificationStatus = "notverified.png"; return; }
+            ClothTypeVerificationStatus = "verified.png";
+            if (SelectedDate >= DateTime.Now) { BuyError = "Select Buying Date Info"; BuyVerificationStatus = "notverified.png"; return; }
+            BuyVerificationStatus = "verified.png";
+            if (!IsReceiptAvailableNoChecked || !IsReceiptAvailableYesChecked) { ReceiptError = "Select Receipt Info"; ReceiptVerificationStatus = "notverified.png"; return; }
+            ReceiptVerificationStatus = "verified.png";
 
 
             await Shell.Current.GoToAsync(nameof(ReviewProductInfo));
