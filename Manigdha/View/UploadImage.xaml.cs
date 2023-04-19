@@ -7,7 +7,7 @@ public partial class UploadImage : ContentPage
 	public UploadImage()
 	{
 		InitializeComponent();
-        this.BindingContext = new UploadNonDigitalImageRequirmentViewModal();
+        BindingContext = new UploadNonDigitalImageRequirmentViewModal();
 
     }
 

@@ -2,11 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodal ="clr-namespace:Manigdha.ViewModel"
-             x:DataType="viewmodal:ReviewProductViewModal"
+
              x:Class="Manigdha.View.ReviewProductInfo"
              Title="ReviewProductInfo">
+
+    <ContentPage.BindingContext>
+        <viewmodal:ReviewProductViewModal></viewmodal:ReviewProductViewModal>
+    </ContentPage.BindingContext>
+    
     <Grid BackgroundColor="{AppThemeBinding Dark={StaticResource Gray950}, Light= white}">
-        
         <ScrollView >
             <Grid RowDefinitions="AUTO,AUTO,AUTO,80,20,*"  Margin="10,0,10,0">
                 <Grid RowDefinitions="20,2, AUTO" Margin="10,0,0,0">
@@ -146,8 +150,8 @@
                                     <ViewCell>
                                         <Grid ColumnDefinitions="*,25">
                                             <Frame BackgroundColor="{StaticResource Gray900}" CornerRadius="10" Grid.ColumnSpan="2"/>
-                                            <Image Source="verified.svg" Grid.Column="1" Margin="0,0,10,0"/>
-                                            <Label Text="Verification 1" FontSize="12" VerticalOptions="Center" Margin="10,0,0,0"/>
+                                            <Image Source="{Binding verificationStatus}" Grid.Column="1" Margin="0,0,10,0"/>
+                                            <Label Text="{Binding Name }" FontSize="12" VerticalOptions="Center" Margin="10,0,0,0"/>
                                         </Grid>
                                     </ViewCell>
                                 </DataTemplate>

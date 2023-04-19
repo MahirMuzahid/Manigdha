@@ -15,27 +15,27 @@
                     <Frame BackgroundColor="White" Grid.Row="1" BorderColor="Transparent" Margin="0,0,10,0"/>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="3" Margin="10,0,0,0">
                         <Label Text="Cloth tearing info" FontSize="11" />
-                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding TearVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="4" Margin="10,0,0,0">
                         <Label Text="Gender" FontSize="11" />
-                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding GenderVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="5" Margin="10,0,0,0">
                         <Label Text="Fabric type info" FontSize="11" />
-                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding FabricVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="6" Margin="10,0,0,0">
                         <Label Text="Cloth type info" FontSize="11" />
-                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding ClothTypeVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="7" Margin="10,0,0,0">
                         <Label Text="Size info" FontSize="11" />
-                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding SizeVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                     <Grid ColumnDefinitions="AUTO,20,*" Grid.Row="8" Margin="10,0,0,0">
                         <Label Text="Receipt info" FontSize="11" />
-                        <Image Source="verified.png" Grid.Column="1" Margin="5,1,0,0"/>
+                        <Image Source="{Binding ReceiptVerificationStatus}" Grid.Column="1" Margin="5,1,0,0"/>
                     </Grid>
                 </Grid>
             </Grid>
@@ -45,7 +45,7 @@
             <Grid RowDefinitions="AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,20, 30">
                 <Grid RowDefinitions="30,5,AUTO,AUTO,AUTO" ColumnDefinitions="*,*" Margin="0,20,0,0" >
                     <Label Text="Is there any tearing in cloth?" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
-                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <Image Source="{Binding TearVerificationStatus}" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Grid Grid.Row="2" ColumnDefinitions="AUTO,*">
                         <CheckBox x:Name="tearCheckYes" IsChecked="{Binding IsTearingInfoYesChecked}"  HorizontalOptions="Start" Margin="10,0,0,0" CheckedChanged="CheckBox_CheckedChanged"/>
                         <Label Text="Yes" Grid.Column="1" FontSize="12" VerticalOptions="Center"/>
@@ -59,41 +59,41 @@
                 </Grid>
                 <Grid Grid.Row="1" RowDefinitions="30,5,AUTO,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
                     <Label Text="Gender" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
-                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <Image Source="{Binding GenderVerificationStatus}" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Picker Grid.Row="2" Grid.ColumnSpan="2" SelectedIndexChanged="Picker_SelectedIndexChanged_1" ItemsSource="{Binding GenderList}" SelectedIndex="{Binding SelectedGender}" Title="Select gender" FontSize="12" Margin="10,0,20,0" BackgroundColor="{StaticResource Gray900}"/>
                     <Label Text="{Binding GenderError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
 
                 <Grid Grid.Row="2" RowDefinitions="30,5,AUTO,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
                     <Label Text="What is the fabric type" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
-                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <Image Source="{Binding FabricVerificationStatus}" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Picker Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding FabricTypeList}" SelectedIndex="{Binding SelectedFabricType}" Title="Select fabric type" FontSize="12" Margin="10,0,20,0" BackgroundColor="{StaticResource Gray900}"/>
                     <Label Text="{Binding FabricError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
 
                 <Grid Grid.Row="3" RowDefinitions="30,5,AUTO,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
                     <Label Text="What is the cloth type" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
-                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <Image Source="{Binding ClothTypeVerificationStatus}" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Picker x:Name="clothTypepicker" Grid.Row="2" Grid.ColumnSpan="2" SelectedIndexChanged="Picker_SelectedIndexChanged_2" ItemsSource="{Binding ClothTypeList}" SelectedIndex="{Binding SelectedClothType}" Title="Select cloth type" FontSize="12" Margin="10,0,20,0" BackgroundColor="{StaticResource Gray900}"/>
                     <Label Text="{Binding ClothTypeError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
 
                 <Grid Grid.Row="4" RowDefinitions="30,5,AUTO,AUTO" Margin="0,30,0,0"  >
                     <Label Text="What is the size" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
-                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <Image Source="{Binding SizeVerificationStatus}" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Picker x:Name="fabricSizePicker" Grid.Row="2" ItemsSource="{Binding SizeList}" SelectedIndex="{Binding SelectedSize}" Grid.Column="1"  Title="Select size" FontSize="12" Margin="10,0,0,0" BackgroundColor="{StaticResource Gray900}"/>
                     <Label Text="{Binding SizeError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
 
                 <Grid Grid.Row="5" RowDefinitions="30,5,AUTO,AUTO,AUTO" Margin="0,30,0,0" ColumnDefinitions="*,*" >
                     <Label Text="When did you buy?" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
-                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <Image Source="{Binding BuyVerificationStatus}" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <DatePicker Grid.Row="2" FontSize="12" Margin="10,0,0,0" Date="{Binding SelectedDate}" BackgroundColor="{StaticResource Gray900}"/>
                     <Label Text="{Binding BuyError}" Grid.Row="4" FontSize="11" TextColor="Red" Margin="10,0,0,0"/>
                 </Grid>
                 <Grid Grid.Row="6" RowDefinitions="30,5,AUTO,AUTO,AUTO" ColumnDefinitions="*,*" Margin="0,30,0,0" >
                     <Label Text="Is receipt available" Margin="10,10,0,0" FontSize="12" FontAttributes="Bold" Grid.ColumnSpan="2"/>
-                    <Image Source="verified.png" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
+                    <Image Source="{Binding ReceiptVerificationStatus}" HorizontalOptions="End" Margin="6" Aspect="AspectFit" Grid.Column="1"/>
                     <Grid  Grid.Row="2" ColumnDefinitions="AUTO,*">
                         <CheckBox x:Name="receiptCheckYes" IsChecked="{Binding IsReceiptAvailableYesChecked}" HorizontalOptions="Start" Margin="10,0,0,0" CheckedChanged="CheckBox_CheckedChanged_2"/>
                         <Label Text="Yes" FontSize="12" Grid.Column="1" VerticalOptions="Center"/>

@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Manigdha.Model;
+using Manigdha.Model.StaticFolder;
 using Manigdha.View;
 using SharedModal.Enums;
 using SharedModal.Other_Modals;
@@ -15,16 +16,7 @@ namespace Manigdha.ViewModel
 {
     public partial class ClothsRequirementVerificationViewModal : ObservableObject
     {
-        [ObservableProperty]
-        string clothTearingInfoVerificationStatus;
-        [ObservableProperty]
-        string fabricIfoVerificationStatus;
-        [ObservableProperty]
-        string clothSizeInfoVerificationStatus;
-        [ObservableProperty]
-        string buyingTimeVerificationStatus;
-        [ObservableProperty]
-        string receiptInfoVerificationStatus;
+
 
         [ObservableProperty]
         bool isTearingInfoNoChecked;
@@ -113,13 +105,7 @@ namespace Manigdha.ViewModel
             SizeError = "";
             BuyError = "";
             ReceiptError = "";
-            TearVerificationStatus = "notverified.png";
-            GenderVerificationStatus = "notverified.png";
-            FabricVerificationStatus = "notverified.png";
-            ClothTypeVerificationStatus = "notverified.png";
-            SizeVerificationStatus = "notverified.png";
-            BuyVerificationStatus = "notverified.png";
-            ReceiptVerificationStatus = "notverified.png";
+
             GenderList = Enum.GetNames(typeof(ClothingSize.Gender)).ToList();
             FabricTypeList = Enum.GetNames(typeof(FabricEnum.FabricType)).ToList();
             SizeTypeList = Enum.GetNames(typeof(ClothingSize.SizeType)).ToList();
@@ -146,13 +132,25 @@ namespace Manigdha.ViewModel
             FabricVerificationStatus = "verified.png";
             if (string.IsNullOrEmpty(SelectedClothType)) { ClothTypeError = "Select Cloth Type"; ClothTypeVerificationStatus = "notverified.png"; return; }
             ClothTypeVerificationStatus = "verified.png";
-            if (string.IsNullOrEmpty(SelectedSize)) { SizeError = "Select Size"; ClothTypeVerificationStatus = "notverified.png"; return; }
-            ClothTypeVerificationStatus = "verified.png";
+            if (string.IsNullOrEmpty(SelectedSize)) { SizeError = "Select Size"; SizeVerificationStatus = "notverified.png"; return; }
+            SizeVerificationStatus = "verified.png";
             if (SelectedDate >= DateTime.Now) { BuyError = "Select Buying Date Info"; BuyVerificationStatus = "notverified.png"; return; }
             BuyVerificationStatus = "verified.png";
-            if (!IsReceiptAvailableNoChecked || !IsReceiptAvailableYesChecked) { ReceiptError = "Select Receipt Info"; ReceiptVerificationStatus = "notverified.png"; return; }
+            if (!IsReceiptAvailableNoChecked && !IsReceiptAvailableYesChecked) { ReceiptError = "Select Receipt Info"; ReceiptVerificationStatus = "notverified.png"; return; }
             ReceiptVerificationStatus = "verified.png";
 
+            List<ReviewVerificationStatus> listReview = new List<ReviewVerificationStatus>()
+            {
+                new ReviewVerificationStatus(){ Name = "Tearing Info", IsVerified = true , Info = TearingInfoText, verificationStatus = "verified.png"},
+                new ReviewVerificationStatus(){ Name = "Gender Info", IsVerified = true , Info = SelectedGender, verificationStatus = "verified.png"},
+                new ReviewVerificationStatus(){ Name = "Fabric Info", IsVerified = true , Info = SelectedFabricType, verificationStatus = "verified.png"},
+                new ReviewVerificationStatus(){ Name = "Cloth Type Info", IsVerified = true , Info = SelectedClothType, verificationStatus = "verified.png"},
+                new ReviewVerificationStatus(){ Name = "Size Info", IsVerified = true , Info = SelectedSizeType, verificationStatus = "verified.png"},
+                new ReviewVerificationStatus(){ Name = "Buy Time Info", IsVerified = true , Info = SelectedDate.ToString(), verificationStatus = "verified.png"},
+                new ReviewVerificationStatus(){ Name = "Receipt Info", IsVerified = true , Info = "", verificationStatus = "verified.png"}
+            };
+
+            StaticAddProductImage.Verification = listReview;
 
             await Shell.Current.GoToAsync(nameof(ReviewProductInfo));
         }
