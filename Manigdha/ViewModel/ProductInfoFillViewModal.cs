@@ -100,7 +100,9 @@ namespace Manigdha.ViewModel
             //if (int.Parse(price) < 100) { PriceError = "Cannot sell any product less then 100 taka"; return; }
             //if (string.IsNullOrEmpty(SelectedProductCatagory)) { ProductCatagoryError = "Please select product catagory"; return; }
             //if (string.IsNullOrEmpty(SelectedCatagoryType)) { CatagoryTypeError = "Please select product catagory type"; return; }
-
+            StaticAddProductImage.Title = Title;
+            StaticAddProductImage.Description = Description;
+            StaticAddProductImage.Price = Price;
             GoToVerification();
         }
         public async Task GoToVerification()

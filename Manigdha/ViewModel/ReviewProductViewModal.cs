@@ -36,12 +36,12 @@ namespace Manigdha.ViewModel
             Title = StaticAddProductImage.Title;
             Description = StaticAddProductImage.Description;
             Price = StaticAddProductImage.Price;
-            UpperSideImageURL = ImageSource.FromStream(() => StaticAddProductImage.UpperSideImageURL);
-            LowerSideImageURL = ImageSource.FromStream(() => StaticAddProductImage.LowerSideImageURL);
-            LeftSideImageURL  = ImageSource.FromStream(() => StaticAddProductImage.LeftSideImageURL);
-            RightSideImageURL = ImageSource.FromStream(() => StaticAddProductImage.RightSideImageURL);
-            FrontSideImageURL = ImageSource.FromStream(() => StaticAddProductImage.FrontSideImageURL);
-            BackSideImageURL  = ImageSource.FromStream(() => StaticAddProductImage.BackSideImageURL);
+            FrontSideImageURL = StaticAddProductImage.FrontSideImageURL;
+            UpperSideImageURL = StaticAddProductImage.UpperSideImageURL;
+            LowerSideImageURL = StaticAddProductImage.LowerSideImageURL;
+            LeftSideImageURL  = StaticAddProductImage.LeftSideImageURL;
+            RightSideImageURL = StaticAddProductImage.RightSideImageURL;
+            BackSideImageURL  = StaticAddProductImage.BackSideImageURL;
             Verification = StaticAddProductImage.Verification;            
         }
     }

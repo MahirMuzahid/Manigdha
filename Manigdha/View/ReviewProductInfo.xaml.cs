@@ -5,6 +5,6 @@ public partial class ReviewProductInfo : ContentPage
 	public ReviewProductInfo()
 	{
 		InitializeComponent();
-		BindingContext = new ReviewProductInfo();
+		//this.BindingContext = new ReviewProductInfo();
 	}
 }

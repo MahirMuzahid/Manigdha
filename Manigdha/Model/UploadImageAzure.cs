@@ -1,8 +1,6 @@
 ﻿using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
 using Manigdha.Model.StaticFolder;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,9 +37,21 @@ namespace Manigdha.Model
                 ShowSnakeBar showSnakeBar = new ShowSnakeBar();
                 await showSnakeBar.Show(ex.Message, SharedModal.Enums.SnakeBarType.Type.Danger);
             }
+            return "https://manigdhaimagestorage.blob.core.windows.net/manigdhanondigitalrequitmentimage/" + fileName; 
 
-            return fileName;
+        }
 
+        public async Task<bool> DeleteImage(string fileName)
+        {
+            blob = container.GetBlobClient(fileName);
+            if (await blob.DeleteIfExistsAsync())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

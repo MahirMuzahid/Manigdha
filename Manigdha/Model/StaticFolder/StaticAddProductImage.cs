@@ -13,12 +13,12 @@ namespace Manigdha.Model.StaticFolder
         public static string Description { get; set; }
         public static string Price { get; set; }
 
-        public static Stream UpperSideImageURL { get; set; }
-        public static Stream LowerSideImageURL { get; set; }
-        public static Stream LeftSideImageURL { get; set; }
-        public static Stream RightSideImageURL { get; set; }
-        public static Stream FrontSideImageURL { get; set; }
-        public static Stream BackSideImageURL { get; set; }
+        public static string UpperSideImageURL { get; set; }
+        public static string LowerSideImageURL { get; set; }
+        public static string LeftSideImageURL { get; set; }
+        public static string RightSideImageURL { get; set; }
+        public static string FrontSideImageURL { get; set; }
+        public static string BackSideImageURL { get; set; }
 
         public static List<ReviewVerificationStatus> Verification { get; set; }
     }

@@ -155,5 +155,8 @@
                 </Grid>
             </Grid>
         </ScrollView>
+        <Grid Grid.RowSpan="2">
+            <ActivityIndicator IsRunning="True" />
+        </Grid>
     </Grid>
 </ContentPage>

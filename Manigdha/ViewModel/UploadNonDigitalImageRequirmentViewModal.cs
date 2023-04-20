@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Manigdha.Model;
 using Manigdha.Model.StaticFolder;
 using Manigdha.View;
+using SharedModal.Enums;
 using SharedModal.Modals;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,8 @@ namespace Manigdha.ViewModel
         [ObservableProperty]
         string errorText;
 
+        ShowSnakeBar showSnakeBar = new ShowSnakeBar();
+
         public UploadNonDigitalImageRequirmentViewModal()
         {
             //verified.svg
@@ -67,27 +70,64 @@ namespace Manigdha.ViewModel
             if (MediaPicker.Default.IsCaptureSupported)
             {
                 FileResult photo = await MediaPicker.Default.PickPhotoAsync();
-
-                if (photo != null)
+                try
                 {
-                    // save the file into local storage
-                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+                    if (photo != null)
+                    {
+                        // save the file into local storage
+                        string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
 
-
-                    Stream sourceStream = await photo.OpenReadAsync();
-                    if (i == 1) { FrontImageURl = ImageSource.FromStream(() => sourceStream); 
-                        StaticAddProductImage.FrontSideImageURL = sourceStream; FrontImageVerificationStatus = "verified.svg";}
-                    if (i == 2) { BackImageURl = ImageSource.FromStream(() => sourceStream);  
-                        StaticAddProductImage.BackSideImageURL = sourceStream; BackImageVerificationStatus = "verified.svg";}
-                    if (i == 3) { UpperImageURl = ImageSource.FromStream(() => sourceStream); 
-                        StaticAddProductImage.UpperSideImageURL = sourceStream; UpperImageVerificationStatus = "verified.svg";}
-                    if (i == 4) { LowerImageURl = ImageSource.FromStream(() => sourceStream); 
-                        StaticAddProductImage.LowerSideImageURL = sourceStream; LowerImageVerificationStatus = "verified.svg";}
-                    if (i == 5) { LeftImageURl = ImageSource.FromStream(() => sourceStream);  
-                        StaticAddProductImage.LeftSideImageURL = sourceStream; LeftImageVerificationStatus = "verified.svg";}
-                    if (i == 6) { RightImageURl = ImageSource.FromStream(() => sourceStream); 
-                        StaticAddProductImage.RightSideImageURL = sourceStream; RightImageVerificationStatus = "verified.svg";}
+                        UploadImageAzure uploadImage = new UploadImageAzure();
+                        Stream sourceStream = await photo.OpenReadAsync();
+                        var flileLink =  await uploadImage.UploadProductImage(sourceStream);
+                        if (i == 1)
+                        {
+                            if (!string.IsNullOrEmpty(StaticAddProductImage.FrontSideImageURL)) { await uploadImage.DeleteImage(StaticAddProductImage.FrontSideImageURL); }
+                            StaticAddProductImage.FrontSideImageURL = flileLink;
+                            FrontImageURl = flileLink;
+                            FrontImageVerificationStatus = "verified.svg";
+                        }
+                        if (i == 2)
+                        {
+                            if (!string.IsNullOrEmpty(StaticAddProductImage.BackSideImageURL)) { await uploadImage.DeleteImage(StaticAddProductImage.BackSideImageURL); }
+                            StaticAddProductImage.BackSideImageURL = flileLink;
+                            BackImageURl = flileLink;
+                            BackImageVerificationStatus = "verified.svg";
+                        }
+                        if (i == 3)
+                        {
+                            if (!string.IsNullOrEmpty(StaticAddProductImage.UpperSideImageURL)) { await uploadImage.DeleteImage(StaticAddProductImage.UpperSideImageURL); }
+                            UpperImageURl = flileLink;
+                            StaticAddProductImage.UpperSideImageURL = flileLink;
+                            UpperImageVerificationStatus = "verified.svg";
+                        }
+                        if (i == 4)
+                        {
+                            if (!string.IsNullOrEmpty(StaticAddProductImage.LowerSideImageURL)) { await uploadImage.DeleteImage(StaticAddProductImage.LowerSideImageURL); }
+                            LowerImageURl = flileLink;
+                            StaticAddProductImage.LowerSideImageURL = flileLink;
+                            LowerImageVerificationStatus = "verified.svg";
+                        }
+                        if (i == 5)
+                        {
+                            if (!string.IsNullOrEmpty(StaticAddProductImage.LeftSideImageURL)) { await uploadImage.DeleteImage(StaticAddProductImage.LeftSideImageURL); }
+                            LeftImageURl = flileLink;
+                            StaticAddProductImage.LeftSideImageURL = flileLink;
+                            LeftImageVerificationStatus = "verified.svg";
+                        }
+                        if (i == 6)
+                        {
+                            if (!string.IsNullOrEmpty(StaticAddProductImage.RightSideImageURL)) { await uploadImage.DeleteImage(StaticAddProductImage.RightSideImageURL); }
+                            RightImageURl = flileLink;
+                            StaticAddProductImage.RightSideImageURL = flileLink;
+                            RightImageVerificationStatus = "verified.svg";
+                        }
+                    }
                 }
+                catch (Exception ex) {                   
+                    await showSnakeBar.Show(ex.Message, SnakeBarType.Type.Danger);
+                }
+               
                 return ;
             }
             return ;
