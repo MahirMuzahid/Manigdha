@@ -41,17 +41,12 @@ namespace Manigdha.Model
 
         }
 
-        public async Task<bool> DeleteImage(string fileName)
+        public async Task DeleteImage(string fileURL)
         {
-            blob = container.GetBlobClient(fileName);
-            if (await blob.DeleteIfExistsAsync())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            string imageName = fileURL.Split('/').Last();
+            blob = container.GetBlobClient(imageName);
+            var res = blob.Delete();
+            
         }
     }
 }

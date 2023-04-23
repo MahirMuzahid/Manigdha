@@ -41,6 +41,8 @@ namespace Manigdha.ViewModel
         string rightImageVerificationStatus;
         [ObservableProperty]
         string errorText;
+        [ObservableProperty]
+        bool isBusy;
 
         ShowSnakeBar showSnakeBar = new ShowSnakeBar();
 
@@ -67,6 +69,7 @@ namespace Manigdha.ViewModel
         }
         public async Task TakePhoto(int i)
         {
+            IsBusy = true;
             if (MediaPicker.Default.IsCaptureSupported)
             {
                 FileResult photo = await MediaPicker.Default.PickPhotoAsync();
@@ -122,6 +125,7 @@ namespace Manigdha.ViewModel
                             StaticAddProductImage.RightSideImageURL = flileLink;
                             RightImageVerificationStatus = "verified.svg";
                         }
+                        IsBusy = false;
                     }
                 }
                 catch (Exception ex) {                   

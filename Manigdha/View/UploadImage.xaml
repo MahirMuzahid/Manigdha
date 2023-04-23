@@ -155,8 +155,8 @@
                 </Grid>
             </Grid>
         </ScrollView>
-        <Grid Grid.RowSpan="2">
-            <ActivityIndicator IsRunning="True" /> 
+        <Grid Grid.RowSpan="2"  BackgroundColor="#90000000" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="True" Margin="50" /> 
         </Grid>
     </Grid>
 </ContentPage>
