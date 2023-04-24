@@ -67,6 +67,10 @@ namespace Manigdha.ViewModel
 
            
         }
+        public void getOldUploadedImage()
+        {
+
+        }
         public async Task TakePhoto(int i)
         {
             IsBusy = true;

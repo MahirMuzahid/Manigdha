@@ -20,13 +20,24 @@
                         <Image Source="edit.png" Grid.Column="2" HorizontalOptions="Center" Aspect="AspectFit" Margin="3"/>
                     </Grid>
                     <Frame BackgroundColor="White" Grid.Row="1" BorderColor="Transparent" HasShadow="False"/>
-                    <Grid Grid.Row="2" RowDefinitions="AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO,AUTO" Margin="10,10,0,0">
+                    <Grid Grid.Row="2" RowDefinitions="AUTO,AUTO,AUTO,AUTO,AUTO,20" Margin="10,10,0,0">
                         <Label Text="Title" FontSize="11" TextColor="#90ffffff" />
                         <Label Text="{Binding Title}" Grid.Row="1" FontSize="13" />
                         <Label Text="Discription" FontSize="11" Grid.Row="2"  TextColor="#90ffffff"/>
                         <Label Text="{Binding Description}" Grid.Row="3" FontSize="13"/>
                         <Label Text="Price" FontSize="11" Grid.Row="4"  TextColor="#90ffffff"/>
-                        <Label Text="{Binding Price}" Grid.Row="5" FontSize="13"/>
+                        <Grid Grid.Row="5" ColumnDefinitions="AUTO,*" >
+                            <Frame BackgroundColor="{StaticResource Primary}"/>
+                            <Label   FontSize="13" Margin="10,0,10,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Price}"/>
+                                        <Span Text=" Taka"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                        
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" RowDefinitions="20,2, AUTO" Margin="10,20,0,0">
