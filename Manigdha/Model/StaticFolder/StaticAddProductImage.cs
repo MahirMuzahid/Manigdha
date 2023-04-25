@@ -12,6 +12,8 @@ namespace Manigdha.Model.StaticFolder
         public static string Title { get; set; }
         public static string Description { get; set; }
         public static string Price { get; set; }
+        public static int SelectedProductCategoryIndex { get; set; }
+        public static int SelectedCategoryTypeIndex { get; set; }
 
         public static string UpperSideImageURL { get; set; }
         public static string LowerSideImageURL { get; set; }

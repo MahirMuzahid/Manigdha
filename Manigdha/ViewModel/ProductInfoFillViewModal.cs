@@ -50,6 +50,10 @@ namespace Manigdha.ViewModel
         string catagoryTypeError;
         [ObservableProperty]
         string productCatagoryError;
+        [ObservableProperty]
+        int selectedProductCategoryIndex;
+        [ObservableProperty]
+        int selectedCategoryTypeIndex;
 
         bool isBusy;
         private ShowSnakeBar showSnake = new ShowSnakeBar();
@@ -57,15 +61,24 @@ namespace Manigdha.ViewModel
         List<ProductCatagory> PikerProductCatagoryList;
         public ProductInfoFillViewModal()
         {
+            DoInit();
+
+        }
+        public void DoInit()
+        {
+            Title = StaticAddProductImage.Title;
+            Description= StaticAddProductImage.Description;
+            Price = StaticAddProductImage.Price;
+            SelectedProductCategoryIndex = StaticAddProductImage.SelectedProductCategoryIndex;
+            SelectedCategoryTypeIndex = StaticAddProductImage.SelectedCategoryTypeIndex ;
             CURDCall<ProductCatagory> pc = new CURDCall<ProductCatagory>();
             CURDCall<CatagoryType> ct = new CURDCall<CatagoryType>();
             ProductCatagoryServerConnection pcconn = new ProductCatagoryServerConnection(pc);
-            CatagoryTypeServerConnection ctconn= new CatagoryTypeServerConnection(ct);
+            CatagoryTypeServerConnection ctconn = new CatagoryTypeServerConnection(ct);
             query = new ProductInformationFillViewModalQuery(ctconn, pcconn);
             isBusy = false;
             IsSelectGridVisible = true;
             getProductCatagoryList();
-
         }
 
         public async Task getProductCatagoryList()
@@ -103,6 +116,8 @@ namespace Manigdha.ViewModel
             StaticAddProductImage.Title = Title;
             StaticAddProductImage.Description = Description;
             StaticAddProductImage.Price = Price;
+            StaticAddProductImage.SelectedProductCategoryIndex = SelectedProductCategoryIndex;
+            StaticAddProductImage.SelectedCategoryTypeIndex = SelectedCategoryTypeIndex;
             GoToVerification();
         }
         public async Task GoToVerification()

@@ -16,17 +16,17 @@ namespace Manigdha.ViewModel
     public partial class UploadNonDigitalImageRequirmentViewModal: ObservableObject
     {
         [ObservableProperty]
-        ImageSource frontImageURl;
+        string frontImageURl;
         [ObservableProperty]
-        ImageSource backImageURl;
+        string backImageURl;
         [ObservableProperty]
-        ImageSource upperImageURl;
+        string upperImageURl;
         [ObservableProperty]
-        ImageSource lowerImageURl;
+        string lowerImageURl;
         [ObservableProperty]
-        ImageSource leftImageURl;
+        string leftImageURl;
         [ObservableProperty]
-        ImageSource rightImageURl;
+        string rightImageURl;
         [ObservableProperty]
         string frontImageVerificationStatus;
         [ObservableProperty]
@@ -43,19 +43,42 @@ namespace Manigdha.ViewModel
         string errorText;
         [ObservableProperty]
         bool isBusy;
-
+        [ObservableProperty]
+        bool isFrontdltvisible;
+        [ObservableProperty]
+        bool isbackdltvisible;
+        [ObservableProperty]
+        bool isUpperdltvisible;
+        [ObservableProperty]
+        bool isLowerdltvisible;
+        [ObservableProperty]
+        bool isLeftdltvisible;
+        [ObservableProperty]
+        bool isRightdltvisible;
+        UploadImageAzure uploadImage = new UploadImageAzure();
         ShowSnakeBar showSnakeBar = new ShowSnakeBar();
 
         public UploadNonDigitalImageRequirmentViewModal()
         {
-            //verified.svg
-            //notverified.png
+            DoInit(); 
+            getOldUploadedImage();
+        }
+
+
+        public void DoInit()
+        {
             FrontImageVerificationStatus = "notverified.png";
             BackImageVerificationStatus = "notverified.png";
             UpperImageVerificationStatus = "notverified.png";
             LowerImageVerificationStatus = "notverified.png";
             LeftImageVerificationStatus = "notverified.png";
             RightImageVerificationStatus = "notverified.png";
+            IsFrontdltvisible = false;
+            Isbackdltvisible = false;
+            IsUpperdltvisible = false;
+            IsLowerdltvisible = false;
+            IsLeftdltvisible = false;
+            IsRightdltvisible = false;
         }
 
         [RelayCommand]
@@ -69,11 +92,71 @@ namespace Manigdha.ViewModel
         }
         public void getOldUploadedImage()
         {
+            FrontImageURl = StaticAddProductImage.FrontSideImageURL;
+            BackImageURl = StaticAddProductImage.BackSideImageURL;
+            UpperImageURl = StaticAddProductImage.UpperSideImageURL;
+            LowerImageURl = StaticAddProductImage.LowerSideImageURL;
+            LeftImageURl = StaticAddProductImage.LeftSideImageURL;
+            RightImageURl = StaticAddProductImage.RightSideImageURL;
 
+        }
+
+        [RelayCommand]
+        public async Task DeletePhoto(string index)
+        {
+            int i = int.Parse(index);
+            if(i == 1)
+            {
+                await uploadImage.DeleteImage(StaticAddProductImage.FrontSideImageURL);
+                StaticAddProductImage.FrontSideImageURL = "";
+                FrontImageURl = "";
+                IsFrontdltvisible = false;
+                FrontImageVerificationStatus = "notverified.png";
+            }
+            if (i == 2)
+            {
+                await uploadImage.DeleteImage(StaticAddProductImage.BackSideImageURL);
+                StaticAddProductImage.BackSideImageURL = "";
+                BackImageURl = "";
+                Isbackdltvisible = false;
+                BackImageVerificationStatus = "notverified.png";
+            }
+            if (i == 3)
+            {
+                await uploadImage.DeleteImage(StaticAddProductImage.UpperSideImageURL);
+                StaticAddProductImage.UpperSideImageURL = "";
+                UpperImageURl = "";
+                IsUpperdltvisible = false;
+                UpperImageVerificationStatus = "notverified.png";
+            }
+            if (i == 4)
+            {
+                await uploadImage.DeleteImage(StaticAddProductImage.LowerSideImageURL);
+                StaticAddProductImage.LowerSideImageURL = "";
+                LowerImageURl = "";
+                IsLowerdltvisible = false;
+                LowerImageVerificationStatus = "notverified.png";
+            }
+            if (i == 5)
+            {
+                await uploadImage.DeleteImage(StaticAddProductImage.LeftSideImageURL);
+                StaticAddProductImage.LeftSideImageURL = "";
+                LeftImageURl = "";
+                IsLeftdltvisible = false;
+                LeftImageVerificationStatus = "notverified.png";
+            }
+            if (i == 6)
+            {
+                await uploadImage.DeleteImage(StaticAddProductImage.RightSideImageURL);
+                StaticAddProductImage.RightSideImageURL = "";
+                RightImageURl = "";
+                IsRightdltvisible = false;
+                RightImageVerificationStatus = "notverified.png";
+            }
         }
         public async Task TakePhoto(int i)
         {
-            IsBusy = true;
+           
             if (MediaPicker.Default.IsCaptureSupported)
             {
                 FileResult photo = await MediaPicker.Default.PickPhotoAsync();
@@ -84,7 +167,7 @@ namespace Manigdha.ViewModel
                         // save the file into local storage
                         string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName); 
 
-                        UploadImageAzure uploadImage = new UploadImageAzure();
+
                         Stream sourceStream = await photo.OpenReadAsync();
                         var flileLink =  await uploadImage.UploadProductImage(sourceStream);
                         if (i == 1)
@@ -93,6 +176,7 @@ namespace Manigdha.ViewModel
                             StaticAddProductImage.FrontSideImageURL = flileLink;
                             FrontImageURl = flileLink;
                             FrontImageVerificationStatus = "verified.svg";
+                            IsFrontdltvisible = true;
                         }
                         if (i == 2)
                         {
@@ -100,6 +184,7 @@ namespace Manigdha.ViewModel
                             StaticAddProductImage.BackSideImageURL = flileLink;
                             BackImageURl = flileLink;
                             BackImageVerificationStatus = "verified.svg";
+                            Isbackdltvisible = true;
                         }
                         if (i == 3)
                         {
@@ -107,6 +192,7 @@ namespace Manigdha.ViewModel
                             UpperImageURl = flileLink;
                             StaticAddProductImage.UpperSideImageURL = flileLink;
                             UpperImageVerificationStatus = "verified.svg";
+                            IsUpperdltvisible = true;
                         }
                         if (i == 4)
                         {
@@ -114,6 +200,7 @@ namespace Manigdha.ViewModel
                             LowerImageURl = flileLink;
                             StaticAddProductImage.LowerSideImageURL = flileLink;
                             LowerImageVerificationStatus = "verified.svg";
+                            IsLowerdltvisible = true;
                         }
                         if (i == 5)
                         {
@@ -121,6 +208,7 @@ namespace Manigdha.ViewModel
                             LeftImageURl = flileLink;
                             StaticAddProductImage.LeftSideImageURL = flileLink;
                             LeftImageVerificationStatus = "verified.svg";
+                            IsLeftdltvisible = true;
                         }
                         if (i == 6)
                         {
@@ -128,8 +216,9 @@ namespace Manigdha.ViewModel
                             RightImageURl = flileLink;
                             StaticAddProductImage.RightSideImageURL = flileLink;
                             RightImageVerificationStatus = "verified.svg";
+                            IsRightdltvisible = true;
                         }
-                        IsBusy = false;
+                        
                     }
                 }
                 catch (Exception ex) {                   
@@ -138,6 +227,7 @@ namespace Manigdha.ViewModel
                
                 return ;
             }
+            IsBusy = false;
             return ;
         }
 
