@@ -82,7 +82,7 @@ namespace Manigdha.ViewModel
                     if (photo != null)
                     {
                         // save the file into local storage
-                        string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+                        string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName); 
 
                         UploadImageAzure uploadImage = new UploadImageAzure();
                         Stream sourceStream = await photo.OpenReadAsync();
